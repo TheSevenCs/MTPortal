@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Navigation Example</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <!-- MOUNT TO APP -->
+    <script>
+      const OtherPage = {
+        template: `
+                <div>
+                    <h1>Other Page</h1>
+                    <p>This is another screen.</p>
+                    <button @click="goToHomePage">Go to Home Page</button>
+                </div>
+            `,
+        methods: {
+          goToHomePage() {
+            this.$emit("change-page", "home");
+          },
+        },
+      };
+
+      Vue.createApp({
+        components: {
+          "home-page": HomePage,
+          "other-page": OtherPage,
+        },
+        data() {
+          return {
+            currentPage: "home-page",
+          };
+        },
+        methods: {
+          changePage(page) {
+            this.currentPage = page;
+          },
+        },
+        template: `
+                <div>
+                    <component :is="currentPage" @change-page="changePage"></component>
+                </div>
+            `,
+      }).mount("#app");
+    </script>
+  </body>
+</html>
