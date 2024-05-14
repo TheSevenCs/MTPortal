@@ -15,6 +15,7 @@ body {
   font-size: 33px;
   font-family: "Segoe UI";
   text-align: center;
+  cursor: default;
 }
 .login-box {
   margin-left: 50%;
@@ -27,6 +28,14 @@ body {
   border-radius: 19px;
   color: #747474;
   margin-top: 28px;
+  box-shadow: inset 0px 0px 20px rgba(0, 0, 0, 1);
+  border: 3px solid black;
+}
+.login-box:focus {
+  outline: 5px solid rgb(199, 59, 59); /* Example border color */
+}
+.login-box:hover {
+  cursor: pointer;
 }
 .login-box::placeholder {
   font-family: "Osiris";
@@ -51,4 +60,8 @@ body {
 }
 .login-submit-btn:active {
   background-color: #4d0201;
+}
+
+.login-submit-btn:hover {
+  cursor: pointer;
 }

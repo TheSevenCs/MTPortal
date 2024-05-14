@@ -56,6 +56,7 @@ CREATE table if not exists Messages (
     MessageAttachment varchar(50)
 );
 
+<<<<<<< Updated upstream
 CREATE table if not exists Events (
     EventID int primary key,
 
@@ -72,3 +73,6 @@ insert into Events values (2,"company2ProjectUpdate","Software","2024-05-02","Pr
 insert into Events values (3,"company3SoftwareDeadline","Software","2024-05-04","Deadline for SoftwareA for Mexican Robe Corporation.");
 select * from Events;
 
+=======
+-- insert into Employee value(3, 'yuval', 'rashish', 'user', 'pass', 'yuval.rashish@gmail.com', '5197296134', 'co-founder', '2024-04-28', 50, null);
+>>>>>>> Stashed changes
