@@ -1,0 +1,37 @@
+/* BODIES */
+.sidebar {
+  width: 30vw;
+  height: 2000px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #121212;
+  overflow: hidden;
+  border-right: 0.2svw solid white;
+}
+.mainsection {
+  width: 70vw;
+  height: 2000vh;
+  position: absolute; /* This is required for top and left to work */
+  background-color: #070707;
+  top: 0;
+  left: 30vw;
+  display: block;
+  margin: auto;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+/* TEXT */
+.paragraph {
+  font-family: "Montserrat";
+  color: white;
+  font-size: 25px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  line-height: 45px;
+  /* margin-bottom: 180px;
+  margin-top: 102px; */
+}

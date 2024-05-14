@@ -3,50 +3,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vue Navigation Example</title>
-    <script src="https://unpkg.com/vue@next"></script>
+    <title>Send Req Tester</title>
+    <link rel="stylesheet" href="styles/style-scheduling.css" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- FOUND ON AXIOS SITE -->
   </head>
   <body>
-    <div id="app"></div>
+    <!-- <div class="sidebar"></div>
+    <div class="mainsection"></div> -->
 
-    <!-- MOUNT TO APP -->
+    <!-- PRODUCT DIV -->
+    <div id="app">
+      <!-- PRODUCT NAME AND IMAGE -->
+      <h1>{{ title }}</h1>
+      <img v-bind:src="image" />
+      <p v-if="booleanInStock">In Stock</p>
+      <p v-else>Out of Stock</p>
+
+      <!-- LISTS AND VARIANTS -->
+      <ul>
+        <li v-for="adjective in details">{{ adjective, }}</li>
+      </ul>
+      <!-- ':' is shorthand for 'v-bind:' -->
+      <div
+        v-for="variant in variants"
+        :key="variant.id"
+        @mouseover="updateImage(variant.image)"
+        class="color-circle"
+        :style="{ backgroundColor: variant.color }"
+      ></div>
+
+      <!-- MAKE A BUTTON -->
+      <button class="button" @click="checkLogin">check login req</button>
+      <button class="button" @click="consoleTest">create account req</button>
+
+      <div class="cart">Number of Cesars in the bean fields:({{ cart }})</div>
+      <!-- SHORTHAND FOR 'v-on:' ==> '@' -->
+    </div>
+
+    <!-- Import Js -->
+    <script src="./scripts/scheduling.js"></script>
+
+    <!-- Mount app -->
     <script>
-      const OtherPage = {
-        template: `
-                <div>
-                    <h1>Other Page</h1>
-                    <p>This is another screen.</p>
-                    <button @click="goToHomePage">Go to Home Page</button>
-                </div>
-            `,
-        methods: {
-          goToHomePage() {
-            this.$emit("change-page", "home");
-          },
-        },
-      };
-
-      Vue.createApp({
-        components: {
-          "home-page": HomePage,
-          "other-page": OtherPage,
-        },
-        data() {
-          return {
-            currentPage: "home-page",
-          };
-        },
-        methods: {
-          changePage(page) {
-            this.currentPage = page;
-          },
-        },
-        template: `
-                <div>
-                    <component :is="currentPage" @change-page="changePage"></component>
-                </div>
-            `,
-      }).mount("#app");
+      const classTester = cesarGil.mount("#app");
+      // const anotherClassTester = cesarChan.mount('#app')
     </script>
   </body>
 </html>
