@@ -51,12 +51,11 @@ CREATE table if not exists Messages (
     
     Message varchar(200),
     MessageDate date,
-    MessageStatus varchar(15),
+    MessagePinned boolean,
     
     MessageAttachment varchar(50)
 );
 
-<<<<<<< Updated upstream
 CREATE table if not exists Events (
     EventID int primary key,
 
@@ -65,14 +64,3 @@ CREATE table if not exists Events (
     EventDate date,
     EventDesc varchar(100)
 );
-
-insert into Client values (1, "CompanyA", "companya@gmail.com", "1112223333", "123 Sesame Street", "www.CompanyA.com", "brothel", "interested");
-select * from Client;
-
-insert into Events values (2,"company2ProjectUpdate","Software","2024-05-02","Providing an update for company 2 at 999 Cesar Gil street.");
-insert into Events values (3,"company3SoftwareDeadline","Software","2024-05-04","Deadline for SoftwareA for Mexican Robe Corporation.");
-select * from Events;
-
-=======
--- insert into Employee value(3, 'yuval', 'rashish', 'user', 'pass', 'yuval.rashish@gmail.com', '5197296134', 'co-founder', '2024-04-28', 50, null);
->>>>>>> Stashed changes
