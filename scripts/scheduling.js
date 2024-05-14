@@ -6,6 +6,10 @@ const cesarGil = Vue.createApp({
       brand: "Mexican",
       image: "./images/Andrew.png",
       booleanInStock: true,
+
+      usernameInput: "testerUsername",
+      passwordInput: "testerPassword",
+
       details: ["femboy", "thiccccccc", "zesty"],
       variants: [
         {
@@ -37,12 +41,17 @@ const cesarGil = Vue.createApp({
         .get("http://localhost:3000/")
         .then((response) => {
           console.log(response);
-          this.product = "from axios.get()";
+          this.product = "From axios.get()";
         })
         .catch((error) => {
           console.log(error);
           this.product = "ERROR From axios.get()";
         });
+    },
+    availableUsername() {
+      axios.get("https://localhost:3000/", {
+        params: { username: this.username },
+      });
     },
     createAccount() {
       console.log("FROM createAccount: TESTING CONSOLE MESSAGE");

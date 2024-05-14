@@ -34,6 +34,12 @@
         :style="{ backgroundColor: variant.color }"
       ></div>
 
+      <!-- TEXT FIELDS -->
+      <input v-model="usernameInput" placeholder="username" />
+      {{ usernameInput }}
+      <input v-model="passwordInput" placeholder="password" />
+      {{ passwordInput }}
+
       <!-- MAKE A BUTTON -->
       <button class="button" @click="checkLogin">check login req</button>
       <button class="button" @click="consoleTest">create account req</button>
