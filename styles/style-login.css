@@ -1,0 +1,54 @@
+body {
+  background-image: radial-gradient(circle, #2e343e, #171717);
+}
+
+.login-banner {
+  width: 751px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  margin-top: 89px;
+}
+.login-header {
+  margin-top: 100px;
+  color: white;
+  font-weight: bold;
+  font-size: 33px;
+  font-family: "Segoe UI";
+  text-align: center;
+}
+.login-box {
+  margin-left: 50%;
+  transform: translateX(-50%);
+  width: 432px;
+  height: 56px;
+  font-size: 24px;
+  font-family: Arial;
+  text-indent: 35px;
+  border-radius: 19px;
+  color: #747474;
+  margin-top: 28px;
+}
+.login-box::placeholder {
+  font-family: "Osiris";
+  text-align: left;
+  text-indent: 35px;
+}
+.login-box:focus::placeholder {
+  opacity: 0; /* Make the placeholder text transparent */
+}
+.login-submit-btn {
+  width: 189;
+  height: 56px;
+  font-size: 30px;
+  font-family: "Osiris";
+  color: white;
+  background-color: #fe4a47;
+  border-radius: 20px;
+  border: 1px solid #707070;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  margin-top: 30px;
+}
+.login-submit-btn:active {
+  background-color: #4d0201;
+}
