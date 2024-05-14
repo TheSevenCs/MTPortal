@@ -68,3 +68,7 @@ CREATE table if not exists Events (
 insert into Client values (1, "CompanyA", "companya@gmail.com", "1112223333", "123 Sesame Street", "www.CompanyA.com", "brothel", "interested");
 select * from Client;
 
+insert into Events values (2,"company2ProjectUpdate","Software","2024-05-02","Providing an update for company 2 at 999 Cesar Gil street.");
+insert into Events values (3,"company3SoftwareDeadline","Software","2024-05-04","Deadline for SoftwareA for Mexican Robe Corporation.");
+select * from Events;
+
