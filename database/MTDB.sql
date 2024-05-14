@@ -56,6 +56,15 @@ CREATE table if not exists Messages (
     MessageAttachment varchar(50)
 );
 
+CREATE table if not exists Events (
+    EventID int primary key,
+
+    EventName varchar(25),
+    EventType varchar(25),
+    EventDate date,
+    EventDesc varchar(100)
+);
+
 insert into Client values (1, "CompanyA", "companya@gmail.com", "1112223333", "123 Sesame Street", "www.CompanyA.com", "brothel", "interested");
 select * from Client;
 
