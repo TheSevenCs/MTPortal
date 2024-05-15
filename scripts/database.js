@@ -7,8 +7,12 @@ const pool = mysql.createPool({
   password: "root",
   database: "MTDB",
 });
-
-async function createDatabaseAndTables() {
+function getRandomID(min, max) {
+  min = Math.ceil(min); // Round up to the nearest integer
+  max = Math.floor(max); // Round down to the nearest integer
+  return Math.floor(Math.random() * (max - min + 1)) + min; // Generate the random ID
+}
+export async function createDatabaseAndTables() {
   try {
     // Read the SQL script from file
     const sqlScript = fs.readFileSync("database/MTDB.sql", "utf8");
@@ -34,7 +38,7 @@ async function createDatabaseAndTables() {
 createDatabaseAndTables();
 
 // Execute a query outside the function
-async function CheckPassword(username) {
+export async function CheckPassword(username) {
   try {
     const [rows, fields] = await pool.query(
       "SELECT EmpPassword FROM Employee WHERE EmpUsername = ?",
@@ -48,11 +52,17 @@ async function CheckPassword(username) {
   }
 }
 
-// Usage
-CheckPassword("a")
-  .then((password) => {
-    console.log("The password is:", password);
-  })
-  .catch((error) => {
-    console.error("Error:", error);
-  });
+export async function CreateAccount(username, password) {
+  try {
+    const minID = 5001;
+    const maxID = 5999;
+    const randomID = getRandomID(minID, maxID);
+    await pool.query(
+      "INSERT INTO Employee (EmployeeID, EmpUsername, EmpPassword) VALUES (?, ?, ?)",
+      [randomID, username, password]
+    );
+  } catch (error) {
+    console.error("Error creating account");
+    throw error;
+  }
+}
