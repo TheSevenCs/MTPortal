@@ -17,10 +17,25 @@
       />
     </div>
     <div class="login-header">Login to the MarmotTech Employee Portal</div>
-    <input class="login-box" type="text" placeholder="Email / Username" />
-    <input class="login-box" type="password" placeholder="Password" />
+
+    <input
+      class="login-box"
+      v-model="usernameInput"
+      type="text"
+      placeholder="Email / Username"
+    />
+    <input
+      class="login-box"
+      v-model="passwordInput"
+      type="password"
+      placeholder="Password"
+    />
+
     <div>
-      <button class="login-submit-btn">Submit</button>
+      <button class="login-submit-btn" @click="checkLogin">Submit</button>
     </div>
+
+    <!-- Import Js -->
+    <script src="./scripts/login.js"></script>
   </body>
 </html>
