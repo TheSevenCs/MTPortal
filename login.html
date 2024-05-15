@@ -4,38 +4,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MarmotPortal</title>
-    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/style-login.css" />
   </head>
   <body>
-    <div>
-      <img
-        class="login-banner"
-        src="/images/login-banner.png"
-        alt="Login Banner"
+    <div id="app">
+      <div>
+        <img
+          class="login-banner"
+          src="/images/login-banner.png"
+          alt="Login Banner"
+        />
+      </div>
+      <div class="login-header">Login to the MarmotTech Employee Portal</div>
+      <input
+        class="login-box"
+        v-model="usernameInput"
+        type="text"
+        placeholder="Email / Username"
       />
-    </div>
-    <div class="login-header">Login to the MarmotTech Employee Portal</div>
-
-    <input
-      class="login-box"
-      v-model="usernameInput"
-      type="text"
-      placeholder="Email / Username"
-    />
-    <input
-      class="login-box"
-      v-model="passwordInput"
-      type="password"
-      placeholder="Password"
-    />
-
-    <div>
-      <button class="login-submit-btn" @click="checkLogin">Submit</button>
+      <input
+        class="login-box"
+        v-model="passwordInput"
+        type="password"
+        placeholder="Password"
+      />
+      <div>
+        <button class="login-submit-btn" @click="checkLogin">Submit</button>
+      </div>
     </div>
 
     <!-- Import Js -->
     <script src="./scripts/login.js"></script>
+    <script>
+      const classTester = loginProcess.mount("#app");
+    </script>
   </body>
 </html>

@@ -1,16 +1,4 @@
-async function checkLogin(username, password) {
-  try {
-    const response = await axios.get("/login", {
-      params: {
-        username: username,
-        password: password,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-}
+
 
 const cesarGil = Vue.createApp({
   data() {
@@ -20,15 +8,8 @@ const cesarGil = Vue.createApp({
       brand: "Mexican",
       image: "./images/Andrew.png",
       booleanInStock: true,
-<<<<<<< Updated upstream
-
-      usernameInput: "testerUsername",
-      passwordInput: "testerPassword",
-
-=======
       username: "user",
       password: "pass",
->>>>>>> Stashed changes
       details: ["femboy", "thiccccccc", "zesty"],
       variants: [
         {
@@ -55,25 +36,6 @@ const cesarGil = Vue.createApp({
     updateImage(imagePath) {
       this.image = imagePath;
     },
-<<<<<<< Updated upstream
-    checkLogin() {
-      axios
-        .get("http://localhost:3000/")
-        .then((response) => {
-          console.log(response);
-          this.product = "From axios.get()";
-        })
-        .catch((error) => {
-          console.log(error);
-          this.product = "ERROR From axios.get()";
-        });
-    },
-    availableUsername() {
-      axios.get("https://localhost:3000/", {
-        params: { username: this.username },
-      });
-    },
-=======
 
     async Login() {
       try {
@@ -86,7 +48,6 @@ const cesarGil = Vue.createApp({
       }
     },
 
->>>>>>> Stashed changes
     createAccount() {
       console.log("FROM createAccount: TESTING CONSOLE MESSAGE");
     },
