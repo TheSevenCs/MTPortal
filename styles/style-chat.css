@@ -1,0 +1,39 @@
+.chat-title {
+  color: white;
+  font-family: "Osiris";
+  font-size: 60px;
+  margin-top: 48px;
+  text-align: center;
+}
+.chat-box {
+  width: 1082px;
+  height: 826px;
+  margin-left: 50%;
+  margin-top: 19px;
+  transform: translateX(-50%);
+  background-color: #313338;
+}
+.chat-msg-box {
+  width: 1052px;
+  height: 81px;
+  background-color: #383a40;
+  bottom: 0%;
+  border: 0px;
+  margin-top: 733px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  text-indent: 35px;
+  font-size: 24px;
+  color: lightgrey;
+  border-radius: 12px;
+}
+.chat-msg-box::placeholder {
+  font-family: "Osiris";
+  text-align: left;
+}
+.chat-msg-box:focus::placeholder {
+  opacity: 0; /* Make the placeholder text transparent */
+}
+.chat-msg-box:focus {
+  outline: 0;
+}
