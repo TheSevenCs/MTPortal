@@ -1,0 +1,23 @@
+.project-sidebar {
+  margin-top: 30px;
+  background-color: #313338;
+  color: white;
+  font-family: "Osiris";
+  font-size: 52px;
+  text-align: center;
+  width: 488px;
+  height: 875px;
+  margin-left: 290px;
+  border-radius: 41px;
+  position: absolute;
+  z-index: 1;
+}
+
+.title-btns {
+  color: white;
+  font-family: "Osiris";
+  font-size: 52px;
+}
+.sidebar-cover {
+  width: 446px;
+}
