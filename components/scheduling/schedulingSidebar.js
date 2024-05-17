@@ -5,6 +5,9 @@ cesarGil.component("component-sidebar", {
     <!-- PRODUCT NAME AND IMAGE -->
     <div :style="{ backgroundColor: sidebarBackground }" class="sidebar">
       <button class = "buttonManageEvent" @click = changeBG() >Manage Event</button>
+      
+     
+     
     </div>
     `,
   data() {

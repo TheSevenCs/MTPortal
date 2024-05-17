@@ -10,45 +10,27 @@
     <!-- FOUND ON AXIOS SITE -->
   </head>
   <body>
-    <!-- <div class="sidebar"></div>
-    <div class="mainsection"></div> -->
-
     <!-- PRODUCT DIV -->
     <div id="app">
-      <!-- PRODUCT NAME AND IMAGE -->
-      <h1>{{ title }}</h1>
-      <img v-bind:src="image" />
-      <p v-if="booleanInStock">In Stock</p>
-      <p v-else>Out of Stock</p>
+      <div class="sidebar">
+        <component-sidebar-event
+          v-for="event in events"
+          @click="eventSelected()"
+          :eventName="event.eventName"
+          :eventDate="event.eventDate"
+          :eventDesc="event.eventDesc"
+        ></component-sidebar-event>
+      </div>
+      <div class="mainsection"></div>
 
-      <!-- LISTS AND VARIANTS -->
-      <ul>
-        <li v-for="adjective in details">{{ adjective, }}</li>
-      </ul>
-      <!-- ':' is shorthand for 'v-bind:' -->
-      <div
-        v-for="variant in variants"
-        :key="variant.id"
-        @mouseover="updateImage(variant.image)"
-        class="color-circle"
-        :style="{ backgroundColor: variant.color }"
-      ></div>
-
-      <!-- TEXT FIELDS -->
-      <input v-model="usernameInput" placeholder="username" />
-      {{ usernameInput }}
-      <input v-model="passwordInput" placeholder="password" />
-      {{ passwordInput }}
-
-      <!-- MAKE A BUTTON -->
-      <button class="button" @click="Login">check login req</button>
-      <button class="button" @click="consoleTest">create account req</button>
-
-      <div class="cart">Number of Cesars in the bean fields:({{ cart }})</div>
-      <!-- SHORTHAND FOR 'v-on:' ==> '@' -->
+      <!-- <component-sidebar></component-sidebar> -->
     </div>
+
     <!-- Import Js -->
     <script src="./scripts/scheduling.js"></script>
+    <!-- Import Component -->
+    <script src="./components/scheduling/schedulingSidebar.js"></script>
+    <script src="./components/scheduling/sidebarEvent.js"></script>
 
     <!-- Mount app -->
     <script>
