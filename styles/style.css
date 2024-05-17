@@ -2,6 +2,49 @@
   font-family: "Osiris";
   src: url("/styles/Osiris.woff2");
 }
+@font-face {
+  font-family: "discord";
+  src: url("/styles/gg\ sans\ Medium.woff");
+}
 body {
   background-image: radial-gradient(circle, #2e343e, #171717);
+  overflow-y: auto;
+  scrollbar-width: 0%; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer and Edge */
+}
+::-webkit-scrollbar {
+  display: none;
+}
+.back-btn {
+  width: 98px;
+  height: 98px;
+  margin-left: 82px;
+  position: fixed;
+  margin-top: 375px;
+}
+.back-btn-btn {
+  background: none;
+  border: none;
+}
+
+.button-wrapper {
+  transition: filter 0.1s ease;
+  cursor: pointer;
+  -webkit-user-drag: none; /* Safari */
+  -khtml-user-drag: none; /* Konqueror */
+  -moz-user-drag: none; /* Firefox */
+  -ms-user-drag: none; /* Internet Explorer/Edge */
+  user-select: none; /* Prevent text selection */
+}
+
+.button-wrapper:hover {
+  filter: brightness(0.7); /* Darken the image */
+}
+.button-wrapper:active {
+  filter: brightness(0.2); /* Darken the image */
+}
+
+.btn-wrapper {
+  background: none;
+  border: none;
 }

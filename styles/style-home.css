@@ -1,0 +1,18 @@
+.home-banner {
+  width: 377px;
+  height: 157px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  margin-top: 20px;
+  -webkit-user-drag: none; /* Safari */
+  -khtml-user-drag: none; /* Konqueror */
+  -moz-user-drag: none; /* Firefox */
+  -ms-user-drag: none; /* Internet Explorer/Edge */
+  user-select: none; /* Prevent text selection */
+}
+
+.button-title {
+  font-size: 30px;
+  color: white;
+  font-family: "Osiris";
+}

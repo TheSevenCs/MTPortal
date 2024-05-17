@@ -2,7 +2,6 @@
   color: white;
   font-family: "Osiris";
   font-size: 60px;
-  margin-top: 48px;
   text-align: center;
 }
 .chat-box {
@@ -26,6 +25,7 @@
   font-size: 24px;
   color: lightgrey;
   border-radius: 12px;
+  font-family: "discord";
 }
 .chat-msg-box::placeholder {
   font-family: "Osiris";
