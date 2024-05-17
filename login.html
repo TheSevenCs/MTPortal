@@ -9,31 +9,39 @@
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/style-login.css" />
   </head>
+
   <body>
-    <div id="app">
-      <div>
-        <img class="login-banner" src="/images/banner.png" alt="Login Banner" />
-      </div>
+    <div id="app" style="width: 100%; height: 100%; position: relative">
+      <!-- BANNER -->
+      <img class="login-banner" src="/images/banner.png" alt="Login Banner" />
+
+      <!-- HEADER TEXT -->
       <div class="login-header">Login to the MarmotTech Employee Portal</div>
+
+      <!-- INPUT FIELDS -->
       <input
         class="login-box"
+        style="top: 60vh"
         v-model="usernameInput"
         type="text"
         placeholder="Email / Username"
       />
       <input
         class="login-box"
+        style="top: 70vh"
         v-model="passwordInput"
         type="password"
         placeholder="Password"
       />
-      <div>
-        <button class="login-submit-btn" @click="Login">Submit</button>
-      </div>
+
+      <!-- SUBMIT BUTTON -->
+      <button class="login-submit-btn" @click="Login">Submit</button>
     </div>
 
-    <!-- Import Js -->
+    <!-- IMPORT JS -->
     <script src="./scripts/login.js"></script>
+
+    <!-- MOUNT VUE APP -->
     <script>
       const classTester = loginProcess.mount("#app");
     </script>
