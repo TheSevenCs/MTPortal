@@ -49,3 +49,16 @@ body {
   background: none;
   border: none;
 }
+
+.mainsection {
+  width: 70vw;
+  height: 2000vh;
+  position: absolute; /* This is required for top and left to work */
+  background-color: #070707;
+  top: 0;
+  left: 30vw;
+  display: block;
+  margin: auto;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
