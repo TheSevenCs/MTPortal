@@ -50,18 +50,6 @@ body {
   border: none;
 }
 
-/* CONTAINERS */
-.container-mainSection {
-  width: 100vw;
-  height: 100vh;
-
-  margin-left: 0;
-  position: relative;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  justify-content: center;
-}
-
 .mainsection {
   width: 70vw;
   height: 2000vh;
