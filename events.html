@@ -3,14 +3,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Send Req Tester</title>
+    <title>Events</title>
+    <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/style-events.css" />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <!-- FOUND ON AXIOS SITE -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!------------------------->
   </head>
+
   <body>
-    <div id="app">
+    <!-- BACK BUTTON -->
+    <div class="back-btn">
+      <button class="back-btn-btn">
+        <img
+          class="button-wrapper"
+          src="images/BackButton.png"
+          alt="backbutton"
+        />
+      </button>
+    </div>
+
+    <!-- MANAGE BUTTONS -->
+    <button class="button-manageEvent"></button>
+
+    <!-- SORT BY BUTTONS -->
+    <button class="button-sort" style="background-color: red; bottom: 25%">
+      All
+    </button>
+    <button class="button-sort" style="background-color: blue; bottom: 15%">
+      Meetings
+    </button>
+    <button class="button-sort" style="background-color: green; bottom: 5%">
+      Deadlines
+    </button>
+
+    <div class="lineVertical"></div>
+    <div class="container-mainSection"></div>
+
+    <!-- VERTICAL DIVISOR -->
+
+    <!-- CHAT ELEMS -->
+    <!-- <div class="chat-title">MarmotChat</div> -->
+    <div>o</div>
+
+    <!-- VUE APP -->
+    <!-- <div id="app">
       <div class="sidebar">
         <component-sidebar-event
           v-for="event in events"
@@ -21,9 +60,7 @@
         ></component-sidebar-event>
       </div>
       <div class="mainsection"></div>
-
-      <!-- <component-sidebar></component-sidebar> -->
-    </div>
+    </div> -->
 
     <!-- Import Js -->
     <script src="./scripts/events.js"></script>
