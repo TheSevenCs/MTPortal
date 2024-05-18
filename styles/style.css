@@ -40,8 +40,6 @@ body {
   border: none;
 }
 .button-wrapper {
-  height: 100%;
-  width: 100%;
   transition: filter 0.1s ease;
   cursor: pointer;
   -webkit-user-drag: none; /* Safari */
