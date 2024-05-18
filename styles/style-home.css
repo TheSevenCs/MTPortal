@@ -29,6 +29,7 @@
   font-size: 2vw;
   color: white;
   font-family: "Osiris";
+  position: absolute;
 }
 
 .container-profileButtons {

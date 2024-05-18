@@ -57,6 +57,9 @@ body {
 .button-wrapper:active {
   filter: brightness(0.2); /* Darken the image */
 }
+.invisible-wrapper {
+  visibility: hidden;
+}
 
 .mainsection {
   width: 70vw;

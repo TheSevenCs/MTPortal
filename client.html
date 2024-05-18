@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MTPortal - Clients</title>
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/style-client.css" />
+  </head>
+  <body>
+    <div>
+      <!-- Button that returns you back to the homepage -->
+      <div class="back-btn">
+        <button class="back-btn-btn">
+          <img
+            class="button-wrapper"
+            src="images/BackButton.png"
+            alt="backbutton"
+          />
+        </button>
+      </div>
+      <div class="client-container">
+        <!-- The navigation buttons at the top of the page -->
+        <div class="nav-flexbox">
+          <button class="btn-wrapper button-wrapper nav-flexbox-item">
+            Current <br />Clients
+          </button>
+          <button class="btn-wrapper button-wrapper nav-flexbox-item">
+            Potential<br />
+            Clients
+          </button>
+          <button class="btn-wrapper button-wrapper nav-flexbox-item">
+            Past <br />Clients
+          </button>
+        </div>
+
+        <!-- Grid for displaying the client data -->
+        <div class="data-grid">
+          <div class="client-name" style="padding: 3%">Company Name</div>
+          <div
+            class="client-date"
+            style="padding-top: 13.6%; text-align: center"
+          >
+            Date
+          </div>
+          <!-- place this into a component -->
+          <div class="client-name">Fastest company in the west</div>
+          <div class="client-date">01/20/24</div>
+
+          <div class="client-name">Pizza pizza</div>
+          <div class="client-date">15/20/24</div>
+
+          <div class="client-name">Company 3</div>
+          <div class="client-date">01/20/24</div>
+
+          <div class="client-name">Company 4</div>
+          <div class="client-date">01/20/24</div>
+
+          <div class="client-name">Company 5</div>
+          <div class="client-date">01/20/24</div>
+        </div>
+      </div>
+      <!-- modal for the clients contact info -->
+      <div class="modal">
+        <div class="modal-container">
+          <div>
+            <button
+              class="btn-wrapper"
+              style="width: 28px; margin-left: 1070%; margin-top: -20%"
+            >
+              <img
+                class="button-wrapper"
+                style="
+                  width: 28px;
+                  background-color: white;
+                  border: 1px solid white;
+                  border-radius: 4px;
+                  box-shadow: 2.1px 4.2px 4.2px hsl(0deg 0% 0% / 0.44);
+                "
+                src="images/exit-btn.png"
+                alt="X"
+              />
+            </button>
+          </div>
+          <div class="modal-box-title modal-grid-item-1">Email</div>
+          <div class="info-box email-box">feedback@pizzapizza.ca</div>
+
+          <div class="modal-box-title modal-grid-item-2">Phone Number</div>
+          <div class="info-box number-box">+1 (519) 333-6123#1231</div>
+
+          <div class="modal-box-title modal-grid-item-3">Website</div>
+          <div class="info-box web-box">NON-APPLICABLE</div>
+
+          <div class="modal-box-title modal-grid-item-4">Address</div>
+          <div class="info-box address-box">128 Waterloo Ave</div>
+
+          <div class="modal-box-title modal-grid-item-5">Business Type</div>
+          <div class="info-box business-box">Restaurant</div>
+
+          <div class="modal-box-title modal-grid-item-6">Status</div>
+          <div class="info-box status-box">Contracted</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
