@@ -27,7 +27,21 @@ body {
   border: none;
 }
 
+.center-wrapper {
+  width: 100vw;
+  justify-content: center;
+  position: relative;
+}
+
+.btn-wrapper {
+  width: 20%;
+  height: 20%;
+  background: none;
+  border: none;
+}
 .button-wrapper {
+  height: 100%;
+  width: 100%;
   transition: filter 0.1s ease;
   cursor: pointer;
   -webkit-user-drag: none; /* Safari */
@@ -42,11 +56,6 @@ body {
 }
 .button-wrapper:active {
   filter: brightness(0.2); /* Darken the image */
-}
-
-.btn-wrapper {
-  background: none;
-  border: none;
 }
 
 .mainsection {

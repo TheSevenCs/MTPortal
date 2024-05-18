@@ -1,18 +1,47 @@
 .home-banner {
-  width: 377px;
-  height: 157px;
+  width: 30vw;
+  height: 12.5vw;
   margin-left: 50%;
   transform: translateX(-50%);
-  margin-top: 20px;
+  margin-top: 2.5vh;
   -webkit-user-drag: none; /* Safari */
   -khtml-user-drag: none; /* Konqueror */
   -moz-user-drag: none; /* Firefox */
   -ms-user-drag: none; /* Internet Explorer/Edge */
   user-select: none; /* Prevent text selection */
+  margin-bottom: 5vh;
 }
 
 .button-title {
-  font-size: 30px;
+  display: inline-block;
+}
+
+.container-buttons {
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+  /* margin-top: 5%; */
+}
+.container-labels {
+  height: 100%;
+  /* set width manually */
+  display: inline-block;
+  font-size: 2vw;
   color: white;
   font-family: "Osiris";
+}
+
+.container-profileButtons {
+  width: 5vw;
+  height: 10vw;
+  position: absolute;
+  top: 0;
+  margin-left: 5vh;
+  margin-top: 5vh;
+}
+
+.small-btn-wrapper {
+  width: 100%;
+  background: none;
+  border: none;
 }
