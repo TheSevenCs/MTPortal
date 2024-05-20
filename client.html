@@ -6,9 +6,10 @@
     <title>MTPortal - Clients</title>
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/style-client.css" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
   <body>
-    <div>
+    <div id="client">
       <!-- Button that returns you back to the homepage -->
       <div class="back-btn">
         <button class="back-btn-btn">
@@ -26,8 +27,7 @@
             Current <br />Clients
           </button>
           <button class="btn-wrapper button-wrapper nav-flexbox-item">
-            Potential<br />
-            Clients
+            Potential<br />Clients
           </button>
           <button class="btn-wrapper button-wrapper nav-flexbox-item">
             Past <br />Clients
@@ -43,30 +43,26 @@
           >
             Date
           </div>
-          <!-- place this into a component -->
-          <div class="client-name">Fastest company in the west</div>
-          <div class="client-date">01/20/24</div>
 
-          <div class="client-name">Pizza pizza</div>
-          <div class="client-date">15/20/24</div>
-
-          <div class="client-name">Company 3</div>
-          <div class="client-date">01/20/24</div>
-
-          <div class="client-name">Company 4</div>
-          <div class="client-date">01/20/24</div>
-
-          <div class="client-name">Company 5</div>
-          <div class="client-date">01/20/24</div>
+          <!-- Client components will be rendered here -->
+          <client
+            v-for="client in clients"
+            :key="client.id"
+            :clientname="client.name"
+            :clientdate="client.dates"
+            :clientid="client.id"
+            @client-clicked="handleClientClick"
+          ></client>
         </div>
       </div>
-      <!-- modal for the clients contact info -->
-      <div class="modal">
+      <!-- Modal for the client's contact info -->
+      <div class="modal" v-if="displayModal" @click.self="exitModal">
         <div class="modal-container">
           <div>
             <button
               class="btn-wrapper"
               style="width: 28px; margin-left: 1070%; margin-top: -20%"
+              @click="exitModal"
             >
               <img
                 class="button-wrapper"
@@ -102,5 +98,7 @@
         </div>
       </div>
     </div>
+    <script src="./scripts/clientlogic.js"></script>
+    <script src="./components/client/clients.js"></script>
   </body>
 </html>
