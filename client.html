@@ -45,14 +45,16 @@
           </div>
 
           <!-- Client components will be rendered here -->
-          <client
-            v-for="client in clients"
-            :key="client.id"
-            :clientname="client.name"
-            :clientdate="client.dates"
-            :clientid="client.id"
-            @client-clicked="handleClientClick"
-          ></client>
+          <div class="client-list">
+            <client
+              v-for="client in clients"
+              :key="client.id"
+              :clientname="client.name"
+              :clientdate="client.dates"
+              :clientid="client.id"
+              @client-clicked="handleClientClick"
+            ></client>
+          </div>
         </div>
       </div>
       <!-- Modal for the client's contact info -->

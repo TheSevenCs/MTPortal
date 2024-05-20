@@ -6,10 +6,11 @@
     <title>MarmotChat</title>
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/style-chat.css" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
 
   <body>
-    <div>
+    <div id="app">
       <div class="back-btn">
         <button class="back-btn-btn">
           <img
@@ -21,8 +22,13 @@
       </div>
       <div class="chat-title">MarmotChat</div>
       <div class="chat-box">
+        <div class="chat-list">
+          <message v-for="event in events" :message="message"></message>
+        </div>
         <input class="chat-msg-box" type="text" placeholder="Enter Message" />
       </div>
     </div>
+    <script src="./scripts/chat.js"></script>
+    <script src="./components/chat/message.js"></script>
   </body>
 </html>

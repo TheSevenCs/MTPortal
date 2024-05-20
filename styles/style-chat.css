@@ -11,14 +11,16 @@
   margin-top: 19px;
   transform: translateX(-50%);
   background-color: #313338;
+  border-radius: 1%;
 }
 .chat-msg-box {
+  position: absolute;
   width: 1052px;
   height: 81px;
   background-color: #383a40;
   bottom: 0%;
   border: 0px;
-  margin-top: 733px;
+  margin-bottom: 1%;
   margin-left: 50%;
   transform: translateX(-50%);
   text-indent: 35px;
@@ -36,4 +38,34 @@
 }
 .chat-msg-box:focus {
   outline: 0;
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.avatar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.message-content {
+  padding: 10px;
+  border-radius: 10px;
+  font-family: "discord";
+  color: white;
+}
+.message:hover {
+  background-color: #27282c;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 20px;
+  margin-right: 10px;
+  font-family: "discord";
+  color: white;
 }

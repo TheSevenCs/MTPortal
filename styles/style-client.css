@@ -25,6 +25,8 @@
   grid-template-columns: 4fr 1.2fr;
   box-sizing: border-box;
   border-top: 1px solid white;
+  max-height: 722px; /* Set the maximum height for the scrollable area */
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
 .client {
@@ -165,4 +167,8 @@ button.client.client-date {
 .status-box {
   grid-area: 15 / 8 / 16 / 16;
   padding-bottom: 2%;
+}
+
+.client-list {
+  display: contents;
 }
