@@ -34,8 +34,13 @@ const eventsApp = Vue.createApp({
           eventDesc: "Description for Event6.",
         },
       ],
+      // displayModal: false,
     };
   },
 
-  methods: {},
+  methods: {
+    // toggleModal() {
+    // displayModal = !displayModal;
+    // },
+  },
 });
