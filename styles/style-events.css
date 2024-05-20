@@ -19,7 +19,71 @@
   overflow-y: auto;
 }
 
+/* EVENT */
+.event {
+  width: 95%;
+  height: 15vh;
+  background-color: #313338;
+
+  margin-left: 2%;
+  margin-top: 2%;
+  margin-right: 2%;
+  display: block;
+
+  border: 0.5vh solid white;
+  border-radius: 3vh;
+  position: relative;
+}
+
 /* TEXT */
+.text-event-title {
+  color: white;
+  font-family: "Osiris";
+  font-size: 5vh;
+
+  display: inline-block;
+  max-width: 45%;
+
+  margin-top: 0.3vh;
+  margin-left: 1.5vh;
+  margin-bottom: 0;
+  margin-right: 0;
+}
+.text-event-date {
+  color: white;
+  font-family: "Osiris";
+  font-size: 3vh;
+  max-width: 50%;
+  margin: 0;
+  padding: 0;
+
+  position: absolute;
+  display: inline-block;
+  text-align: right;
+  margin-top: 1vh;
+  right: 1.5vh;
+  max-width: 45%;
+}
+.text-event-desc {
+  color: white;
+  font-family: "Osiris";
+  font-size: 2vh;
+  max-width: 100%;
+  max-height: 52%;
+  /* max height was 52% */
+
+  margin-top: 0;
+  margin-left: 1vw;
+  margin-right: 1vw;
+  overflow-y: auto;
+}
+.text-button-filter {
+  color: white;
+  font-family: "Osiris";
+  font-size: 2vh;
+  text-align: center;
+}
+
 .paragraph {
   font-family: "Montserrat";
   color: white;
@@ -37,30 +101,23 @@
 .button-filter {
   width: 12.5vw;
   height: 7.5vh;
+  background-color: #313338;
+  border: 0.5vh solid white;
+  border-radius: 2vh;
 
   position: absolute;
-  /* display: block; */
   right: 3.75vw;
 }
 .button-icon {
   width: 4vh;
   height: 4vh;
+  background-color: #313338;
+  border: 0.5vh solid white;
+  border-radius: 1.5vh;
 
   position: absolute;
   bottom: 80.5vh;
   right: 60vw;
-  background-color: red;
-}
-
-/* EVENT */
-.event {
-  width: 95%;
-  height: 15vh;
-  background-color: red;
-
-  margin-left: 2.5%;
-  margin-top: 2.5%;
-  display: block;
 }
 
 .lineVertical {
