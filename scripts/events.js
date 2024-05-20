@@ -1,4 +1,4 @@
-const cesarGil = Vue.createApp({
+const eventsApp = Vue.createApp({
   data() {
     return {
       events: [

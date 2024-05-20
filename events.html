@@ -14,83 +14,70 @@
   </head>
 
   <body style="margin: 0">
-    <!-- BACK BUTTON -->
-    <div class="back-btn">
-      <button class="back-btn-btn">
-        <img
-          class="button-wrapper"
-          src="images/BackButton.png"
-          alt="backbutton"
-        />
+    <!-- VUE.JS APPLICATION -->
+    <div id="eventsApp">
+      <!-- BACK BUTTON -->
+      <div class="back-btn">
+        <button class="back-btn-btn">
+          <img
+            class="button-wrapper"
+            src="images/BackButton.png"
+            alt="backbutton"
+          />
+        </button>
+      </div>
+
+      <!-- EVENTS DISPLAY -->
+      <div class="text-title" style="font-size: 8vh; margin-top: 3.5vh">
+        EVENTS
+      </div>
+      <div class="container-smallButtons"></div>
+      <div class="container-events">
+        <!-- EVENTS COMPONENTS HERE -->
+        <component-event
+          v-for="event in events"
+          :event="event"
+        ></component-event>
+      </div>
+
+      <!-- MANAGE BUTTONS -->
+      <button class="button-icon" style="right: 20.5vw">-</button>
+      <button class="button-icon" style="right: 20.5vw; margin-right: 4.5vh">
+        +
+      </button>
+
+      <!-- FILTER BUTTONS -->
+      <button
+        class="button-filter"
+        style="background-color: red; bottom: 51.25vh"
+      >
+        All
+      </button>
+      <button
+        class="button-filter"
+        style="background-color: blue; bottom: 41.25vh"
+      >
+        Meetings
+      </button>
+      <button
+        class="button-filter"
+        style="background-color: green; bottom: 31.25vh"
+      >
+        Deadlines
       </button>
     </div>
 
-    <!-- EVENTS DISPLAY -->
-    <div class="text-title" style="font-size: 8vh; margin-top: 3.5vh">
-      EVENTS
-    </div>
-    <div class="container-events"></div>
-    <div class="container-smallButtons"></div>
-
-    <!-- MANAGE BUTTONS -->
-    <button class="button-icon" style="right: 20.5vw">-</button>
-    <button class="button-icon" style="right: 20.5vw; margin-right: 4.5vh">
-      +
-    </button>
-
-    <!-- FILTER BUTTONS -->
-    <button
-      class="button-filter"
-      style="background-color: red; bottom: 51.25vh"
-    >
-      All
-    </button>
-    <button
-      class="button-filter"
-      style="background-color: blue; bottom: 41.25vh"
-    >
-      Meetings
-    </button>
-    <button
-      class="button-filter"
-      style="background-color: green; bottom: 31.25vh"
-    >
-      Deadlines
-    </button>
-
-    <!-- Right side of line is positioned at 40% -->
-    <!-- <div class="lineVertical"></div> -->
-
-    <!-- VERTICAL DIVISOR -->
-
-    <!-- CHAT ELEMS -->
-    <!-- <div class="chat-title">MarmotChat</div> -->
-    <!-- <div>o</div> -->
-
-    <!-- VUE APP -->
-    <!-- <div id="app">
-      <div class="sidebar">
-        <component-sidebar-event
-          v-for="event in events"
-          @click="eventSelected()"
-          :eventName="event.eventName"
-          :eventDate="event.eventDate"
-          :eventDesc="event.eventDesc"
-        ></component-sidebar-event>
-      </div>
-      <div class="mainsection"></div>
-    </div> -->
-
-    <!-- Import Js -->
+    <!-- IMPORT VUE.JS APPLICATION -->
     <script src="./scripts/events.js"></script>
-    <!-- Import Component -->
-    <script src="./components/events/"></script>
-    <script src="./components/events/sidebarEvent.js"></script>
 
-    <!-- Mount app -->
+    <!-- IMPORT COMPONENT -->
+    <script src="./components/events/eventEntry.js"></script>
+
+    <!-- MOUNT APP -->
     <script>
-      const classTester = cesarGil.mount("#app");
-      // const anotherClassTester = cesarChan.mount('#app')
+      // x.mount("#y")
+      // Mounts the Vue application X onto the div with id "y"
+      const mountedEventsApp = eventsApp.mount("#eventsApp");
     </script>
   </body>
 </html>

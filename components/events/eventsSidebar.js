@@ -1,4 +1,4 @@
-cesarGil.component("component-sidebar", {
+eventsApp.component("component-sidebar", {
   template:
     /*html*/
     `
