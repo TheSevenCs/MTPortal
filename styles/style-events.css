@@ -42,7 +42,10 @@
   font-size: 5vh;
 
   display: inline-block;
-  max-width: 45%;
+  max-width: 60%;
+  max-height: 45%;
+  overflow-y: auto;
+  line-height: 5vh;
 
   margin-top: 0.3vh;
   margin-left: 1.5vh;
@@ -53,9 +56,10 @@
   color: white;
   font-family: "Osiris";
   font-size: 3vh;
-  max-width: 50%;
+  max-width: 35%;
   margin: 0;
   padding: 0;
+  overflow-y: auto;
 
   position: absolute;
   display: inline-block;
@@ -69,7 +73,7 @@
   font-family: "Osiris";
   font-size: 2vh;
   max-width: 85%;
-  max-height: 52%;
+  max-height: 50%;
   /* max height was 52% */
 
   margin-top: 0;
@@ -131,12 +135,8 @@
   bottom: 20%;
   padding-bottom: 1vh;
 }
-.button-modal {
-  width: 12.5vw;
-  height: 7.5vh;
-  background-color: #313338;
-  border: 0.5vh solid white;
-  border-radius: 2vh;
+
+.button-modal-exit {
 }
 
 .lineVertical {
@@ -147,13 +147,14 @@
   position: absolute;
   left: 39.75%;
 }
-.button-manageEvent {
+
+/* .button-manageEvent {
   width: 12.5%;
   height: 100px;
 
   position: absolute;
   margin-top: 5%;
-}
+} */
 
 .modal-container {
   /* display: grid;
