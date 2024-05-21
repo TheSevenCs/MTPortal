@@ -4,38 +4,60 @@
   font-size: 60px;
   text-align: center;
 }
+
 .chat-box {
   width: 1082px;
-  height: 826px;
+  height: 700px;
   margin-left: 50%;
   margin-top: 19px;
   transform: translateX(-50%);
   background-color: #313338;
   border-radius: 1%;
+  overflow-y: auto; /* Enable vertical scrolling */
+  position: relative; /* Make this the positioning context for absolute children */
+  display: flex;
+  flex-direction: column; /* Arrange children in a column */
 }
+
+.chat-list {
+  flex: 1; /* Take up available space */
+  overflow-y: auto; /* Enable vertical scrolling for the chat list */
+  padding-bottom: 10px; /* Add padding to ensure space for input box */
+}
+
+.msg-box-container {
+  position: sticky; /* Sticky position */
+  bottom: 0; /* Stick to the bottom */
+  background-color: #313338;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* Ensure it stays above other content */
+  padding-bottom: 2%;
+}
+
 .chat-msg-box {
-  position: absolute;
-  width: 1052px;
-  height: 81px;
+  width: 90%;
+  height: 60px;
   background-color: #383a40;
-  bottom: 0%;
   border: 0px;
-  margin-bottom: 1%;
-  margin-left: 50%;
-  transform: translateX(-50%);
   text-indent: 35px;
   font-size: 24px;
   color: lightgrey;
   border-radius: 12px;
   font-family: "discord";
 }
+
 .chat-msg-box::placeholder {
   font-family: "Osiris";
   text-align: left;
 }
+
 .chat-msg-box:focus::placeholder {
   opacity: 0; /* Make the placeholder text transparent */
 }
+
 .chat-msg-box:focus {
   outline: 0;
 }
@@ -44,9 +66,11 @@
   display: flex;
   align-items: flex-start;
   margin-bottom: 10px;
+  padding-left: 2%;
 }
 
 .avatar img {
+  padding-top: 15%;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -58,8 +82,9 @@
   font-family: "discord";
   color: white;
 }
+
 .message:hover {
-  background-color: #27282c;
+  background-color: #2e3035;
 }
 
 .username {

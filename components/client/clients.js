@@ -13,7 +13,9 @@ app.component("client", {
       required: true,
     },
   },
-  template: `
+  template:
+    /*html*/
+    `
       <button class="client" @click="handleClick">
         <div class="client-name button-wrapper">{{ clientname }}</div>
         <div class="client-date button-wrapper">{{ clientdate }}</div>
@@ -25,5 +27,3 @@ app.component("client", {
     },
   },
 });
-
-app.mount("#client");

@@ -58,49 +58,23 @@
         </div>
       </div>
       <!-- Modal for the client's contact info -->
-      <div class="modal" v-if="displayModal" @click.self="exitModal">
-        <div class="modal-container">
-          <div>
-            <button
-              class="btn-wrapper"
-              style="width: 28px; margin-left: 1070%; margin-top: -20%"
-              @click="exitModal"
-            >
-              <img
-                class="button-wrapper"
-                style="
-                  width: 28px;
-                  background-color: white;
-                  border: 1px solid white;
-                  border-radius: 4px;
-                  box-shadow: 2.1px 4.2px 4.2px hsl(0deg 0% 0% / 0.44);
-                "
-                src="images/exit-btn.png"
-                alt="X"
-              />
-            </button>
-          </div>
-          <div class="modal-box-title modal-grid-item-1">Email</div>
-          <div class="info-box email-box">feedback@pizzapizza.ca</div>
-
-          <div class="modal-box-title modal-grid-item-2">Phone Number</div>
-          <div class="info-box number-box">+1 (519) 333-6123#1231</div>
-
-          <div class="modal-box-title modal-grid-item-3">Website</div>
-          <div class="info-box web-box">NON-APPLICABLE</div>
-
-          <div class="modal-box-title modal-grid-item-4">Address</div>
-          <div class="info-box address-box">128 Waterloo Ave</div>
-
-          <div class="modal-box-title modal-grid-item-5">Business Type</div>
-          <div class="info-box business-box">Restaurant</div>
-
-          <div class="modal-box-title modal-grid-item-6">Status</div>
-          <div class="info-box status-box">Contracted</div>
-        </div>
-      </div>
+      <client-info
+        :email="clientData.email"
+        :phoneNumber="clientData.phoneNumber"
+        :website="clientData.website"
+        :address="clientData.address"
+        :type="clientData.type"
+        :status="clientData.status"
+        :display-modal="displayModal"
+        @modal-closed="exitModal"
+        @edits="updateClientData"
+      ></client-info>
     </div>
     <script src="./scripts/clientlogic.js"></script>
     <script src="./components/client/clients.js"></script>
+    <script src="./components/client/client-info.js"></script>
+    <script>
+      app.mount("#client");
+    </script>
   </body>
 </html>

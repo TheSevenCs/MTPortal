@@ -1,10 +1,11 @@
 const app = Vue.createApp({
   data() {
     return {
-      message: [
+      geeknerd: "gay",
+      messages: [
         {
           avatarPath: "./images/Sample_PFP.png",
-          messageContent: "I AM A FAT NIGGER",
+          messageContent: "Sample Messages",
           username: "7C's",
         },
       ],
