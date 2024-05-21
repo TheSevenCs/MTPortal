@@ -3,8 +3,7 @@ const eventsApp = Vue.createApp({
     return {
       events: [
         {
-          eventName:
-            "long description tester inside the modal QQ QQ Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q  ",
+          eventName: "long description tester inside the modal",
           eventDate: "Today",
           eventDesc:
             "Description for Event1. Random text for testing how long the text box should be and how im going to wrap the text around this is so fun ha ha ha im really mentally stable guys i promise but if the text keeps on going then we are going ot have a bit of a problem on our hands am i right guys its almost like those 56%ers if you catch my drift he he he so now you can see that it goes up until it reaches the next event component Description for Event1. Random text for testing how long the text box should be and how im going to wrap the text around this is so fun ha ha ha im really mentally stable guys i promise but if the text keeps on going then we are going ot have a bit of a problem on our hands am i right guys its almost like those 56%ers if you catch my drift he he he so now you can see that it goes up until it reaches the next event component Description for Event1. Random text for testing how long the text box should be and how im going to wrap the text around this is so fun ha ha ha im really mentally stable guys i promise but if the text keeps on going then we are going ot have a bit of a problem on our hands am i right guys its almost like those 56%ers if you catch my drift he he he so now you can see that it goes up until it reaches the next event component Description for Event1. Random text for testing how long the text box should be and how im going to wrap the text around this is so fun ha ha ha im really mentally stable guys i promise but if the text keeps on going then we are going ot have a bit of a problem on our hands am i right guys its almost like those 56%ers if you catch my drift he he he so now you can see that it goes up until it reaches the next event component",
@@ -35,13 +34,29 @@ const eventsApp = Vue.createApp({
           eventDesc: "Description for Event6.",
         },
       ],
-      // displayModal: false,
+      newEventName: "",
+      newEventDate: "",
+      newEventDesc: "",
+      displayAddModal: false,
     };
   },
 
   methods: {
-    // toggleModal() {
-    // displayModal = !displayModal;
-    // },
+    addNewEvent(newName, newDate, newDesc) {
+      const newEvent = {
+        eventName: newName,
+        eventDate: newDate,
+        eventDesc: newDesc,
+      };
+
+      // ADD TO ARRAY
+      this.events.push(newEvent);
+      this.newEventName = "";
+      this.newEventDate = "";
+      this.newEventDesc = "";
+    },
+    toggleAddModal() {
+      this.displayAddModal = !this.displayAddModal;
+    },
   },
 });

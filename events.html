@@ -44,6 +44,7 @@
       <button
         class="button-icon text-button-filter button-wrapper"
         style="right: 20.5vw"
+        @click="toggleAddModal"
       >
         +
       </button>
@@ -67,6 +68,33 @@
       >
         Deadlines
       </button>
+
+      <!-- ADDING EVENTS MODAL -->
+      <div
+        class="modal"
+        v-if="displayAddModal"
+        @click.self="toggleAddModal"
+        style="overflow-y: hidden"
+      >
+        <!-- MODAL MANAGE/DELETE EVENT -->
+        <button
+          class="button-filter text-button-filter button-wrapper"
+          style="right: 43.75vw; bottom: 17vh; margin-top: 2vh"
+        >
+          Create New Event
+        </button>
+
+        <!-- MODAL EXIT -->
+        <button
+          class="button-expand text-button-filter button-wrapper"
+          @click="toggleAddModal"
+          style="padding-bottom: 0; top: 17vh; right: 25.5vw"
+        >
+          X
+        </button>
+
+        <div class="modal-event-container"></div>
+      </div>
     </div>
 
     <!-- IMPORT VUE.JS APPLICATION -->

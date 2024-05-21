@@ -11,7 +11,7 @@ eventsApp.component("component-event", {
     </div>
     <!-- MODAL ON CLICK -->
     <div class="modal" v-if="displayModal" @click.self="toggleModal" style="overflow-y: hidden"> <!-- @click.self for binding function only to this element, and not the children elements -->
-        <div class="modal-container">
+        <div class="modal-event-container">
             <!-- DISPLAY INFO HERE -->
             <p class="text-event-title" style="max-width: 88.5%;max-height: 15%; margin-top: 1vh">{{ event.eventName }}</p>
             <div class="text-event-date" style="display: block; text-align:left; left: 25vw; margin-left: 1.5vh; margin-top: 0; max-width:45vw">Date: {{ event.eventDate }}</div>
