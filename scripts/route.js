@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, "..")));
 app.get("/login", (req, res) => {
   const { username, password } = req.query; // Extracting the 'username' and 'password' query parameters
   if (username && password) {
-    CheckPassword(username)
+    login(username, password)
       .then((actualPassword) => {
         const success = password === actualPassword;
         res.json(success);

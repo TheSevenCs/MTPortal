@@ -10,8 +10,12 @@ const dbName = "test";
 const client = new MongoClient(uri);
 
 async function login(username, password) {
-  const accounts = getFromDatabase("accounts");
-  accounts;
+  const filter = { username: { $gte: username }, password: { $gte: password } };
+  const accounts = getFromDatabase("accounts", filter);
+  if (accounts != null) {
+    return true;
+  }
+  return false;
 }
 
 async function createAccount(user, pass) {
@@ -52,8 +56,7 @@ async function getFromDatabase(collectionName, filter = "") {
     const collection = database.collection(collectionName);
 
     // Grab all data from the collection
-    const data = await collection.find(filter).toAqrray();
-    console.log(data);
+    const data = await collection.find(filter).toArray();
     // Return the array of data
     return data;
   } finally {
@@ -63,4 +66,6 @@ async function getFromDatabase(collectionName, filter = "") {
   }
 }
 // createAccount("user", "pass").catch(console.dir);
-getFromDatabase("accounts").catch(console.dir);
+if (login("user", "pass")) {
+  console.log("ez lightwork");
+}
