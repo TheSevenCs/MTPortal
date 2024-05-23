@@ -7,10 +7,7 @@ const uri = "mongodb://ec2-3-144-255-131.us-east-2.compute.amazonaws.com:27017";
 const dbName = "test";
 
 // Create a new MongoClient
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const client = new MongoClient(uri);
 
 async function run() {
   try {
@@ -23,13 +20,13 @@ async function run() {
 
     // Perform operations with the database
     // Example: Insert a document into a collection
-    const collection = database.collection("documents");
-    await collection.insertOne({ name: "John Doe", age: 30 });
+    const clients = database.collection("clients");
+    const users = database.collection("users");
 
     console.log("Document inserted successfully");
 
     // Find all documents in the collection
-    const documents = await collection.find({}).toArray();
+    const documents = await clients.find({}).toArray();
     console.log("Documents in the collection:", documents);
   } finally {
     // Close the client connection
@@ -38,4 +35,25 @@ async function run() {
   }
 }
 
+async function login(username, password) {
+  await client.connect();
+  const database = client.db(dbName);
+  // Assuming `users` is the MongoDB collection object
+  const users = database.collection("users");
+  const account = await users.findOne({ username, password });
+  await client.close();
+  if (account != null) {
+    // Authentication successful
+    console.log("Documents in the collection:", account);
+    return account;
+  } else {
+    // Authentication failed
+    console.log("no users");
+    return null;
+  }
+}
+
+async function createAccount(username, password) {}
+
 run().catch(console.dir);
+login("user", "pass").catch(console.dir);
