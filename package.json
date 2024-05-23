@@ -1,15 +1,18 @@
 {
-  "name": "mtportal",
+  "name": "MTPortal",
+  "productName": "MTPortal",
+  "description": "My Electron application description",
+  "keywords": [],
+  "main": "./main.js",
   "version": "1.0.0",
-  "main": "scripts/route.js",
-  "type": "module",
+  "author": "The7Cs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron ."
   },
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "5.0.0-beta.3"
+  },
+  "devDependencies": {
+    "electron": "30.0.2"
   }
 }

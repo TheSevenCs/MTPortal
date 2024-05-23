@@ -53,7 +53,9 @@ async function login(username, password) {
   }
 }
 
-async function createAccount(username, password) {}
+async function createAccount(username, password) {
+  
+}
 
 run().catch(console.dir);
 login("user", "pass").catch(console.dir);
