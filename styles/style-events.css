@@ -18,6 +18,14 @@
   background-color: #313338;
   overflow-y: auto;
 }
+.modal-event-container {
+  /* MAIN WINDOW OF THE MODAL */
+  width: 50vw;
+  height: 70vh;
+  background: #313338;
+  border: 1vh solid white;
+  margin: 15vh auto;
+}
 
 /* EVENT */
 .event {
@@ -87,18 +95,31 @@
   font-size: 2vh;
   text-align: center;
 }
-
-.paragraph {
-  font-family: "Montserrat";
+.text-input-label {
   color: white;
-  font-size: 25px;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 10px;
-  line-height: 45px;
-  /* margin-bottom: 180px;
-  margin-top: 102px; */
+  font-family: "Osiris";
+  font-size: 3vh;
+
+  position: absolute;
+  left: 28vw;
+}
+
+/* INPUT FIELDS */
+.input-text {
+  width: 28vw;
+  height: 5vh;
+  background: #383a40;
+  border: 0.5vh solid white;
+
+  /* distance from left side */
+  text-indent: 1vw;
+  font-size: 2vh;
+  color: lightgray;
+  border-radius: 1.5vh;
+  font-family: "Osiris";
+
+  position: absolute;
+  left: 42vw;
 }
 
 /* BUTTONS */
@@ -136,9 +157,6 @@
   padding-bottom: 1vh;
 }
 
-.button-modal-exit {
-}
-
 .lineVertical {
   height: 100%;
   width: 0.25%;
@@ -148,18 +166,15 @@
   left: 39.75%;
 }
 
-/* .button-manageEvent {
-  width: 12.5%;
-  height: 100px;
-
-  position: absolute;
-  margin-top: 5%;
-} */
-
-.modal-event-container {
-  width: 50vw;
-  height: 70vh;
-  background: #313338;
-  border: 1vh solid white;
-  margin: 15vh auto;
+.paragraph {
+  font-family: "Montserrat";
+  color: white;
+  font-size: 25px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  line-height: 45px;
+  /* margin-bottom: 180px;
+  margin-top: 102px; */
 }

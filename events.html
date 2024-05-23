@@ -69,6 +69,8 @@
         Deadlines
       </button>
 
+      <!-- Note that the modal for a specific event is outlined in the component -->
+
       <!-- ADDING EVENTS MODAL -->
       <div
         class="modal"
@@ -76,24 +78,57 @@
         @click.self="toggleAddModal"
         style="overflow-y: hidden"
       >
-        <!-- MODAL MANAGE/DELETE EVENT -->
-        <button
-          class="button-filter text-button-filter button-wrapper"
-          style="right: 43.75vw; bottom: 17vh; margin-top: 2vh"
-        >
-          Create New Event
-        </button>
+        <div class="modal-event-container">
+          <!-- ADD EVENT -->
+          <button
+            class="button-filter text-button-filter button-wrapper"
+            style="right: 43.75vw; bottom: 17vh; margin-top: 2vh"
+            @click="addNewEvent(newEventName, newEventDate, newEventType, newEventDesc)"
+          >
+            Create New Event
+          </button>
 
-        <!-- MODAL EXIT -->
-        <button
-          class="button-expand text-button-filter button-wrapper"
-          @click="toggleAddModal"
-          style="padding-bottom: 0; top: 17vh; right: 25.5vw"
-        >
-          X
-        </button>
+          <!-- ADD MODAL EXIT -->
+          <button
+            class="button-expand text-button-filter button-wrapper"
+            @click="toggleAddModal"
+            style="padding-bottom: 0; top: 17vh; right: 25.5vw"
+          >
+            X
+          </button>
 
-        <div class="modal-event-container"></div>
+          <!-- INPUT FIELDS -->
+          <span class="text-input-label" style="top: 26vh">Event Name:</span>
+          <!-- Use v-model for text fields -->
+          <input class="input-text" v-model="newEventName" style="top: 25vh" />
+
+          <span class="text-input-label" style="top: 36vh">Event Date:</span>
+          <input class="input-text" v-model="newEventDate" style="top: 35vh" />
+
+          <span class="text-input-label" style="top: 46vh">Event Type:</span>
+          <select
+            class="input-text"
+            v-model="newEventType"
+            style="top: 45vh; height: 6.25vh; width: 28.75vw"
+          >
+            <option>Meeting</option>
+            <option>Deadline</option>
+          </select>
+
+          <span class="text-input-label" style="top: 55vh">Event Desc:</span>
+          <textarea
+            id="addDesc"
+            class="input-text"
+            v-model="newEventDesc"
+            style="
+              top: 55vh;
+              height: 12.5vh;
+              width: 26.25vw;
+              text-indent: 0;
+              padding: 1vw;
+            "
+          ></textarea>
+        </div>
       </div>
     </div>
 
