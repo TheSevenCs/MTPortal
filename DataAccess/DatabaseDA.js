@@ -9,21 +9,7 @@ const dbName = "test";
 // Create a new MongoClient
 const client = new MongoClient(uri);
 
-async function login(username, password) {
-  const filter = { username: { $gte: username }, password: { $gte: password } };
-  const accounts = getFromDatabase("accounts", filter);
-  if (accounts != null) {
-    return true;
-  }
-  return false;
-}
-
-async function createAccount(user, pass) {
-  const account = { username: user, password: pass };
-  await addToDatabase("accounts", account);
-}
-
-async function addToDatabase(collectionName, data) {
+export async function addToDatabase(collectionName, data) {
   try {
     // Connect to the MongoDB server
     await client.connect();
@@ -45,7 +31,7 @@ async function addToDatabase(collectionName, data) {
     console.log("Connection to MongoDB server closed");
   }
 }
-async function getFromDatabase(collectionName, filter = "") {
+export async function getFromDatabase(collectionName, filter = "") {
   try {
     // Connect to the MongoDB server
     await client.connect();
@@ -64,8 +50,4 @@ async function getFromDatabase(collectionName, filter = "") {
     await client.close();
     console.log("Connection to MongoDB server closed");
   }
-}
-// createAccount("user", "pass").catch(console.dir);
-if (login("user", "pass")) {
-  console.log("ez lightwork");
 }

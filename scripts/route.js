@@ -1,7 +1,7 @@
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import { CheckPassword, CreateAccount } from "./database.js";
+
 import cors from "cors";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
