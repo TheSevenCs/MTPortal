@@ -1,9 +1,11 @@
-import express from "express";
-import path from "path";
-import { fileURLToPath } from "url";
+const express = require("express");
+const path = require("path");
+const { fileURLToPath } = require("url");
+const { login, createAccount } = require("../DataAccess/loginDA");
 
-import cors from "cors";
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const cors = require("cors");
+
+// const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 app.use(
   cors({
@@ -15,15 +17,11 @@ app.use(express.static(path.join(__dirname, "..")));
 app.get("/login", (req, res) => {
   const { username, password } = req.query; // Extracting the 'username' and 'password' query parameters
   if (username && password) {
-    login(username, password)
-      .then((actualPassword) => {
-        const success = password === actualPassword;
-        res.json(success);
-      })
-      .catch((error) => {
-        console.error("Error checking password:", error);
-        res.status(500).send("Internal server error");
-      });
+    if (login(username, password)) {
+      res.json(true);
+    } else {
+      res.status(401).json({ error: "Invalid username or password" });
+    }
   } else {
     // If either username or password is missing in the query, send an error response
     res.status(400).send("Username or password is missing");

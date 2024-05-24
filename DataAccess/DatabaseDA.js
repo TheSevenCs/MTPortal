@@ -9,7 +9,7 @@ const dbName = "test";
 // Create a new MongoClient
 const client = new MongoClient(uri);
 
-export async function addToDatabase(collectionName, data) {
+module.exports.addToDatabase = async function (collectionName, data) {
   try {
     // Connect to the MongoDB server
     await client.connect();
@@ -30,8 +30,8 @@ export async function addToDatabase(collectionName, data) {
     await client.close();
     console.log("Connection to MongoDB server closed");
   }
-}
-export async function getFromDatabase(collectionName, filter = "") {
+};
+module.exports.getFromDatabase = async function (collectionName, filter = "") {
   try {
     // Connect to the MongoDB server
     await client.connect();
@@ -50,4 +50,4 @@ export async function getFromDatabase(collectionName, filter = "") {
     await client.close();
     console.log("Connection to MongoDB server closed");
   }
-}
+};
