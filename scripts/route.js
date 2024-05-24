@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const { fileURLToPath } = require("url");
 const loginModule = require("../DataAccess/loginDA");
+const eventsModule = require("../DataAccess/eventsDA");
 
 const cors = require("cors");
 
@@ -43,6 +44,27 @@ app.get("/CreateAccount", async (req, res) => {
     console.log("Account created successfully");
   } catch (error) {
     console.error("Error creating account:", error);
+  }
+});
+
+app.get("/addEvent", async (req, res) => {
+  const { newName, newDate, newType, newDesc } = req.query;
+  try {
+    await eventsModule.addEvent(newName, newDate, newType, newDesc);
+    console.log("FROM route.js, NEW Event ADDED.");
+  } catch (error) {
+    console.error("FROM route.js, ERROR CREATING NEW Event: ", error);
+  }
+});
+
+app.get("/getEvents", async (req, res) => {
+  try {
+    const events = await eventsModule.getEvents(); // Assuming getEvents is already imported
+
+    res.json(events); // Return the events as a JSON response
+  } catch (err) {
+    console.error("Error occurred while getting events", err);
+    res.status(500).json({ error: "Failed to get events" });
   }
 });
 

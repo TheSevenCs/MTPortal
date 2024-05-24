@@ -31,7 +31,7 @@ module.exports.addToDatabase = async function (collectionName, data) {
     console.log("Connection to MongoDB server closed");
   }
 };
-module.exports.getFromDatabase = async function (collectionName, filter = "") {
+module.exports.getFromDatabase = async function (collectionName, filter = {}) {
   let client;
   try {
     // Connect to the MongoDB server
