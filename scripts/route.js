@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const fs = require("fs");
 const { fileURLToPath } = require("url");
 const loginModule = require("../DataAccess/loginDA");
 const eventsModule = require("../DataAccess/eventsDA");
@@ -13,9 +14,11 @@ app.use(
     origin: "*",
   })
 );
+const directory = path.join(__dirname, "..");
 app.use(express.static(path.join(__dirname, "..")));
 // respond with "hello world" when a GET request is made to the homepage
-app.get("/login", async (req, res) => {
+
+app.get("/CheckLogin", async (req, res) => {
   const { username, password } = req.query;
 
   if (username && password) {
@@ -47,6 +50,7 @@ app.get("/CreateAccount", async (req, res) => {
   }
 });
 
+<<<<<<< Updated upstream
 app.get("/addEvent", async (req, res) => {
   const { newName, newDate, newType, newDesc } = req.query;
   try {
@@ -65,6 +69,18 @@ app.get("/getEvents", async (req, res) => {
   } catch (err) {
     console.error("Error occurred while getting events", err);
     res.status(500).json({ error: "Failed to get events" });
+=======
+app.get("/:page", (req, res) => {
+  const page = req.params.page;
+  const filePath = path.join(directory, `${page}.html`);
+  console.log(directory + `${page}.html`);
+
+  if (fs.existsSync(filePath)) {
+    res.sendFile(filePath);
+  } else {
+    // If the file does not exist, send a 404 error
+    res.status(404).send("Page not found");
+>>>>>>> Stashed changes
   }
 });
 

@@ -6,138 +6,159 @@
     <title>MTPortal</title>
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/style-home.css" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
   <body style="margin: 0; width: 100vw; height: 100vh">
-    <!-- LOGO BANNER -->
-    <img class="home-banner" src="images/banner.png" alt="banner img" />
+    <div id="home">
+      <!-- LOGO BANNER -->
+      <img class="home-banner" src="images/banner.png" alt="banner img" />
 
-    <!-- TOP LEFT SMALL BUTTONS -->
-    <div class="container-profileButtons">
-      <button class="small-btn-wrapper" style="margin-bottom: 5vh">
-        <img
-          class="button-wrapper home-button-wrapper"
-          src="images/profile-btn.png"
-          alt="profile-btn"
-        />
-      </button>
-      <button class="small-btn-wrapper">
-        <img
-          class="button-wrapper home-button-wrapper"
-          src="images/logout-btn.png"
-          alt="profile-btn"
-        />
-      </button>
-    </div>
-
-    <!-- MAIN SECTION BUTTONS -->
-    <div id="mainScreenButtons" class="center-wrapper">
-      <!-- BUTTONS ROW 1 -->
-      <div class="container-buttons">
-        <button class="btn-wrapper" style="margin-left: 10%">
+      <!-- TOP LEFT SMALL BUTTONS -->
+      <div class="container-profileButtons">
+        <button
+          class="small-btn-wrapper"
+          style="margin-bottom: 5vh"
+          @click="handleProfileClick"
+        >
           <img
             class="button-wrapper home-button-wrapper"
-            src="images/shift-btn.png"
-            alt="shift button"
+            src="images/profile-btn.png"
+            alt="profile-btn"
           />
         </button>
-        <button class="btn-wrapper" style="margin-left: 10%">
+        <button class="small-btn-wrapper">
           <img
             class="button-wrapper home-button-wrapper"
-            src="images/chat-btn.png"
-            alt="shift button"
-          />
-        </button>
-        <button class="btn-wrapper" style="margin-left: 10%">
-          <img
-            class="button-wrapper home-button-wrapper"
-            src="images/event-btn.png"
-            alt="shift button"
+            src="images/logout-btn.png"
+            alt="profile-btn"
           />
         </button>
       </div>
-      <!-- LABELS FOR FIRST ROW -->
-      <div
-        class="container-buttons"
-        style="position: relative; margin-bottom: 2.5%"
-      >
-        <div class="container-labels" style="margin-left: 9vw">SHIFT</div>
-        <div class="container-labels" style="margin-left: 7.5vw">
-          MARMOTCHAT
+
+      <!-- MAIN SECTION BUTTONS -->
+      <div id="mainScreenButtons" class="center-wrapper">
+        <!-- BUTTONS ROW 1 -->
+        <div class="container-buttons">
+          <a href="/shift">
+            <button class="btn-wrapper" style="margin-left: 10%">
+              <img
+                class="button-wrapper home-button-wrapper"
+                src="images/shift-btn.png"
+                alt="shift button"
+              />
+            </button>
+          </a>
+          <a href="/chat">
+            <button class="btn-wrapper" style="margin-left: 10%">
+              <img
+                class="button-wrapper home-button-wrapper"
+                src="images/chat-btn.png"
+                alt="chat button"
+              />
+            </button>
+          </a>
+          <a href="/events">
+            <button class="btn-wrapper" style="margin-left: 10%">
+              <img
+                class="button-wrapper home-button-wrapper"
+                src="images/event-btn.png"
+                alt="events button"
+              />
+            </button>
+          </a>
         </div>
-        <div class="container-labels" style="margin-left: 6vw">EVENTS</div>
-      </div>
-
-      <!-- BUTTONS ROW 2 -->
-      <div class="container-buttons">
-        <button class="btn-wrapper" style="margin-left: 25%">
-          <img
-            class="button-wrapper home-button-wrapper"
-            src="images/task-issue-btn.png"
-            alt="shift button"
-          />
-        </button>
-        <button class="btn-wrapper" style="margin-left: 10%">
-          <img
-            class="button-wrapper home-button-wrapper"
-            src="images/client-btn.png"
-            alt="shift button"
-          />
-        </button>
-      </div>
-
-      <!-- LABELS FOR SECOND ROW -->
-      <div
-        class="container-buttons"
-        style="position: relative; margin-bottom: 2.5%"
-      >
-        <div class="container-labels" style="margin-left: 13vw">
-          TASKS/ISSUES
+        <!-- LABELS FOR FIRST ROW -->
+        <div
+          class="container-buttons"
+          style="position: relative; margin-bottom: 2.5%"
+        >
+          <div class="container-labels" style="margin-left: 9vw">SHIFT</div>
+          <div class="container-labels" style="margin-left: 7.5vw">
+            MARMOTCHAT
+          </div>
+          <div class="container-labels" style="margin-left: 6vw">EVENTS</div>
         </div>
-        <div class="container-labels" style="margin-left: 6vw">CLIENTS</div>
-      </div>
 
-      <!-- profile edit modal -->
-      <div class="modal">
-        <div class="profile-modal-container">
-          <div class="profile-modal-content">
-            <!-- change avatar button -->
-            <div>
-              <button
-                class="btn-wrapper button-wrapper avatar-btn profile-btn-wrapper profile-btn-text"
-              >
-                Change Avatar
-              </button>
-            </div>
+        <!-- BUTTONS ROW 2 -->
+        <div class="container-buttons">
+          <a href="/tasks-issues">
+            <button class="btn-wrapper" style="margin-left: 25%">
+              <img
+                class="button-wrapper home-button-wrapper"
+                src="images/task-issue-btn.png"
+                alt="task/issues button"
+              />
+            </button>
+          </a>
+          <a href="/client">
+            <button class="btn-wrapper" style="margin-left: 10%">
+              <img
+                class="button-wrapper home-button-wrapper"
+                src="images/client-btn.png"
+                alt="client button"
+              />
+            </button>
+          </a>
+        </div>
 
-            <!-- change email button -->
-            <div>
-              <button
-                class="btn-wrapper button-wrapper avatar-btn profile-btn-wrapper profile-btn-text"
-              >
-                Change Email
-              </button>
-            </div>
+        <!-- LABELS FOR SECOND ROW -->
+        <div
+          class="container-buttons"
+          style="position: relative; margin-bottom: 2.5%"
+        >
+          <div class="container-labels" style="margin-left: 13vw">
+            TASKS/ISSUES
+          </div>
+          <div class="container-labels" style="margin-left: 6vw">CLIENTS</div>
+        </div>
 
-            <!-- change username button -->
-            <div>
-              <button
-                class="btn-wrapper button-wrapper pass-user-btn profile-btn-wrapper profile-btn-text"
-              >
-                Change Username
-              </button>
-            </div>
+        <!-- profile edit modal -->
+        <div class="modal" v-if="displayModal" @click.self="exitModal">
+          <div class="profile-modal-container">
+            <div class="profile-modal-content">
+              <!-- change avatar button -->
+              <div>
+                <button
+                  class="btn-wrapper button-wrapper avatar-btn profile-btn-wrapper profile-btn-text"
+                >
+                  Change Avatar
+                </button>
+              </div>
 
-            <!-- change password button -->
-            <div>
-              <button
-                class="btn-wrapper button-wrapper pass-user-btn profile-btn-wrapper profile-btn-text"
-              >
-                Change Password
-              </button>
+              <!-- change email button -->
+              <div>
+                <button
+                  class="btn-wrapper button-wrapper avatar-btn profile-btn-wrapper profile-btn-text"
+                >
+                  Change Email
+                </button>
+              </div>
+
+              <!-- change username button -->
+              <div>
+                <button
+                  class="btn-wrapper button-wrapper pass-user-btn profile-btn-wrapper profile-btn-text"
+                >
+                  Change Username
+                </button>
+              </div>
+
+              <!-- change password button -->
+              <div>
+                <button
+                  class="btn-wrapper button-wrapper pass-user-btn profile-btn-wrapper profile-btn-text"
+                >
+                  Change Password
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <script src="./scripts/home.js"></script>
+    <script>
+      app.mount("#home");
+    </script>
   </body>
 </html>

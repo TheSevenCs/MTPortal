@@ -1,10 +1,9 @@
 .login-banner {
-  width: 50vw;
+  width: 40vw;
   margin-left: 50%;
   /* transform: translate combined with margin left effectively centers the element */
   transform: translateX(-50%);
-  position: absolute;
-  top: 2.5vh;
+  margin-top: 2%;
 }
 .login-header {
   color: white;
@@ -13,12 +12,13 @@
   font-family: "Segoe UI";
   text-align: center;
   cursor: default;
-  position: absolute;
-  top: 50vh;
+  margin-top: 10vh;
+  margin-bottom: 5vh;
   margin-left: 50%;
   transform: translateX(-50%);
 }
 .login-box {
+  margin-bottom: 2vh;
   margin-left: 50%;
   transform: translateX(-50%);
   width: 30vw;
@@ -26,8 +26,6 @@
   font-size: 3vh;
   font-family: Arial;
   text-indent: 10%;
-
-  position: absolute;
 
   border-radius: 19px;
   color: #747474;
@@ -49,16 +47,29 @@
   opacity: 0; /* Make the placeholder text transparent */
 }
 .login-submit-btn {
-  width: 12.5%;
-  height: 7.5vh;
+  padding: 1vh 1vw;
   font-size: 3vh;
   font-family: "Osiris";
   color: white;
   background-color: #fe4a47;
-  border-radius: 20px;
+  border-radius: 2vh;
   border: 1px solid #707070;
 
-  margin-top: 85vh;
+  margin-top: 3vh;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.login-create-btn {
+  padding: 1vh 1vw;
+  font-size: 3vh;
+  font-family: "Osiris";
+  color: white;
+  background-color: #fe4a47;
+  border-radius: 2vh;
+  border: 1px solid #707070;
+  text-wrap: nowrap;
+  margin-top: 1vh;
   margin-left: 50%;
   transform: translateX(-50%);
 }
@@ -67,5 +78,13 @@
 }
 
 .login-submit-btn:hover {
+  cursor: pointer;
+}
+
+.login-create-btn:active {
+  background-color: #4d0201;
+}
+
+.login-create-btn:hover {
   cursor: pointer;
 }

@@ -16,26 +16,75 @@
       <img class="login-banner" src="/images/banner.png" alt="Login Banner" />
 
       <!-- HEADER TEXT -->
-      <div class="login-header">Login to the MarmotTech Employee Portal</div>
-
-      <!-- INPUT FIELDS -->
-      <input
-        class="login-box"
-        style="top: 60vh"
-        v-model="usernameInput"
-        type="text"
-        placeholder="Email / Username"
-      />
-      <input
-        class="login-box"
-        style="top: 70vh"
-        v-model="passwordInput"
-        type="password"
-        placeholder="Password"
-      />
+      <div class="login-header" v-if="!creatingAccount">
+        Login to the MarmotTech Employee Portal
+      </div>
+      <div class="login-header" v-if="creatingAccount">
+        Create a MarmotTech Employee Account
+      </div>
+      <div v-if="!creatingAccount">
+        <!-- INPUT FIELDS -->
+        <input
+          class="login-box"
+          style="top: 60vh"
+          v-model="usernameInput"
+          type="text"
+          placeholder="Email / Username"
+        />
+        <input
+          class="login-box"
+          style="top: 70vh"
+          v-model="passwordInput"
+          type="password"
+          placeholder="Password"
+        />
+      </div>
+      <div v-if="creatingAccount">
+        <!-- INPUT FIELDS -->
+        <input
+          class="login-box"
+          style="top: 60vh"
+          v-model="usernameInput"
+          type="text"
+          placeholder="Email"
+        />
+        <div
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <div>
+            <input
+              class="login-box"
+              style="margin-bottom: 10px; width: 20vw"
+              v-model="usernameInput"
+              type="text"
+              placeholder="Username"
+            />
+          </div>
+          <div>
+            <input
+              class="login-box"
+              style="margin-bottom: 10px; width: 20vw"
+              v-model="passwordInput"
+              type="password"
+              placeholder="Password"
+            />
+          </div>
+        </div>
+      </div>
 
       <!-- SUBMIT BUTTON -->
       <button class="login-submit-btn" @click="Login">Submit</button>
+
+      <button
+        class="login-create-btn"
+        v-if="!creatingAccount"
+        @click="createAccount()"
+      >
+        Create Account
+      </button>
+      <button class="login-create-btn" v-if="creatingAccount" @click="cancel()">
+        Cancel
+      </button>
     </div>
 
     <!-- IMPORT JS -->

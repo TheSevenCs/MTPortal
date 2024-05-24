@@ -1,6 +1,6 @@
 async function checkLogin(username, password) {
   try {
-    const response = await axios.get("/login", {
+    const response = await axios.get("/CheckLogin", {
       params: {
         username: username,
         password: password,
@@ -17,6 +17,7 @@ const loginProcess = Vue.createApp({
     return {
       usernameInput: "",
       passwordInput: "",
+      creatingAccount: false,
     };
   },
   methods: {
@@ -29,6 +30,12 @@ const loginProcess = Vue.createApp({
         console.error("Error during login:", error);
         // Handle errors if needed
       }
+    },
+    createAccount() {
+      this.creatingAccount = true;
+    },
+    cancel() {
+      this.creatingAccount = false;
     },
   },
 });
