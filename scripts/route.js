@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const { fileURLToPath } = require("url");
-const { login, createAccount } = require("../DataAccess/loginDA");
+const loginModule = require("../DataAccess/loginDA");
 
 const cors = require("cors");
 
@@ -14,16 +14,24 @@ app.use(
 );
 app.use(express.static(path.join(__dirname, "..")));
 // respond with "hello world" when a GET request is made to the homepage
-app.get("/login", (req, res) => {
-  const { username, password } = req.query; // Extracting the 'username' and 'password' query parameters
+app.get("/login", async (req, res) => {
+  const { username, password } = req.query;
+
   if (username && password) {
-    if (login(username, password)) {
-      res.json(true);
-    } else {
-      res.status(401).json({ error: "Invalid username or password" });
+    try {
+      const isAuthenticated = await loginModule.login(username, password);
+
+      if (isAuthenticated) {
+        res.json(true);
+      } else {
+        console.log(isAuthenticated);
+        res.status(401).json(false);
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      res.status(500).json({ error: "Internal server error" });
     }
   } else {
-    // If either username or password is missing in the query, send an error response
     res.status(400).send("Username or password is missing");
   }
 });

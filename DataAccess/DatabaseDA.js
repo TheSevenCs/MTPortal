@@ -32,10 +32,10 @@ module.exports.addToDatabase = async function (collectionName, data) {
   }
 };
 module.exports.getFromDatabase = async function (collectionName, filter = "") {
+  let client;
   try {
     // Connect to the MongoDB server
-    await client.connect();
-
+    client = await MongoClient.connect(uri);
     const database = client.db(dbName);
 
     // Get the specified collection
@@ -43,11 +43,14 @@ module.exports.getFromDatabase = async function (collectionName, filter = "") {
 
     // Grab all data from the collection
     const data = await collection.find(filter).toArray();
+
     // Return the array of data
     return data;
   } finally {
-    // Close the client connection
-    await client.close();
-    console.log("Connection to MongoDB server closed");
+    // Close the client connection if it was successfully established
+    if (client) {
+      await client.close();
+      console.log("Connection to MongoDB server closed");
+    }
   }
 };
