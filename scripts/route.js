@@ -60,6 +60,16 @@ app.post("/addEvent", async (req, res) => {
     console.error("FROM route.js, ERROR CREATING NEW Event: ", error);
   }
 });
+app.delete("/Event", async (req, res) => {
+  const { eventID } = req.query;
+  try {
+    await eventsModule.deleteEvent(eventID);
+    console.log(`Event: ${eventID} Deleted`);
+  } catch (error) {
+    console.error(`Error: ${eventID} could not be deleted`);
+  }
+});
+
 app.get("/getEvents", async (req, res) => {
   try {
     const events = await eventsModule.getEvents(); // Assuming getEvents is already imported

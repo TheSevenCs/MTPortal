@@ -14,8 +14,6 @@ module.exports.addToDatabase = async function (collectionName, data) {
     // Connect to the MongoDB server
     await client.connect();
 
-    console.log("Connected to MongoDB server");
-
     const database = client.db(dbName);
 
     // Get the specified collection
@@ -23,12 +21,9 @@ module.exports.addToDatabase = async function (collectionName, data) {
 
     // Insert the array of data into the collection
     await collection.insertOne(data);
-
-    console.log("Data inserted successfully into collection:", collectionName);
   } finally {
     // Close the client connection
     await client.close();
-    console.log("Connection to MongoDB server closed");
   }
 };
 module.exports.getFromDatabase = async function (collectionName, filter = {}) {
@@ -50,7 +45,40 @@ module.exports.getFromDatabase = async function (collectionName, filter = {}) {
     // Close the client connection if it was successfully established
     if (client) {
       await client.close();
-      console.log("Connection to MongoDB server closed");
     }
+  }
+};
+
+module.exports.deleteFromDatabase = async function (
+  collectionName,
+  filter = {}
+) {
+  let client;
+  try {
+    // Connect to the MongoDB server
+    client = await MongoClient.connect(uri);
+    const database = client.db(dbName);
+
+    // Get the specified collection
+    const collection = database.collection(collectionName);
+
+    // Grab all data from the collection
+    await collection.deleteOne(filter);
+  } finally {
+    // Close the client connection if it was successfully established
+    if (client) {
+      await client.close();
+    }
+  }
+};
+
+module.exports.generateID = async function (minID, maxID) {
+  try {
+    min = Math.ceil(minID); // Round up to the nearest integer
+    max = Math.floor(maxID); // Round down to the nearest integer
+    return Math.floor(Math.random() * (max - min + 1)) + min; // Generate the random ID
+  } finally {
+    // return -1 if theres an issue
+    return -1;
   }
 };
