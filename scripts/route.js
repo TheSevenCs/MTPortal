@@ -50,7 +50,8 @@ app.get("/CreateAccount", async (req, res) => {
   }
 });
 
-app.get("/addEvent", async (req, res) => {
+// EVENTS PAGE
+app.post("/addEvent", async (req, res) => {
   const { newName, newDate, newType, newDesc } = req.query;
   try {
     await eventsModule.addEvent(newName, newDate, newType, newDesc);
@@ -59,12 +60,21 @@ app.get("/addEvent", async (req, res) => {
     console.error("FROM route.js, ERROR CREATING NEW Event: ", error);
   }
 });
-
 app.get("/getEvents", async (req, res) => {
   try {
     const events = await eventsModule.getEvents(); // Assuming getEvents is already imported
 
-    res.json(events); // Return the events as a JSON response
+    // Map over the events and format them as required
+    const formattedEvents = events.map((event) => {
+      return {
+        eventName: event.eventName,
+        eventDate: event.eventDate,
+        eventType: event.eventType,
+        eventDesc: event.eventDesc || "", // If eventDesc is null, set it to an empty string
+      };
+    });
+
+    res.json(formattedEvents); // Return the events as a JSON response
   } catch (err) {
     console.error("Error occurred while getting events", err);
     res.status(500).json({ error: "Failed to get events" });

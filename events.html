@@ -30,7 +30,7 @@
       </div>
 
       <!-- EVENTS DISPLAY -->
-      <div class="text-title" style="font-size: 8vh; margin-top: 3.5vh">
+      <div class="text-title" style="font-size: 8vh; margin-top: 3.5vh" :>
         EVENTS
       </div>
       <div class="container-smallButtons"></div>
@@ -55,6 +55,7 @@
       <button
         class="button-filter text-button-filter button-wrapper"
         style="bottom: 61.25vh"
+        @click="loadEventsToHTML"
       >
         Load
       </button>
@@ -87,11 +88,11 @@
         style="overflow-y: hidden"
       >
         <div class="modal-event-container">
-          <!-- ADD EVENT -->
+          <!-- ADD EVENT BUTTON -->
           <button
             class="button-filter text-button-filter button-wrapper"
             style="right: 43.75vw; bottom: 17vh; margin-top: 2vh"
-            @click="addNewEvent(newEventName, newEventDate, newEventType, newEventDesc)"
+            @click="addNewEvent"
           >
             Create New Event
           </button>
@@ -151,6 +152,7 @@
       // x.mount("#y")
       // Mounts the Vue application X onto the div with id "y"
       const mountedEventsApp = eventsApp.mount("#eventsApp");
+      // eventsApp.loadEventsToHTML();
     </script>
   </body>
 </html>
