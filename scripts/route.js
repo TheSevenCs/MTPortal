@@ -50,7 +50,6 @@ app.get("/CreateAccount", async (req, res) => {
   }
 });
 
-<<<<<<< Updated upstream
 app.get("/addEvent", async (req, res) => {
   const { newName, newDate, newType, newDesc } = req.query;
   try {
@@ -69,7 +68,9 @@ app.get("/getEvents", async (req, res) => {
   } catch (err) {
     console.error("Error occurred while getting events", err);
     res.status(500).json({ error: "Failed to get events" });
-=======
+  }
+});
+
 app.get("/:page", (req, res) => {
   const page = req.params.page;
   const filePath = path.join(directory, `${page}.html`);
@@ -80,7 +81,6 @@ app.get("/:page", (req, res) => {
   } else {
     // If the file does not exist, send a 404 error
     res.status(404).send("Page not found");
->>>>>>> Stashed changes
   }
 });
 
