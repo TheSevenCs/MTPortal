@@ -106,6 +106,7 @@ app.get("/:page", (req, res) => {
 
 // Start the server
 const PORT = 5500;
-app.listen(PORT, () => {
+const HOST = "127.0.0.1";
+app.listen(PORT, HOST, () => {
   console.log(`Server is running on port ${PORT}`);
 });
