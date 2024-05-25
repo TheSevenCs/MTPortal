@@ -1,78 +1,70 @@
-const { MongoClient } = require("mongodb");
+const AWS = require("aws-sdk");
+require("dotenv").config();
+// Configure AWS
+AWS.config.update({
+  region: process.env.AWS_DEFAULT_REGION,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+});
 
-// MongoDB Connection URI
-const uri = "mongodb://ec2-3-144-255-131.us-east-2.compute.amazonaws.com:27017";
+const dynamoClient = new AWS.DynamoDB.DocumentClient();
 
-// Database Name
-const dbName = "test";
-
-// Create a new MongoClient
-const client = new MongoClient(uri);
-
-module.exports.addToDatabase = async function (collectionName, data) {
+const addToDatabase = async (table, data) => {
   try {
-    // Connect to the MongoDB server
-    await client.connect();
+    const params = {
+      TableName: table,
+      Item: data, // The data you want to add
+    };
 
-    const database = client.db(dbName);
+    // Perform the put operation to add data to the table
+    const result = await dynamoClient.put(params).promise();
 
-    // Get the specified collection
-    const collection = database.collection(collectionName);
-
-    // Insert the array of data into the collection
-    await collection.insertOne(data);
-  } finally {
-    // Close the client connection
-    await client.close();
+    console.log("Data added successfully:", result);
+    return result; // Optionally, return the result of the operation
+  } catch (error) {
+    console.error("Error adding data:", error);
+    throw error; // Optionally, rethrow the error for handling elsewhere
   }
 };
-module.exports.getFromDatabase = async function (collectionName, filter = {}) {
-  let client;
+
+const getFromDatabase = async (table, filter = {}) => {
   try {
-    // Connect to the MongoDB server
-    client = await MongoClient.connect(uri);
-    const database = client.db(dbName);
+    const params = {
+      TableName: table,
+      FilterExpression: filter.Expression, // Accessing the expression from the filter object
+      ExpressionAttributeValues: filter.ExpressionAttributeValues, // Optional: Provide ExpressionAttributeValues if necessary
+    };
 
-    // Get the specified collection
-    const collection = database.collection(collectionName);
-
-    // Grab all data from the collection
-    const data = await collection.find(filter).toArray();
-
-    // Return the array of data
+    const data = await dynamoClient.scan(params).promise();
+    console.log(data);
     return data;
-  } finally {
-    // Close the client connection if it was successfully established
-    if (client) {
-      await client.close();
-    }
+  } catch (error) {
+    console.error("Error getting data:", error);
+    throw error;
   }
 };
 
-module.exports.deleteFromDatabase = async function (
-  collectionName,
-  filter = {}
-) {
-  let client;
+const deleteFromDatabase = async (tableName, filter = {}) => {
   try {
-    // Connect to the MongoDB server
-    client = await MongoClient.connect(uri);
-    const database = client.db(dbName);
+    // Construct the parameters for the delete operation
+    const params = {
+      TableName: tableName,
+      ConditionExpression: filter.ConditionExpression, // Accessing the condition expression from the filter object
+      ExpressionAttributeValues: filter.ExpressionAttributeValues, // Optional: Provide ExpressionAttributeValues if necessary
+    };
 
-    // Get the specified collection
-    const collection = database.collection(collectionName);
+    // Perform the delete operation
+    const data = await dynamoClient.delete(params).promise();
 
-    // Grab all data from the collection
-    await collection.deleteOne(filter);
-  } finally {
-    // Close the client connection if it was successfully established
-    if (client) {
-      await client.close();
-    }
+    console.log("Items deleted successfully:", data);
+    return data;
+  } catch (error) {
+    console.error("Error deleting items:", error);
+    throw error;
   }
 };
 
-module.exports.generateID = async function (minID, maxID) {
+const generateID = async (minID, maxID) => {
   try {
     min = Math.ceil(minID); // Round up to the nearest integer
     max = Math.floor(maxID); // Round down to the nearest integer
@@ -82,3 +74,5 @@ module.exports.generateID = async function (minID, maxID) {
     return -1;
   }
 };
+
+getFromDatabase("Events");

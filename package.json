@@ -10,6 +10,7 @@
     "start": "electron ."
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
     "express": "5.0.0-beta.3"
   },
   "devDependencies": {
