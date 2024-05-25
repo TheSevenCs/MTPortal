@@ -72,22 +72,21 @@ app.delete("/Event", async (req, res) => {
 
 app.get("/getEvents", async (req, res) => {
   try {
-    const events = await eventsModule.getEvents(); // Assuming getEvents is already imported
-
-    // Map over the events and format them as required
+    const events = await eventsModule.getEvents();
     const formattedEvents = events.map((event) => {
       return {
         eventName: event.eventName,
         eventDate: event.eventDate,
         eventType: event.eventType,
-        eventDesc: event.eventDesc || "", // If eventDesc is null, set it to an empty string
+        eventDesc: event.eventDesc || "",
+        eventID: event.event_id,
       };
     });
 
-    res.json(formattedEvents); // Return the events as a JSON response
-  } catch (err) {
-    console.error("Error occurred while getting events", err);
-    res.status(500).json({ error: "Failed to get events" });
+    res.json(formattedEvents);
+  } catch (error) {
+    console.error("Error occurred while getting events:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

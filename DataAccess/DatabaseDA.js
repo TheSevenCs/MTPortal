@@ -65,14 +65,13 @@ const deleteFromDatabase = async (tableName, filter = {}) => {
 };
 
 const generateID = async (minID, maxID) => {
-  try {
-    min = Math.ceil(minID); // Round up to the nearest integer
-    max = Math.floor(maxID); // Round down to the nearest integer
-    return Math.floor(Math.random() * (max - min + 1)) + min; // Generate the random ID
-  } finally {
-    // return -1 if theres an issue
-    return -1;
-  }
+  min = Math.ceil(minID); // Round up to the nearest integer
+  max = Math.floor(maxID); // Round down to the nearest integer
+  return Math.floor(Math.random() * (max - min + 1)) + min; // Generate the random ID
 };
-
-getFromDatabase("Events");
+module.exports = {
+  getFromDatabase: getFromDatabase,
+  generateID: generateID,
+  deleteFromDatabase: deleteFromDatabase,
+  addToDatabase: addToDatabase,
+};
