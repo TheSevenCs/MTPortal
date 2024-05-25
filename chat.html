@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/style-chat.css" />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <div id="chatpage">
@@ -31,7 +32,13 @@
           ></message>
         </div>
         <div class="msg-box-container">
-          <input class="chat-msg-box" type="text" placeholder="Enter Message" />
+          <input
+            class="chat-msg-box"
+            type="text"
+            v-model="currentText"
+            placeholder="Enter Message"
+            @keyup.enter="submitMessage"
+          />
         </div>
       </div>
     </div>

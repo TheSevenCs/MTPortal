@@ -4,6 +4,7 @@ const fs = require("fs");
 const { fileURLToPath } = require("url");
 const loginModule = require("../DataAccess/loginDA");
 const eventsModule = require("../DataAccess/eventsDA");
+const messageModule = require("../DataAccess/messagesDA");
 
 const cors = require("cors");
 
@@ -60,6 +61,17 @@ app.post("/addEvent", async (req, res) => {
     console.error("FROM route.js, ERROR CREATING NEW Event: ", error);
   }
 });
+
+app.post("/Message", async (req, res) => {
+  const { author, date, content } = req.params.page;
+  try {
+    await messageModule.addMessage(author, date, content);
+    console.log("FROM route.js, NEW Event ADDED.");
+  } catch (error) {
+    console.error("FROM route.js, ERROR CREATING NEW Event: ", error);
+  }
+});
+
 app.delete("/Event", async (req, res) => {
   const { eventID } = req.query;
   try {
