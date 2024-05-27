@@ -1,1 +1,5 @@
-GET http://localhost:5500/login?username=user&password=pass
+# GET http://localhost:5500/login?username=user&password=pass
+
+DELETE http://localhost:5500/Events?eventID=9191851172761
+
+# GET http://localhost:5500/getEvents

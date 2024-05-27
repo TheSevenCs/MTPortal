@@ -27,11 +27,16 @@ const eventsApp = Vue.createApp({
       this.newEventType = "";
       this.newEventDesc = "";
 
-      // 1 SEC DELAY INTO RELOAD
-      const delayInMilliseconds = 1000;
+      // 0.5 SEC DELAY INTO RELOAD
+      const delayInMilliseconds = 500;
       setTimeout(() => {
         this.loadEventsToHTML();
         this.displayAddModal = false;
+      }, delayInMilliseconds);
+
+      // 2nd LOAD
+      setTimeout(() => {
+        this.loadEventsToHTML();
       }, delayInMilliseconds);
     },
     toggleAddModal() {
@@ -41,6 +46,7 @@ const eventsApp = Vue.createApp({
       try {
         const response = await axios.get("/getEvents");
         this.events = response.data;
+        console.log("FROM events.js, loadEventsToHTML() CALLED.");
         // Handle response data as needed
       } catch (error) {
         console.error("Error during retrieval:", error);
@@ -65,6 +71,6 @@ const eventsApp = Vue.createApp({
   mounted() {
     // mounted() outlines what is supposed to execute on application mount
     this.loadEventsToHTML();
-    console.log("FROM events.js mounter(), loadEventsToHTML() CALLED.");
+    console.log("FROM events.js mounted(), loadEventsToHTML() CALLED.");
   },
 });

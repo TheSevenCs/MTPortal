@@ -5,7 +5,9 @@ app.component("message", {
       required: true,
     },
   },
-  template: `
+  template:
+    /*html*/
+    `
     <div class="message">
       <div class="avatar">
         <img :src="message.avatarPath" alt="profile picture" />
@@ -14,7 +16,14 @@ app.component("message", {
         <span class="username">{{ message.username }}</span>
         <p>{{ message.messageContent }}</p>
       </div>
+      <button
+        class="button-expand text-button-filter button-wrapper"
+        style="bottom: 35%; right: 6.25%"
+        @click=""
+      >
+        ...
+      </button>    
     </div>
-  `,
+    `,
 });
 app.mount("#chatpage");

@@ -23,6 +23,12 @@ module.exports.getEvents = async function () {
 };
 
 module.exports.deleteEvent = async function (eID) {
-  const filter = { eventID: eID };
-  await eventModule.deleteFromDatabase("Events", filter); // Need to await since it's an async function
+  try {
+    const key = { event_id: eID };
+    await eventModule.deleteFromDatabase("Events", key); // Need to await since it's an async function
+    console.log("FROM eventsDA.js, Event DELETED.");
+  } catch (error) {
+    console.log("FROM eventsDA.js, ERROR DELETING Event. ", error);
+    throw error;
+  }
 };

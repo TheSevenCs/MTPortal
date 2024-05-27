@@ -19,7 +19,7 @@ eventsApp.component("component-event", {
 
             <!-- MODAL MANAGE/DELETE EVENT -->
             <button @click="" class="button-filter text-button-filter button-wrapper" style="right: 54.17vw;bottom:17vh;margin-top:2vh">Edit Event</button>
-            <button @click="deleteEvent" class="button-filter text-button-filter button-wrapper" style="right: 33.3vw;bottom:17vh;margin-top:2vh">Delete Event</button>
+            <button @click="componentDeleteEvent" class="button-filter text-button-filter button-wrapper" style="right: 33.3vw;bottom:17vh;margin-top:2vh">Delete Event</button>
 
             <!-- MODAL EXIT -->
             <button class="button-expand text-button-filter button-wrapper" @click="toggleModal" style="padding-bottom: 0; top: 17vh; right: 25.5vw;">X</button>
@@ -29,23 +29,33 @@ eventsApp.component("component-event", {
     `,
   data() {
     return {
-      displayEvent: true,
       displayModal: false,
-      displayStatus: "visible",
+      // eventID: "",
     };
   },
   methods: {
     toggleModal() {
-      //   this.$emit("toggleModal");
       this.displayModal = !this.displayModal;
     },
-    selectEvent() {
-      this.eventSelected = !this.eventSelected;
-      this.borderColor = this.eventSelected ? "#FF0000" : "white";
+    componentDeleteEvent() {
+      axios
+        .delete(this.deleteString)
+        .then((response) => {
+          console.log("Event deleted successfully:", response.data);
+          // Additional handling if needed
+        })
+        .catch((error) => {
+          console.error("Error deleting event:", error);
+        });
     },
-    deleteEvent() {
-      this.displayEvent = !this.displayEvent;
-      this.displayEvent = this.displayEvent ? "visible" : "hidden";
+  },
+  computed: {
+    deleteString() {
+      console.log(
+        "FROM eventEntry.js, deleteString() CALLED, this.event.eventID: ",
+        this.event.eventID
+      );
+      return "/Events?eventID=" + this.event.eventID;
     },
   },
 });

@@ -59,6 +59,18 @@ body {
 .invisible-wrapper {
   visibility: hidden;
 }
+.button-expand {
+  width: 5vh;
+  height: 5vh;
+  background-color: #313338;
+  border: 0.5vh solid white;
+  border-radius: 1.5vh;
+
+  position: absolute;
+  right: 2.5%;
+  bottom: 20%;
+  padding-bottom: 1vh;
+}
 
 .mainsection {
   width: 70vw;
@@ -91,5 +103,11 @@ body {
   color: white;
   font-family: "Osiris";
   font-size: 60px;
+  text-align: center;
+}
+.text-button-filter {
+  color: white;
+  font-family: "Osiris";
+  font-size: 2vh;
   text-align: center;
 }

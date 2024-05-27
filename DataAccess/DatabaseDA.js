@@ -20,7 +20,7 @@ const addToDatabase = async (table, data) => {
     const result = await dynamoClient.put(params).promise();
 
     console.log("Data added successfully:", result);
-    return result; // Optionally, return the result of the operation
+    // return result; // Optionally, return the result of the operation
   } catch (error) {
     console.error("Error adding data:", error);
     throw error; // Optionally, rethrow the error for handling elsewhere
@@ -44,22 +44,20 @@ const getFromDatabase = async (table, filter = {}) => {
   }
 };
 
-const deleteFromDatabase = async (tableName, filter = {}) => {
+const deleteFromDatabase = async (table, key) => {
   try {
-    // Construct the parameters for the delete operation
     const params = {
-      TableName: tableName,
-      ConditionExpression: filter.ConditionExpression, // Accessing the condition expression from the filter object
-      ExpressionAttributeValues: filter.ExpressionAttributeValues, // Optional: Provide ExpressionAttributeValues if necessary
+      TableName: table,
+      Key: key, // Identifier for data to delete
     };
 
-    // Perform the delete operation
+    // DELETE ENTRY HERE
     const data = await dynamoClient.delete(params).promise();
 
-    console.log("Items deleted successfully:", data);
-    return data;
+    console.log("FROM DatabaseDA.js, ITEM DELETED: ", data);
+    // return data; // Optional ??
   } catch (error) {
-    console.error("Error deleting items:", error);
+    console.error("FROM DatabaseDA.js, ERROR DELETING ITEM: ", error);
     throw error;
   }
 };
