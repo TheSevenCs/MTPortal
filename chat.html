@@ -7,10 +7,19 @@
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/style-chat.css" />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<<<<<<< Updated upstream
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+=======
+
+    <!-- FOUND ON AXIOS SITE -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!------------------------->
+>>>>>>> Stashed changes
   </head>
+
   <body>
     <div id="chatpage">
+      <!-- LEFT SIDE BACK BUTTON -->
       <div class="back-btn">
         <a href="/home">
           <button class="back-btn-btn">
@@ -22,8 +31,13 @@
           </button>
         </a>
       </div>
+
+      <!-- PAGE TITLE -->
       <div class="chat-title">MarmotChat</div>
+
+      <!-- CHAT SECTION WINDOW -->
       <div class="chat-box">
+        <!-- DISPLAY MESSAGES HERE -->
         <div class="chat-list">
           <message
             v-for="message in messages"
@@ -31,15 +45,36 @@
             :message="message"
           ></message>
         </div>
+
+        <!-- ENTER TEXT -->
         <div class="msg-box-container">
           <input
             class="chat-msg-box"
+<<<<<<< Updated upstream
             type="text"
             v-model="currentText"
             placeholder="Enter Message"
             @keyup.enter="submitMessage"
           />
+=======
+            v-model="newMessageContent"
+            type="text"
+            placeholder="Enter Message"
+          />
+          <button
+            class="button-expand text-button-filter button-wrapper"
+            style="padding-top: 1vh; bottom: 35%; right: 6.25%"
+            @click="addNewMessage"
+          >
+            ^
+          </button>
+>>>>>>> Stashed changes
         </div>
+
+        <!-- TESTING INPUT FIELDS -->
+        <input v-model="newAvatarPath" placeholder="./images/IMAGE.FILE" />
+        <input v-model="newUsername" placeholder="v-model to username" />
+        <button @click="loadMessagesToHTML">LOAD</button>
       </div>
     </div>
     <script src="./scripts/chat.js"></script>

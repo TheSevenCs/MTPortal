@@ -4,7 +4,11 @@ const fs = require("fs");
 const { fileURLToPath } = require("url");
 const loginModule = require("../DataAccess/loginDA");
 const eventsModule = require("../DataAccess/eventsDA");
+<<<<<<< Updated upstream
 const messageModule = require("../DataAccess/messagesDA");
+=======
+const chatModule = require("../DataAccess/chatDA");
+>>>>>>> Stashed changes
 
 const cors = require("cors");
 
@@ -40,7 +44,6 @@ app.get("/CheckLogin", async (req, res) => {
     res.status(400).send("Username or password is missing");
   }
 });
-
 app.get("/CreateAccount", async (req, res) => {
   const { username, password } = req.query;
   try {
@@ -61,6 +64,7 @@ app.post("/addEvent", async (req, res) => {
     console.error("FROM route.js, ERROR CREATING NEW Event: ", error);
   }
 });
+<<<<<<< Updated upstream
 
 app.post("/Message", async (req, res) => {
   const { author, date, content } = req.params.page;
@@ -73,15 +77,17 @@ app.post("/Message", async (req, res) => {
 });
 
 app.delete("/Event", async (req, res) => {
+=======
+app.delete("/Events", async (req, res) => {
+>>>>>>> Stashed changes
   const { eventID } = req.query;
   try {
     await eventsModule.deleteEvent(eventID);
     console.log(`Event: ${eventID} Deleted`);
   } catch (error) {
-    console.error(`Error: ${eventID} could not be deleted`);
+    console.error(`FROM route.js, Event COULD NOT BE DELETED. `, error);
   }
 });
-
 app.get("/getEvents", async (req, res) => {
   try {
     const events = await eventsModule.getEvents();
@@ -91,6 +97,7 @@ app.get("/getEvents", async (req, res) => {
         eventDate: event.eventDate,
         eventType: event.eventType,
         eventDesc: event.eventDesc || "",
+        // eventsDA gives 'event_id' which is processed here and given to axios call
         eventID: event.event_id,
       };
     });
@@ -98,6 +105,35 @@ app.get("/getEvents", async (req, res) => {
     res.json(formattedEvents);
   } catch (error) {
     console.error("Error occurred while getting events:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// MESSAGES PAGE
+app.post("/Messages", async (req, res) => {
+  const { newAvatarPath, newMessageContent, newUsername } = req.query;
+  try {
+    await chatModule.addMessage(newAvatarPath, newMessageContent, newUsername);
+    console.log("FROM route.js, NEW Message ADDED.");
+  } catch (error) {
+    console.error("FROM route.js, ERROR ADDING Message: ", error);
+  }
+});
+app.get("/Messages", async (req, res) => {
+  try {
+    const messages = await chatModule.getMessages();
+    const formattedMessages = messages.map((message) => {
+      return {
+        avatarPath: message.avatarPath,
+        messageContent: message.messageContent,
+        username: message.username,
+        // eventDesc: event.eventDesc || "",
+      };
+    });
+
+    res.json(formattedMessages);
+  } catch (error) {
+    console.error("Error occurred while getting messages:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
