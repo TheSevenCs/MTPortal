@@ -23,30 +23,43 @@ eventsApp.component("component-event", {
 
             <!-- MODAL EXIT -->
             <button class="button-expand text-button-filter button-wrapper" @click="toggleModal" style="padding-bottom: 0; top: 17vh; right: 25.5vw;">X</button>
-
         </div>
     </div>
     `,
   data() {
     return {
       displayModal: false,
-      // eventID: "",
     };
   },
   methods: {
     toggleModal() {
       this.displayModal = !this.displayModal;
+      console.log("FROM EVENT COMPONENT, TOGGLE MODAL CALLED.");
     },
     componentDeleteEvent() {
       axios
         .delete(this.deleteString)
         .then((response) => {
           console.log("Event deleted successfully:", response.data);
-          // Additional handling if needed
         })
         .catch((error) => {
           console.error("Error deleting event:", error);
         });
+
+      // CALL LOAD() TWICE
+      {
+        // 0.5 SEC DELAY INTO RELOAD
+        const delayInMilliseconds = 500;
+        setTimeout(() => {
+          this.toggleModal();
+          this.$parent.loadEventsToHTML();
+        }, delayInMilliseconds);
+
+        // 2nd LOAD
+        setTimeout(() => {
+          this.$parent.loadEventsToHTML();
+        }, delayInMilliseconds);
+      }
     },
   },
   computed: {

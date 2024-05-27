@@ -27,17 +27,20 @@ const eventsApp = Vue.createApp({
       this.newEventType = "";
       this.newEventDesc = "";
 
-      // 0.5 SEC DELAY INTO RELOAD
-      const delayInMilliseconds = 500;
-      setTimeout(() => {
-        this.loadEventsToHTML();
-        this.displayAddModal = false;
-      }, delayInMilliseconds);
+      // CALL LOAD() TWICE
+      {
+        // 0.5 SEC DELAY INTO RELOAD
+        const delayInMilliseconds = 500;
+        setTimeout(() => {
+          this.loadEventsToHTML();
+          this.displayAddModal = false;
+        }, delayInMilliseconds);
 
-      // 2nd LOAD
-      setTimeout(() => {
-        this.loadEventsToHTML();
-      }, delayInMilliseconds);
+        // 2nd LOAD
+        setTimeout(() => {
+          this.loadEventsToHTML();
+        }, delayInMilliseconds);
+      }
     },
     toggleAddModal() {
       this.displayAddModal = !this.displayAddModal;
