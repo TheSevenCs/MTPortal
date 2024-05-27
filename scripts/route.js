@@ -4,11 +4,8 @@ const fs = require("fs");
 const { fileURLToPath } = require("url");
 const loginModule = require("../DataAccess/loginDA");
 const eventsModule = require("../DataAccess/eventsDA");
-<<<<<<< Updated upstream
 const messageModule = require("../DataAccess/messagesDA");
-=======
 const chatModule = require("../DataAccess/chatDA");
->>>>>>> Stashed changes
 
 const cors = require("cors");
 
@@ -64,7 +61,6 @@ app.post("/addEvent", async (req, res) => {
     console.error("FROM route.js, ERROR CREATING NEW Event: ", error);
   }
 });
-<<<<<<< Updated upstream
 
 app.post("/Message", async (req, res) => {
   const { author, date, content } = req.params.page;
@@ -76,10 +72,7 @@ app.post("/Message", async (req, res) => {
   }
 });
 
-app.delete("/Event", async (req, res) => {
-=======
 app.delete("/Events", async (req, res) => {
->>>>>>> Stashed changes
   const { eventID } = req.query;
   try {
     await eventsModule.deleteEvent(eventID);
