@@ -37,9 +37,6 @@ eventsApp.component("component-event", {
       this.displayModal = !this.displayModal;
       console.log("FROM EVENT COMPONENT, TOGGLE MODAL CALLED.");
     },
-    deledEvend() {
-      this.$emit("deledevend", { componendID: this.componendID });
-    },
     componentDeleteEvent() {
       axios
         .delete(this.deleteString)
@@ -50,23 +47,15 @@ eventsApp.component("component-event", {
           console.error("Error deleting event:", error);
         });
 
-      // CALL LOAD() TWICE
-      {
-        // 0.5 SEC DELAY INTO RELOAD
-        const delayInMilliseconds = 500;
+      // DELAY THEN LOAD
+      this.toggleModal();
+      const delayInMilliseconds = 300;
+      setTimeout(() => {
+        this.$parent.loadEventsToHTML();
         setTimeout(() => {
-          this.toggleModal();
-          this.$parent.loadEventsToHTML();
           this.$parent.showAllEvents();
         }, delayInMilliseconds);
-
-        // 2nd LOAD
-        setTimeout(() => {
-          this.$parent.loadEventsToHTML();
-          this.$parent.showAllEvents();
-        }, delayInMilliseconds);
-      }
-      this.$parent.showAllEvents();
+      }, delayInMilliseconds);
     },
   },
   computed: {

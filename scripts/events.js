@@ -8,7 +8,7 @@ const eventsApp = Vue.createApp({
       newEventType: "",
       newEventDesc: "",
       displayAddModal: false,
-      selectedFilter: "",
+      // selectedFilter: "",
     };
   },
   methods: {
@@ -33,30 +33,22 @@ const eventsApp = Vue.createApp({
       this.newEventType = "";
       this.newEventDesc = "";
 
-      // CALL LOAD() TWICE
-      {
-        // 0.5 SEC DELAY INTO RELOAD
-        const delayInMilliseconds = 500;
+      // DELAY THEN LOAD
+      this.displayAddModal = false;
+      const delayInMilliseconds = 300;
+      setTimeout(() => {
+        this.loadEventsToHTML();
         setTimeout(() => {
-          this.loadEventsToHTML();
-          this.showAllEvents();
-          this.displayAddModal = false;
-        }, delayInMilliseconds);
-
-        // 2nd LOAD
-        setTimeout(() => {
-          this.loadEventsToHTML();
           this.showAllEvents();
         }, delayInMilliseconds);
-      }
+      }, delayInMilliseconds);
     },
-
-    // Make axios call, store response to events[],
     async loadEventsToHTML() {
+      // Make axios call, store response to events[],
       try {
         const response = await axios.get("/getEvents");
         this.events = response.data;
-        console.log("FROM events.js, loadEventsToHTML() CALLED.");
+        console.log("FROM loadEventsToHTML: ", response.data);
         // Handle response data as needed
       } catch (error) {
         console.error("Error during retrieval:", error);
@@ -96,22 +88,12 @@ const eventsApp = Vue.createApp({
     },
   },
   mounted() {
-    // mounted() outlines what is supposed to execute on application mount
     this.loadEventsToHTML();
 
-    // CALL LOAD()\ TWICE
-    {
-      // 0.5 SEC DELAY INTO RELOAD
-      const delayInMilliseconds = 500;
-      setTimeout(() => {
-        this.showAllEvents();
-      }, delayInMilliseconds);
-
-      // 2nd LOAD
-      setTimeout(() => {
-        this.showAllEvents();
-      }, delayInMilliseconds);
-    }
-    console.log("FROM events.js mounted(), loadEventsToHTML() CALLED.");
+    // 0.3 SEC DELAY INTO RELOAD
+    const delayInMilliseconds = 300;
+    setTimeout(() => {
+      this.showAllEvents();
+    }, delayInMilliseconds);
   },
 });
