@@ -50,6 +50,8 @@ const eventsApp = Vue.createApp({
         }, delayInMilliseconds);
       }
     },
+
+    // Make axios call, store response to events[],
     async loadEventsToHTML() {
       try {
         const response = await axios.get("/getEvents");
@@ -64,16 +66,19 @@ const eventsApp = Vue.createApp({
 
     showAllEvents() {
       this.displayEvents = this.events;
+      console.log("COPY FROM events TO displayEvents");
     },
     showMeetingEvents() {
       this.displayEvents = this.events.filter(
         (event) => event.eventType === "Meeting"
       );
+      console.log("FILTER MEETINGS FROM events TO displayEvents");
     },
     showDeadlineEvents() {
       this.displayEvents = this.events.filter(
         (event) => event.eventType === "Deadline"
       );
+      console.log("FILTER DEADLINES FROM events TO displayEvents");
     },
   },
   computed: {
@@ -94,7 +99,7 @@ const eventsApp = Vue.createApp({
     // mounted() outlines what is supposed to execute on application mount
     this.loadEventsToHTML();
 
-    // CALL LOAD() TWICE
+    // CALL LOAD()\ TWICE
     {
       // 0.5 SEC DELAY INTO RELOAD
       const delayInMilliseconds = 500;
