@@ -2,14 +2,20 @@ const eventsApp = Vue.createApp({
   data() {
     return {
       events: [],
+      displayEvents: [],
       newEventName: "",
       newEventDate: "",
       newEventType: "",
       newEventDesc: "",
       displayAddModal: false,
+      selectedFilter: "",
     };
   },
   methods: {
+    toggleAddModal() {
+      this.displayAddModal = !this.displayAddModal;
+    },
+
     addNewEvent() {
       axios
         .post(this.addString)
@@ -33,17 +39,16 @@ const eventsApp = Vue.createApp({
         const delayInMilliseconds = 500;
         setTimeout(() => {
           this.loadEventsToHTML();
+          this.showAllEvents();
           this.displayAddModal = false;
         }, delayInMilliseconds);
 
         // 2nd LOAD
         setTimeout(() => {
           this.loadEventsToHTML();
+          this.showAllEvents();
         }, delayInMilliseconds);
       }
-    },
-    toggleAddModal() {
-      this.displayAddModal = !this.displayAddModal;
     },
     async loadEventsToHTML() {
       try {
@@ -55,6 +60,20 @@ const eventsApp = Vue.createApp({
         console.error("Error during retrieval:", error);
         // Handle errors if needed
       }
+    },
+
+    showAllEvents() {
+      this.displayEvents = this.events;
+    },
+    showMeetingEvents() {
+      this.displayEvents = this.events.filter(
+        (event) => event.eventType === "Meeting"
+      );
+    },
+    showDeadlineEvents() {
+      this.displayEvents = this.events.filter(
+        (event) => event.eventType === "Deadline"
+      );
     },
   },
   computed: {
@@ -74,6 +93,20 @@ const eventsApp = Vue.createApp({
   mounted() {
     // mounted() outlines what is supposed to execute on application mount
     this.loadEventsToHTML();
+
+    // CALL LOAD() TWICE
+    {
+      // 0.5 SEC DELAY INTO RELOAD
+      const delayInMilliseconds = 500;
+      setTimeout(() => {
+        this.showAllEvents();
+      }, delayInMilliseconds);
+
+      // 2nd LOAD
+      setTimeout(() => {
+        this.showAllEvents();
+      }, delayInMilliseconds);
+    }
     console.log("FROM events.js mounted(), loadEventsToHTML() CALLED.");
   },
 });

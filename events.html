@@ -54,26 +54,22 @@
       <!-- FILTER BUTTONS -->
       <button
         class="button-filter text-button-filter button-wrapper"
-        style="bottom: 61.25vh"
-        @click="loadEventsToHTML"
-      >
-        Load
-      </button>
-      <button
-        class="button-filter text-button-filter button-wrapper"
         style="bottom: 51.25vh"
+        @click="showAllEvents"
       >
         All
       </button>
       <button
         class="button-filter text-button-filter button-wrapper"
         style="bottom: 41.25vh"
+        @click="showMeetingEvents"
       >
         Meetings
       </button>
       <button
         class="button-filter text-button-filter button-wrapper"
         style="bottom: 31.25vh"
+        @click="showDeadlineEvents"
       >
         Deadlines
       </button>

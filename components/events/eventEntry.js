@@ -28,6 +28,7 @@ eventsApp.component("component-event", {
     `,
   data() {
     return {
+      componendID: this.event.eventID,
       displayModal: false,
     };
   },
@@ -35,6 +36,9 @@ eventsApp.component("component-event", {
     toggleModal() {
       this.displayModal = !this.displayModal;
       console.log("FROM EVENT COMPONENT, TOGGLE MODAL CALLED.");
+    },
+    deledEvend() {
+      this.$emit("deledevend", { componendID: this.componendID });
     },
     componentDeleteEvent() {
       axios
@@ -53,13 +57,16 @@ eventsApp.component("component-event", {
         setTimeout(() => {
           this.toggleModal();
           this.$parent.loadEventsToHTML();
+          this.$parent.showAllEvents();
         }, delayInMilliseconds);
 
         // 2nd LOAD
         setTimeout(() => {
           this.$parent.loadEventsToHTML();
+          this.$parent.showAllEvents();
         }, delayInMilliseconds);
       }
+      this.$parent.showAllEvents();
     },
   },
   computed: {
