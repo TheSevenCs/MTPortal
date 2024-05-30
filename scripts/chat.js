@@ -6,6 +6,7 @@ const app = Vue.createApp({
       newAvatarPath: "",
       newMessageContent: "",
       newUsername: "",
+      changeCounter: 0,
 
       // Need a way to set an avatar path and username when logging in?
       // could consider some kind of global return value/variable on login
@@ -27,8 +28,14 @@ const app = Vue.createApp({
     },
     async loadMessagesToHTML() {
       try {
-        const response = await axios.get("/Messages");
-        this.messages = response.data;
+        const response = await axios.get("/NewChanges", {
+          table: "Messages",
+        });
+        if (response.data != changeCounter) {
+          const newMessages = await axios.get("/Messages");
+          changeCounter = response.data;
+        }
+        this.messages = newMessages.data;
         // Handle response data as needed
 
         // 0.5 SEC DELAY INTO RELOAD
