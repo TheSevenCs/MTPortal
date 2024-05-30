@@ -61,6 +61,22 @@ app.post("/addEvent", async (req, res) => {
     console.error("FROM route.js, ERROR CREATING NEW Event: ", error);
   }
 });
+app.post("/editEvent", async (req, res) => {
+  const { editedName, editedDate, editedType, editedDesc, editedID } =
+    req.query;
+  try {
+    await eventsModule.editEvent(
+      editedName,
+      editedDate,
+      editedType,
+      editedDesc,
+      editedID
+    );
+    console.log("FROM route.js, Event EDITED.");
+  } catch (error) {
+    console.error("FROM route.js, ERROR EDITING Event: ", error);
+  }
+});
 
 app.post("/Message", async (req, res) => {
   const { author, date, content } = req.params.page;

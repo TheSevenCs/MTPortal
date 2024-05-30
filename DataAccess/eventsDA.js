@@ -16,6 +16,25 @@ module.exports.addEvent = async function (newName, newDate, newType, newDesc) {
   console.log("FROM eventsDA.js, NEW Event ADDED.");
 };
 
+module.exports.editEvent = async function (
+  editedName,
+  editedDate,
+  editedType,
+  editedDesc,
+  editedID
+) {
+  const editedEvent = {
+    eventName: editedName,
+    eventDate: editedDate,
+    eventType: editedType,
+    eventDesc: editedDesc,
+    event_id: editedID,
+  };
+  await eventModule.addToDatabase("Events", editedEvent); // Need to await since it's an async function
+
+  console.log("FROM eventsDA.js, Event EDITED.");
+};
+
 module.exports.getEvents = async function () {
   const dbResults = await eventModule.getFromDatabase("Events"); // Need to await since it's an async function
   console.log("Results from DB: ", dbResults);
