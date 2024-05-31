@@ -1,4 +1,4 @@
-app.component("client-info", {
+clientsApp.component("client-info", {
   props: {
     email: {
       type: String,

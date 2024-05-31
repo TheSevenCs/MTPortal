@@ -6,6 +6,7 @@ const loginModule = require("../DataAccess/loginDA");
 const eventsModule = require("../DataAccess/eventsDA");
 const messageModule = require("../DataAccess/messagesDA");
 const chatModule = require("../DataAccess/chatDA");
+const clientsModule = require("../DataAccess/clientsDA");
 
 const cors = require("cors");
 
@@ -77,17 +78,6 @@ app.post("/editEvent", async (req, res) => {
     console.error("FROM route.js, ERROR EDITING Event: ", error);
   }
 });
-
-app.post("/Message", async (req, res) => {
-  const { author, date, content } = req.params.page;
-  try {
-    await messageModule.addMessage(author, date, content);
-    console.log("FROM route.js, NEW Event ADDED.");
-  } catch (error) {
-    console.error("FROM route.js, ERROR CREATING NEW Event: ", error);
-  }
-});
-
 app.delete("/Events", async (req, res) => {
   const { eventID } = req.query;
   try {
@@ -118,6 +108,69 @@ app.get("/getEvents", async (req, res) => {
   }
 });
 
+// CLIENTS PAGE
+app.post("/addClient", async (req, res) => {
+  const {
+    newName,
+    newDate,
+    newEmail,
+    newPhoneNumber,
+    newWebsite,
+    newAddress,
+    newType,
+    newStatus,
+  } = req.query;
+  try {
+    await clientsModule.addClient(
+      newName,
+      newDate,
+      newEmail,
+      newPhoneNumber,
+      newWebsite,
+      newAddress,
+      newType,
+      newStatus
+    );
+    console.log("FROM route.js, NEW Client ADDED.");
+  } catch (error) {
+    console.error("FROM route.js, ERROR CREATING NEW Client: ", error);
+  }
+});
+app.get("/getClients", async (req, res) => {
+  try {
+    const clients = await clientsModule.getClients();
+    const formattedClients = clients.map((client) => {
+      return {
+        clientName: client.clientName,
+        clientDate: client.clientDate,
+        clientEmail: client.clientEmail,
+        clientPhone: client.clientPhone,
+        clientWebsite: client.clientWebsite,
+        clientAddress: client.clientAddress,
+        clientType: client.clientType,
+        clientStatus: client.clientStatus,
+        // eventDesc: event.eventDesc || "",
+        // eventsDA gives 'event_id' which is processed here and given to axios call
+        clientID: client.client_id,
+      };
+    });
+
+    res.json(formattedClients);
+  } catch (error) {
+    console.error("Error occurred while getting clients:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.post("/Message", async (req, res) => {
+  const { author, date, content } = req.params.page;
+  try {
+    await messageModule.addMessage(author, date, content);
+    console.log("FROM route.js, NEW Event ADDED.");
+  } catch (error) {
+    console.error("FROM route.js, ERROR CREATING NEW Event: ", error);
+  }
+});
 // MESSAGES PAGE
 app.post("/Messages", async (req, res) => {
   const { newAvatarPath, newMessageContent, newUsername } = req.query;

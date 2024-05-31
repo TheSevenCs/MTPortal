@@ -6,6 +6,17 @@
   font-family: "discord";
   src: url("/styles/gg\ sans\ Medium.woff");
 }
+
+/* CONTAINERS */
+.modal-container {
+  /* MAIN WINDOW OF THE MODAL */
+  width: 50vw;
+  height: 70vh;
+  background: #313338;
+  border: 1vh solid white;
+  margin: 15vh auto;
+}
+
 body {
   background-image: radial-gradient(circle, #2e343e, #171717);
   overflow-y: auto;

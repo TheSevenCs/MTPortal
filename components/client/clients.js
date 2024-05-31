@@ -1,4 +1,4 @@
-app.component("client", {
+clientsApp.component("client", {
   props: {
     clientname: {
       type: String,

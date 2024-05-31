@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/style-client.css" />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- FOUND ON AXIOS SITE -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!------------------------->
   </head>
   <body>
     <div id="client">
@@ -21,6 +25,134 @@
             />
           </button>
         </a>
+      </div>
+
+      <!-- TESTER BUTTONS -->
+      <button
+        class="button-filter text-button-filter button-wrapper"
+        @click="toggleAddModal"
+      >
+        ADD CLIENT
+      </button>
+      <button
+        class="button-filter text-button-filter button-wrapper"
+        @click="loadClientsToHTML"
+      >
+        LOAD CLIENTS
+      </button>
+
+      <!-- ADD MODAL -->
+      <div class="modal" v-if="displayAddModal" @click.self="toggleAddModal">
+        <div class="modal-container">
+          <!-- EXIT X BUTTON -->
+          <div>
+            <button
+              class="btn-wrapper"
+              style="width: 28px; margin-left: 1070%; margin-top: -20%"
+              @click="toggleAddModal"
+            >
+              <img
+                class="button-wrapper"
+                style="
+                  width: 28px;
+                  background-color: white;
+                  border: 1px solid white;
+                  border-radius: 4px;
+                  box-shadow: 2.1px 4.2px 4.2px hsl(0deg 0% 0% / 0.44);
+                "
+                src="images/exit-btn.png"
+                alt="X"
+              />
+            </button>
+          </div>
+
+          <!-- CREATE BUTTON -->
+          <div>
+            <button
+              class="btn-wrapper"
+              title="Edit Client Data"
+              style="width: 28px; margin-left: 910%; margin-top: -20%"
+              @click="addNewClient"
+            >
+              <img
+                class="button-wrapper"
+                style="
+                  width: 26px;
+                  background-color: white;
+                  border: 1px solid white;
+                  border-radius: 4px;
+                  box-shadow: 2.1px 4.2px 4.2px hsl(0deg 0% 0% / 0.44);
+                "
+                src="images/edit-btn.png"
+                alt="X"
+              />
+            </button>
+          </div>
+
+          <!-- NAME INPUT -->
+          <div class="modal-box-title modal-grid-item-1">Name</div>
+          <input
+            class="info-box name-box"
+            v-model="newClientName"
+            @blur="finishEditing"
+          />
+
+          <!-- DATE INPUT -->
+          <div class="modal-box-title modal-grid-item-2">Date</div>
+          <input
+            class="info-box date-box"
+            v-model="newClientDate"
+            @blur="finishEditing"
+          />
+
+          <!-- EMAIL INPUT -->
+          <div class="modal-box-title modal-grid-item-3">Email</div>
+          <input
+            class="info-box email-box"
+            v-model="newClientEmail"
+            @blur="finishEditing"
+          />
+
+          <!-- PHONE NUMBER INPUT -->
+          <div class="modal-box-title modal-grid-item-4">Phone Number</div>
+          <input
+            class="info-box number-box"
+            v-model="newClientPhoneNumber"
+            @blur="finishEditing"
+          />
+
+          <!-- WEBSITE INPUT -->
+          <div class="modal-box-title modal-grid-item-5">Website</div>
+          <input
+            class="info-box web-box"
+            v-model="newClientWebsite"
+            @blur="finishEditing"
+          />
+
+          <!-- ADDRESS INPUT -->
+          <div class="modal-box-title modal-grid-item-6">Address</div>
+          <input
+            class="info-box address-box"
+            v-model="newClientAddress"
+            @blur="finishEditing"
+          />
+
+          <!-- BUSINESS TYPE INPUT -->
+          <div class="modal-box-title modal-grid-item-7">Business Type</div>
+          <input
+            class="info-box business-box"
+            v-model="newClientType"
+            @blur="finishEditing"
+          />
+
+          <!-- STATUS INPUT -->
+          <div class="modal-box-title modal-grid-item-8">Status</div>
+          <input
+            class="info-box status-box"
+            v-model="newClientStatus"
+            @blur="finishEditing"
+          />
+        </div>
       </div>
 
       <div class="client-container">
@@ -61,7 +193,7 @@
         </div>
       </div>
       <!-- Modal for the client's contact info -->
-      <client-info
+      <!-- <client-info
         :email="clientData.email"
         :phoneNumber="clientData.phoneNumber"
         :website="clientData.website"
@@ -71,13 +203,17 @@
         :display-modal="displayModal"
         @modal-closed="exitModal"
         @edits="updateClientData"
-      ></client-info>
+      ></client-info> -->
     </div>
-    <script src="./scripts/clientlogic.js"></script>
+
+    <!-- IMPORTS AND MOUNT -->
+    <script src="./scripts/clients.js"></script>
     <script src="./components/client/clients.js"></script>
     <script src="./components/client/client-info.js"></script>
+    <script src="./components/client/clientEntry.js"></script>
+
     <script>
-      app.mount("#client");
+      clientsApp.mount("#client");
     </script>
   </body>
 </html>
