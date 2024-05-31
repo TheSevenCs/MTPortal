@@ -8,6 +8,7 @@ const messageModule = require("../DataAccess/messagesDA");
 const chatModule = require("../DataAccess/chatDA");
 const clientsModule = require("../DataAccess/clientsDA");
 
+const changeModule = require("../DataAccess/changesDA.js");
 const cors = require("cors");
 
 // const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -49,6 +50,16 @@ app.get("/CreateAccount", async (req, res) => {
     console.log("Account created successfully");
   } catch (error) {
     console.error("Error creating account:", error);
+  }
+});
+app.get("/NewChanges", async (req, res) => {
+  const { table } = req.query;
+  try {
+    const currentCounter = await changeModule.CheckCounter(table);
+    res.status(200).json({ currentCounter });
+  } catch (error) {
+    console.error("Error checking counter:", error);
+    res.status(500).send("Internal Server Error");
   }
 });
 

@@ -69,6 +69,7 @@ const generateID = async (minID, maxID) => {
 };
 module.exports = {
   getFromDatabase: getFromDatabase,
+  getNewestID: getNewestID,
   generateID: generateID,
   deleteFromDatabase: deleteFromDatabase,
   addToDatabase: addToDatabase,
