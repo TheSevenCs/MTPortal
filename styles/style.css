@@ -15,6 +15,7 @@
   background: #313338;
   border: 1vh solid white;
   margin: 15vh auto;
+  position: relative;
 }
 
 body {
@@ -107,6 +108,29 @@ body {
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* BUTTONS */
+.button-filter {
+  width: 12.5vw;
+  height: 7.5vh;
+  background-color: #313338;
+  border: 0.5vh solid white;
+  border-radius: 2vh;
+
+  position: absolute;
+  right: 3.75vw;
+}
+.button-icon {
+  width: 4vh;
+  height: 4vh;
+  background-color: #313338;
+  border: 0.5vh solid white;
+  border-radius: 1.5vh;
+
+  position: absolute;
+  bottom: 80.5vh;
+  right: 60vw;
 }
 
 /* TEXT TYPES */
