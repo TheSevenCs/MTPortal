@@ -23,26 +23,35 @@ module.exports.addClient = async function (
       await clientsModule.generateID(9000000000000, 9999999999999)
     ).toString(),
   };
+
   await clientsModule.addToDatabase("Clients", newClient); // Need to await since it's an async function
 
   console.log("FROM clientsDA.js, NEW Client ADDED.");
 };
 
-module.exports.editEvent = async function (
+module.exports.editClient = async function (
   editedName,
   editedDate,
+  editedEmail,
+  editedPhoneNumber,
+  editedWebsite,
+  editedAddress,
   editedType,
-  editedDesc,
+  editedStatus,
   editedID
 ) {
   const editedEvent = {
-    eventName: editedName,
-    eventDate: editedDate,
-    eventType: editedType,
-    eventDesc: editedDesc,
-    event_id: editedID,
+    clientName: editedName,
+    clientDate: editedDate,
+    clientEmail: editedEmail,
+    clientPhoneNumber: editedPhoneNumber,
+    clientWebsite: editedWebsite,
+    clientAddress: editedAddress,
+    clientType: editedType,
+    clientStatus: editedStatus,
+    client_id: editedID,
   };
-  await eventModule.addToDatabase("Clients", editedEvent); // Need to await since it's an async function
+  await clientsModule.addToDatabase("Clients", editedEvent); // Need to await since it's an async function
 
   console.log("FROM clientsDA.js, Client EDITED.");
 };
@@ -53,13 +62,14 @@ module.exports.getClients = async function () {
   return dbResults.Items;
 };
 
-module.exports.deleteEvent = async function (eID) {
+module.exports.deleteClient = async function (ID) {
+  console.log("FROM clientsDA.js, deleteClient CALLED.");
   try {
-    const key = { event_id: eID };
-    await eventModule.deleteFromDatabase("Events", key); // Need to await since it's an async function
-    console.log("FROM eventsDA.js, Event DELETED.");
+    const key = { client_id: ID };
+    await clientsModule.deleteFromDatabase("Clients", key); // Need to await since it's an async function
+    console.log("FROM clientsDA.js, Client DELETED.");
   } catch (error) {
-    console.log("FROM eventsDA.js, ERROR DELETING Event. ", error);
+    console.log("FROM clientsDA.js, ERROR DELETING Client. ", error);
     throw error;
   }
 };

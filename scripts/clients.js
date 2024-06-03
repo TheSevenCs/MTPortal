@@ -1,18 +1,6 @@
 const clientsApp = Vue.createApp({
   data() {
     return {
-      // { id: 1, dates: "02/11/2024", name: "george" },
-      //   { id: 2, dates: "03/10/2024", name: "john" },
-      //   { id: 3, dates: "05/20/2024", name: "james" },
-      // clientData: {
-      //   email: "fake@gmail.com",
-      //   phoneNumber: "5195195191",
-      //   website: "NON-APPLICABLE",
-      //   address: "1213 Western Street",
-      //   type: "Restaurant",
-      //   status: "Contracted",
-      // },
-
       clients: [],
       displayClients: [],
 
@@ -29,10 +17,12 @@ const clientsApp = Vue.createApp({
     };
   },
   methods: {
+    // MODAL FUNCTIONS
     toggleAddModal() {
       this.displayAddModal = !this.displayAddModal;
     },
 
+    // DATABASE FUNCTIONS
     addNewClient() {
       axios
         .post(this.addString)
@@ -62,7 +52,7 @@ const clientsApp = Vue.createApp({
       setTimeout(() => {
         this.loadClientsToHTML();
         setTimeout(() => {
-          this.showAllEvents();
+          this.showCurrentClients();
         }, delayInMilliseconds);
       }, delayInMilliseconds);
     },
@@ -84,22 +74,24 @@ const clientsApp = Vue.createApp({
       this.displayClients = this.clients;
       console.log("COPY FROM clients TO displayClients.");
     },
-
-    // OLD METHODS
-    // handleClientClick(clientId) {
-    //   this.displayModal = true;
-    // },
-    // exitModal() {
-    //   this.displayModal = false;
-    // },
-    // updateClientData(data) {
-    //   this.clientData.email = data.localEmail;
-    //   this.clientData.phonenumber = data.localPhonenumber;
-    //   this.clientData.website = data.localWebsite;
-    //   this.clientData.address = data.localAddress;
-    //   this.clientData.type = data.localType;
-    //   this.clientData.status = data.localStatus;
-    // },
+    showCurrentClients() {
+      this.displayClients = this.clients.filter(
+        (client) => client.clientStatus === "Current"
+      );
+      console.log("FILTER Current FROM clients TO displyClients");
+    },
+    showPotentialClients() {
+      this.displayClients = this.clients.filter(
+        (client) => client.clientStatus === "Potential"
+      );
+      console.log("FILTER Potential FROM clients TO displyClients");
+    },
+    showPastClients() {
+      this.displayClients = this.clients.filter(
+        (client) => client.clientStatus === "Past"
+      );
+      console.log("FILTER Past FROM clients TO displyClients");
+    },
   },
   computed: {
     addString() {
@@ -129,7 +121,7 @@ const clientsApp = Vue.createApp({
     // 0.3 SEC DELAY INTO RELOAD
     const delayInMilliseconds = 300;
     setTimeout(() => {
-      this.showAllClients();
+      this.showCurrentClients();
     }, delayInMilliseconds);
   },
 });

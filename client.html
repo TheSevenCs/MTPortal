@@ -14,7 +14,7 @@
   </head>
   <body>
     <div id="client">
-      <!-- Button that returns you back to the homepage -->
+      <!-- HOMEPAGE BACK BUTTON -->
       <div class="back-btn">
         <a href="/home">
           <button class="back-btn-btn">
@@ -30,16 +30,17 @@
       <!-- TESTER BUTTONS -->
       <button
         class="button-filter text-button-filter button-wrapper"
+        style="left: 0%"
         @click="toggleAddModal"
       >
         ADD CLIENT
       </button>
-      <button
+      <!-- <button
         class="button-filter text-button-filter button-wrapper"
         @click="loadClientsToHTML"
       >
         LOAD CLIENTS
-      </button>
+      </button> -->
 
       <!-- ADD MODAL -->
       <div class="modal" v-if="displayAddModal" @click.self="toggleAddModal">
@@ -66,108 +67,82 @@
             </button>
           </div>
 
-          <!-- CREATE BUTTON -->
-          <div>
-            <button
-              class="btn-wrapper"
-              title="Edit Client Data"
-              style="width: 28px; margin-left: 910%; margin-top: -20%"
-              @click="addNewClient"
-            >
-              <img
-                class="button-wrapper"
-                style="
-                  width: 26px;
-                  background-color: white;
-                  border: 1px solid white;
-                  border-radius: 4px;
-                  box-shadow: 2.1px 4.2px 4.2px hsl(0deg 0% 0% / 0.44);
-                "
-                src="images/edit-btn.png"
-                alt="X"
-              />
-            </button>
-          </div>
+          <!-- ADD CLIENT BUTTON -->
+          <button
+            class="button-filter text-button-filter button-wrapper"
+            style="left: 37.5%; bottom: 4%; margin-top: 2vh; width: 25%"
+            @click="addNewClient"
+          >
+            Add New Client
+          </button>
 
           <!-- NAME INPUT -->
           <div class="modal-box-title modal-grid-item-1">Name</div>
-          <input
-            class="info-box name-box"
-            v-model="newClientName"
-            @blur="finishEditing"
-          />
+          <input class="info-box name-box" v-model="newClientName" />
 
           <!-- DATE INPUT -->
           <div class="modal-box-title modal-grid-item-2">Date</div>
           <input
+            type="date"
             class="info-box date-box"
             v-model="newClientDate"
-            @blur="finishEditing"
           />
 
           <!-- EMAIL INPUT -->
           <div class="modal-box-title modal-grid-item-3">Email</div>
-          <input
-            class="info-box email-box"
-            v-model="newClientEmail"
-            @blur="finishEditing"
-          />
+          <input class="info-box email-box" v-model="newClientEmail" />
 
           <!-- PHONE NUMBER INPUT -->
           <div class="modal-box-title modal-grid-item-4">Phone Number</div>
-          <input
-            class="info-box number-box"
-            v-model="newClientPhoneNumber"
-            @blur="finishEditing"
-          />
+          <input class="info-box number-box" v-model="newClientPhoneNumber" />
 
           <!-- WEBSITE INPUT -->
           <div class="modal-box-title modal-grid-item-5">Website</div>
-          <input
-            class="info-box web-box"
-            v-model="newClientWebsite"
-            @blur="finishEditing"
-          />
+          <input class="info-box web-box" v-model="newClientWebsite" />
 
           <!-- ADDRESS INPUT -->
           <div class="modal-box-title modal-grid-item-6">Address</div>
-          <input
-            class="info-box address-box"
-            v-model="newClientAddress"
-            @blur="finishEditing"
-          />
+          <input class="info-box address-box" v-model="newClientAddress" />
 
           <!-- BUSINESS TYPE INPUT -->
           <div class="modal-box-title modal-grid-item-7">Business Type</div>
-          <input
-            class="info-box business-box"
-            v-model="newClientType"
-            @blur="finishEditing"
-          />
+          <input class="info-box business-box" v-model="newClientType" />
 
           <!-- STATUS INPUT -->
           <div class="modal-box-title modal-grid-item-8">Status</div>
-          <input
-            class="info-box status-box"
-            v-model="newClientStatus"
-            @blur="finishEditing"
-          />
+          <select class="info-box status-box" v-model="newClientStatus">
+            <option>Current</option>
+            <option>Potential</option>
+            <option>Past</option>
+          </select>
         </div>
       </div>
 
       <div class="client-container">
         <!-- The navigation buttons at the top of the page -->
         <div class="nav-flexbox">
-          <button class="btn-wrapper button-wrapper nav-flexbox-item">
+          <button
+            @click="showCurrentClients"
+            class="btn-wrapper button-wrapper nav-flexbox-item"
+          >
             Current <br />Clients
           </button>
-          <button class="btn-wrapper button-wrapper nav-flexbox-item">
+          <button
+            @click="showPotentialClients"
+            class="btn-wrapper button-wrapper nav-flexbox-item"
+          >
             Potential<br />Clients
           </button>
-          <button class="btn-wrapper button-wrapper nav-flexbox-item">
+          <button
+            @click="showPastClients"
+            class="btn-wrapper button-wrapper nav-flexbox-item"
+          >
             Past <br />Clients
           </button>
         </div>
+
+        <!-- INDICATOR FOR FILTERS -->
+        <!-- <div class="rounded-border"></div> -->
 
         <!-- Grid for displaying the client data -->
         <div class="data-grid">
@@ -180,15 +155,18 @@
           </div>
 
           <!-- Client components will be rendered here -->
+          <!-- REMOVED 
+            :key="client.id"
+            :clientname="client.name"
+            :clientdate="client.dates"
+            :clientid="client.id"
+            @client-clicked="handleClientClick" 
+          -->
           <div class="client-list">
-            <client
-              v-for="client in clients"
-              :key="client.id"
-              :clientname="client.name"
-              :clientdate="client.dates"
-              :clientid="client.id"
-              @client-clicked="handleClientClick"
-            ></client>
+            <component-client
+              v-for="client in displayClients"
+              :client="client"
+            ></component-client>
           </div>
         </div>
       </div>

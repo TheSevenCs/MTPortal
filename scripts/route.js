@@ -147,6 +147,35 @@ app.post("/addClient", async (req, res) => {
     console.error("FROM route.js, ERROR CREATING NEW Client: ", error);
   }
 });
+app.post("/editClient", async (req, res) => {
+  const {
+    editedName,
+    editedDate,
+    editedEmail,
+    editedPhoneNumber,
+    editedWebsite,
+    editedAddress,
+    editedType,
+    editedStatus,
+    editedID,
+  } = req.query;
+  try {
+    await clientsModule.editClient(
+      editedName,
+      editedDate,
+      editedEmail,
+      editedPhoneNumber,
+      editedWebsite,
+      editedAddress,
+      editedType,
+      editedStatus,
+      editedID
+    );
+    console.log("FROM route.js, Client EDITED.");
+  } catch (error) {
+    console.error("FROM route.js, ERROR EDITING Client: ", error);
+  }
+});
 app.get("/getClients", async (req, res) => {
   try {
     const clients = await clientsModule.getClients();
@@ -155,7 +184,7 @@ app.get("/getClients", async (req, res) => {
         clientName: client.clientName,
         clientDate: client.clientDate,
         clientEmail: client.clientEmail,
-        clientPhone: client.clientPhone,
+        clientPhoneNumber: client.clientPhoneNumber,
         clientWebsite: client.clientWebsite,
         clientAddress: client.clientAddress,
         clientType: client.clientType,
@@ -170,6 +199,16 @@ app.get("/getClients", async (req, res) => {
   } catch (error) {
     console.error("Error occurred while getting clients:", error);
     res.status(500).json({ error: "Internal server error" });
+  }
+});
+app.delete("/deleteClient", async (req, res) => {
+  const { clientID } = req.query;
+  console.log("FROM route.js: ", clientID);
+  try {
+    await clientsModule.deleteClient(clientID);
+    console.log(`Client: ${clientID} Deleted`);
+  } catch (error) {
+    console.error(`FROM route.js, Client COULD NOT BE DELETED. `, error);
   }
 });
 
