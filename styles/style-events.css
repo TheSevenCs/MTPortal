@@ -79,7 +79,7 @@
 .text-event-desc {
   color: white;
   font-family: "Osiris";
-  font-size: 2vh;
+  font-size: 2.75vh;
   max-width: 85%;
   max-height: 50%;
   /* max height was 52% */
@@ -115,29 +115,6 @@
 
   position: absolute;
   left: 42vw;
-}
-
-/* BUTTONS */
-.button-filter {
-  width: 12.5vw;
-  height: 7.5vh;
-  background-color: #313338;
-  border: 0.5vh solid white;
-  border-radius: 2vh;
-
-  position: absolute;
-  right: 3.75vw;
-}
-.button-icon {
-  width: 4vh;
-  height: 4vh;
-  background-color: #313338;
-  border: 0.5vh solid white;
-  border-radius: 1.5vh;
-
-  position: absolute;
-  bottom: 80.5vh;
-  right: 60vw;
 }
 
 .lineVertical {
