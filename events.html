@@ -112,7 +112,12 @@
           <input class="input-text" v-model="newEventName" style="top: 25vh" />
 
           <span class="text-input-label" style="top: 36vh">Event Date:</span>
-          <input class="input-text" v-model="newEventDate" style="top: 35vh" />
+          <input
+            type="date"
+            class="input-text"
+            v-model="newEventDate"
+            style="top: 35vh"
+          />
 
           <span class="text-input-label" style="top: 46vh">Event Type:</span>
           <select

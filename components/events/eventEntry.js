@@ -6,7 +6,9 @@ eventsApp.component("component-event", {
     <div class="event" style="visibility: {{ displayStatus }}">
         <p class="text-event-title">{{ event.eventName }}</p>
         <div class="text-event-date">{{ event.eventType }} Date: {{ event.eventDate }}</div>
-        <p class="text-event-desc">Desc.: {{ event.eventDesc }}</p> 
+        <p class="text-event-desc">Description:</p> 
+        <p class="text-event-desc" style="font-size: 1.5vh">{{ event.eventDesc }}</p> 
+    
         <button class="button-expand text-button-filter button-wrapper" @click="toggleModal">...</button>
     </div>
     <!-- MODAL ON CLICK -->
@@ -21,7 +23,7 @@ eventsApp.component("component-event", {
                 <input class="input-text" v-model="editEventName" style="top: 25vh" />
 
                 <span class="text-input-label" style="top: 36vh">Event Date:</span>
-                <input class="input-text" v-model="editEventDate" style="top: 35vh" />
+                <input type="date" class="input-text" v-model="editEventDate" style="top: 35vh" />
 
                 <span class="text-input-label" style="top: 46vh">Event Type:</span>
                 <select class="input-text" v-model="editEventType" style="top: 45vh; height: 6.25vh; width: 28.75vw"> <option>Meeting</option> <option>Deadline</option> </select>
@@ -33,8 +35,9 @@ eventsApp.component("component-event", {
             </div>
             <div v-else>
                 <p id="text1" class="text-event-title" style="max-width: 88.5%;max-height: 15%; margin-top: 1vh">{{ event.eventName }}</p>
-                <div id="text2" class="text-event-date" style="display: block; text-align:left; left: 25vw; margin-left: 1.5vh; margin-top: 0; max-width:45vw">{{ event.eventType }} Date: {{ event.eventDate }}</div>
-                <p id="text3" class="text-event-desc" style="margin-top:5vh; margin-left:1.5vh; max-width:50vw; max-height: 39vh">Desc.: {{ event.eventDesc }}</p>
+                <div id="text2" class="text-event-date" style="display: block; text-align:left; left: 25vw; margin-left: 1.5vh; margin-top: 5vh; max-width:45vw">{{ event.eventType }} Date: {{ event.eventDate }}</div>
+                <p id="text3" class="text-event-desc" style="margin-top:15vh; margin-left:1.5vh; max-width:50vw; max-height: 39vh">Description:</p>
+                <p id="text3" class="text-event-desc" style="margin-top:1vh; margin-left:1.5vh; max-width:50vw; max-height: 39vh; font-size: 2vh">{{ event.eventDesc }}</p>
             
                 <button @click="componentDeleteEvent" class="button-filter text-button-filter button-wrapper" style="right: 33.3vw;bottom:17vh;margin-top:2vh">Delete Event</button>
             </div>
