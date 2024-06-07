@@ -58,9 +58,6 @@ const app = Vue.createApp({
       this.shiftPercent = Math.floor(
         (minutesWorked / this.shiftDuration) * 100
       );
-      if (this.shiftPercent == 56) {
-        shiftColor = "brown";
-      }
     },
     formatEndtime() {
       const [hoursString, minutesString] = this.unformattedEndtime.split(":");
