@@ -6,47 +6,186 @@
     <title>MTPortal</title>
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/style-shift.css" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
 
   <body>
-    <div class="container-mainSection">
-      <!-- LEFT BACK BUTTON -->
-      <div class="back-btn">
-        <a href="/home">
-          <button class="back-btn-btn">
-            <img
-              class="button-wrapper"
-              src="images/BackButton.png"
-              alt="backbutton"
-            />
+    <div id="shift-page">
+      <div class="container-mainSection">
+        <!-- LEFT BACK BUTTON -->
+        <div class="back-btn">
+          <a href="/home">
+            <button class="back-btn-btn">
+              <img
+                class="button-wrapper"
+                src="images/BackButton.png"
+                alt="backbutton"
+              />
+            </button>
+          </a>
+        </div>
+
+        <!-- DISPLAY TIME -->
+        <div class="text-title">
+          <p>Work Hours<br /></p>
+        </div>
+        <div class="text-timeInfo" style="margin-bottom: 50px">
+          <div v-if="!currentlyWorking">
+            <!-- REMOVE STYLE TAG HERE -->
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10vw;
+              "
+            >
+              <label style="margin-top: 3vh" for="start-time"
+                >Start Time: <br />
+                <br />
+                <span
+                  style="font-size: 11vh; box-shadow: 0 0 12px rgba(0, 0, 0, 1)"
+                >
+                  {{this.currentTime}}</span
+                ></label
+              >
+              <br />
+              <div style="margin-top: 3vh" class="time-input-container">
+                <label for="appt">Choose an End Time:</label>
+                <br />
+                <input
+                  class="button-wrapper"
+                  style="
+                    box-shadow: 5px 5px 12px rgba(0, 0, 0, 1);
+                    font-size: 5vh;
+                    width: 15vw;
+                  "
+                  type="time"
+                  id="appt"
+                  name="appt"
+                  v-model="unformattedEndtime"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div v-else>
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10vw;
+              "
+            >
+              <div style="margin-top: 3vh">
+                Shift Completed:
+                <br />
+                <br />
+                <span
+                  :style="{color: shiftPercent == 56 ? 'chocolate' : 'white'}"
+                  style="font-size: 15vh; box-shadow: 0 0 12px rgba(0, 0, 0, 1)"
+                  >{{shiftPercent}}%</span
+                >
+              </div>
+              <div style="margin-top: 3vh">
+                <div v-if="ElapsedTime.minutes < 10">
+                  Time Elapsed: <br /><br /><span
+                    style="
+                      font-size: 15vh;
+                      box-shadow: 0 0 12px rgba(0, 0, 0, 1);
+                    "
+                    >0{{ElapsedTime.hours}} : 0{{ElapsedTime.minutes}}</span
+                  >
+                </div>
+
+                <div v-else>
+                  Time Elapsed: <br /><br /><span
+                    style="
+                      font-size: 15vh;
+                      box-shadow: 0 0 12px rgba(0, 0, 0, 1);
+                    "
+                    >: 0{{ElapsedTime.hours}} : {{ElapsedTime.minutes}}</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BUTTONS TO CONTROL TIME -->
+        <div v-if="!currentlyWorking">
+          <button
+            class="button-time button-wrapper"
+            style="background-color: #107518"
+            @click="ToggleShift"
+          >
+            <p class="text-button-time">Start Shift</p>
           </button>
-        </a>
+        </div>
+        <div v-else>
+          <div v-if="!OnBreak">
+            <button
+              class="button-time button-wrapper"
+              style="background-color: #0e0d47"
+              @click="ToggleBreak"
+            >
+              <p class="text-button-time">Break</p>
+            </button>
+          </div>
+          <div v-else>
+            <button
+              class="button-time button-wrapper"
+              style="background-color: #0e0d47"
+              @click="ToggleBreak"
+            >
+              <p class="text-button-time">End Break</p>
+            </button>
+          </div>
+          <div v-if="!NeedsConfirmation">
+            <button
+              class="button-time button-wrapper"
+              style="background-color: #8b1e1d"
+              @click="ToggleConfirmation()"
+            >
+              <p class="text-button-time">End Shift</p>
+            </button>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              gap: 2vw;
+            "
+            v-else
+          >
+            <div>
+              <button
+                class="button-time button-wrapper"
+                style="background-color: #8b1e1d"
+                @click="ToggleConfirmation()"
+              >
+                <p class="text-button-time">Cancel</p>
+              </button>
+            </div>
+            <div>
+              <button
+                class="button-time button-wrapper"
+                style="background-color: green"
+                @click="ToggleShift()"
+              >
+                <p class="text-button-time">Confirm</p>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <!-- DISPLAY TIME -->
-      <div class="text-title">
-        <p>Work Hours<br /></p>
-      </div>
-      <div class="text-timeInfo" style="margin-bottom: 50px">
-        <!-- REMOVE STYLE TAG HERE -->
-        Start Time: 2 PM<br />
-        End Time: 10 PM<br />
-        Time Elapsed: XX:XX<br />
-        Shift Completed: 56%<br />
-        Currently Working: ___
-      </div>
-
-      <!-- BUTTONS TO CONTROL TIME -->
-      <button class="button-time" style="background-color: #107518">
-        <p class="text-button-time">Start Shift</p>
-      </button>
-      <button class="button-time" style="background-color: #0e0d47">
-        <p class="text-button-time">Break</p>
-      </button>
-
-      <button class="button-time" style="background-color: #8b1e1d">
-        <p class="text-button-time">End Shift</p>
-      </button>
     </div>
+    <script src="./scripts/shift.js"></script>
+    <script>
+      window.vm = app.mount("#shift-page");
+    </script>
   </body>
 </html>
