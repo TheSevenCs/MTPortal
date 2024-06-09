@@ -14,6 +14,7 @@ const clientsApp = Vue.createApp({
       newClientStatus: "",
 
       displayAddModal: false,
+      currentFilter: "Current",
     };
   },
   methods: {
@@ -52,7 +53,7 @@ const clientsApp = Vue.createApp({
       setTimeout(() => {
         this.loadClientsToHTML();
         setTimeout(() => {
-          this.showCurrentClients();
+          this.showByFilter();
         }, delayInMilliseconds);
       }, delayInMilliseconds);
     },
@@ -70,27 +71,25 @@ const clientsApp = Vue.createApp({
     },
 
     // FILTERING METHODS
-    showAllClients() {
-      this.displayClients = this.clients;
-      console.log("COPY FROM clients TO displayClients.");
+    showByFilter() {
+      this.displayClients = this.clients.filter(
+        (client) => client.clientStatus === this.currentFilter
+      );
+      console.log(
+        "FILTER" + this.currentFilter + " FROM clients TO displyClients"
+      );
     },
     showCurrentClients() {
-      this.displayClients = this.clients.filter(
-        (client) => client.clientStatus === "Current"
-      );
-      console.log("FILTER Current FROM clients TO displyClients");
+      this.currentFilter = "Current";
+      this.showByFilter();
     },
     showPotentialClients() {
-      this.displayClients = this.clients.filter(
-        (client) => client.clientStatus === "Potential"
-      );
-      console.log("FILTER Potential FROM clients TO displyClients");
+      this.currentFilter = "Potential";
+      this.showByFilter();
     },
     showPastClients() {
-      this.displayClients = this.clients.filter(
-        (client) => client.clientStatus === "Past"
-      );
-      console.log("FILTER Past FROM clients TO displyClients");
+      this.currentFilter = "Past";
+      this.showByFilter();
     },
   },
   computed: {
@@ -121,7 +120,7 @@ const clientsApp = Vue.createApp({
     // 0.3 SEC DELAY INTO RELOAD
     const delayInMilliseconds = 300;
     setTimeout(() => {
-      this.showCurrentClients();
+      this.showByFilter();
     }, delayInMilliseconds);
   },
 });

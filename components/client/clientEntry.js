@@ -162,7 +162,7 @@ clientsApp.component("component-client", {
       setTimeout(() => {
         this.$parent.loadClientsToHTML();
         setTimeout(() => {
-          this.$parent.showAllClients();
+          this.$parent.showByFilter();
         }, delayInMilliseconds);
       }, delayInMilliseconds);
     },
@@ -183,7 +183,7 @@ clientsApp.component("component-client", {
       setTimeout(() => {
         this.$parent.loadClientsToHTML();
         setTimeout(() => {
-          this.$parent.showAllClients();
+          this.$parent.showByFilter();
         }, delayInMilliseconds);
       }, delayInMilliseconds);
     },
