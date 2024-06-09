@@ -11,5 +11,10 @@ const app = Vue.createApp({
     exitModal() {
       this.displayModal = false;
     },
+    changeAvatar(){
+    },
+    changeEmail(){
+
+    },
   },
 });
