@@ -90,32 +90,7 @@
   overflow-y: auto;
 }
 
-.text-input-label {
-  color: white;
-  font-family: "Osiris";
-  font-size: 3vh;
-
-  position: absolute;
-  left: 28vw;
-}
-
 /* INPUT FIELDS */
-.input-text {
-  width: 28vw;
-  height: 5vh;
-  background: #383a40;
-  border: 0.5vh solid white;
-
-  /* distance from left side */
-  text-indent: 1vw;
-  font-size: 2vh;
-  color: lightgray;
-  border-radius: 1.5vh;
-  font-family: "Osiris";
-
-  position: absolute;
-  left: 42vw;
-}
 
 .lineVertical {
   height: 100%;
