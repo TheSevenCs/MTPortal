@@ -6,9 +6,15 @@
     <title>Tasks/Issues</title>
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/style-task.css" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- FOUND ON AXIOS SITE -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!------------------------->
   </head>
   <body>
-    <div>
+    <div id="tasks-issues">
+      <!-- BACK BUTTON TO HOMEPAGE -->
       <div class="back-btn">
         <a href="/home">
           <button class="back-btn-btn">
@@ -29,10 +35,94 @@
           z-index: 1;
         "
       />
+
+      <!-- ADD MODAL -->
+      <div
+        class="modal"
+        v-if="displayAddModal"
+        @click.self="toggleAddModal"
+        style="z-index: 2"
+      >
+        <div class="modal-container">
+          <!-- ADD PROJECT BUTTON -->
+          <button
+            class="button-filter text-button-filter button-wrapper"
+            style="width: 25%; left: 37.5%; bottom: 5%"
+            @click="addNewProject"
+          >
+            Create New Project
+          </button>
+
+          <!-- ADD MODAL EXIT -->
+          <button
+            class="button-expand text-button-filter button-wrapper"
+            @click="toggleAddModal"
+            style="padding-bottom: 0; top: 2.5%; right: 2%"
+          >
+            X
+          </button>
+
+          <!-- INPUT FIELDS -->
+          <div>
+            <p class="text-input-label" style="left: 39.25%">Add Project</p>
+          </div>
+
+          <span class="text-input-label" style="top: 15%; left: 4.5%"
+            >Project Name:</span
+          >
+          <input
+            class="input-text"
+            v-model="newProjectName"
+            style="top: 13.5%; left: 33%"
+          />
+
+          <span class="text-input-label" style="top: 30%; left: 4.5%"
+            >Client Name:</span
+          >
+          <input
+            class="input-text"
+            v-model="newProjectClient"
+            style="top: 28.5%; left: 33%"
+          />
+
+          <span class="text-input-label" style="top: 43.5%; left: 4.5%"
+            >Project Date:</span
+          >
+          <input
+            type="date"
+            class="input-text"
+            v-model="newProjectDate"
+            style="top: 42%; left: 33%"
+          />
+
+          <span class="text-input-label" style="top: 58.5%; left: 4.5%"
+            >Project Desc:</span
+          >
+          <textarea
+            id="addDesc"
+            class="input-text"
+            v-model="newProjectDesc"
+            style="
+              top: 57%;
+              left: 33%;
+              height: 12.5vh;
+              width: 26.25vw;
+              text-indent: 0;
+              padding: 1vw;
+            "
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- ???? -->
       <div class="sidebar-cover"></div>
+
+      <!-- PROJECT COMPONENTS HERE -->
       <div class="project-sidebar">
-        projects
+        Projects
         <br />
+
+        <!-- TRIANGLE COLLAPSE BUTTON -->
         <button class="btn-wrapper" style="margin-left: 85%">
           <img
             class="button-wrapper"
@@ -40,7 +130,28 @@
             alt="expand/shrink button"
           />
         </button>
+
+        <!-- DISPLAY PROJECT COMPONENTS HERE -->
+        <div class="container-project">
+          <component-project
+            v-for="project in projects"
+            :project="project"
+            :key="project.project_id"
+            @select-project="getProjectID"
+          ></component-project>
+        </div>
+
+        <!-- ADD BUTTON -->
+        <button
+          class="button-filter text-button-filter button-wrapper"
+          style="left: 25%; bottom: 2.5%"
+          @click="toggleAddModal"
+        >
+          ADD PROJECT
+        </button>
       </div>
+
+      <!-- HOLDS TASKS AND ISSUES NAV BUTTONS -->
       <div
         style="
           margin-left: 900px;
@@ -49,13 +160,45 @@
           white-space: nowrap;
         "
       >
-        <button class="btn-wrapper">
+        <!-- TASKS BUTTON -->
+        <button class="btn-wrapper" @click="selectTasks">
           <span class="title-btns button-wrapper">Tasks</span>
         </button>
-        <button class="btn-wrapper" style="margin-left: 235px">
+        <!-- ISSUES BUTTON -->
+        <button
+          class="btn-wrapper"
+          @click="selectIssues"
+          style="margin-left: 235px"
+        >
           <span class="title-btns button-wrapper">Issues</span>
         </button>
       </div>
+
+      <!-- DISPLAY TASKS AND ISSUES -->
+      <div class="container-ti">
+        <component-task
+          v-if="selectedTab === 'Tasks'"
+          v-for="task in tasks"
+          :task="task"
+        ></component-task>
+
+        <component-issue
+          v-if="selectedTab === 'Issues'"
+          v-for="issue in issues"
+          :issue="issue"
+        ></component-issue>
+
+        <!-- <component-task>TESTER SHOULD NOT DISPLAY THAT</component-task> -->
+      </div>
     </div>
+
+    <!-- IMPORTS AND MOUNT -->
+    <script src="./scripts/tasks-issues.js"></script>
+    <script src="./components/tasksissues/projectEntry.js"></script>
+    <script src="./components/tasksissues/taskEntry.js"></script>
+    <script src="./components/tasksissues/issueEntry.js"></script>
+    <script>
+      tasksissuesApp.mount("#tasks-issues");
+    </script>
   </body>
 </html>

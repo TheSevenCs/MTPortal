@@ -27,13 +27,36 @@ const addToDatabase = async (table, data) => {
   }
 };
 
-const getFromDatabase = async (table, filter = {}) => {
+// const getFromDatabase = async (table, filter = {}) => {
+//   try {
+//     const params = {
+//       TableName: table,
+//       FilterExpression: filter.Expression, // Accessing the expression from the filter object
+//       ExpressionAttributeValues: filter.ExpressionAttributeValues, // Optional: Provide ExpressionAttributeValues if necessary
+//     };
+
+//     const data = await dynamoClient.scan(params).promise();
+//     console.log(data);
+//     return data;
+//   } catch (error) {
+//     console.error("Error getting data:", error);
+//     throw error;
+//   }
+// };
+
+const getFromDatabase = async (table, attribute = null, value = null) => {
   try {
     const params = {
       TableName: table,
-      FilterExpression: filter.Expression, // Accessing the expression from the filter object
-      ExpressionAttributeValues: filter.ExpressionAttributeValues, // Optional: Provide ExpressionAttributeValues if necessary
     };
+
+    // Add filter parameters if attribute and value are provided
+    if (attribute && value) {
+      params.FilterExpression = `${attribute} = :value`;
+      params.ExpressionAttributeValues = {
+        ":value": value,
+      };
+    }
 
     const data = await dynamoClient.scan(params).promise();
     console.log(data);

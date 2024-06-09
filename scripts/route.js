@@ -7,6 +7,7 @@ const eventsModule = require("../DataAccess/eventsDA");
 const messageModule = require("../DataAccess/messagesDA");
 const chatModule = require("../DataAccess/chatDA");
 const clientsModule = require("../DataAccess/clientsDA");
+const tasksModule = require("../DataAccess/tasks-issuesDA.js");
 
 const changeModule = require("../DataAccess/changesDA.js");
 const cors = require("cors");
@@ -63,6 +64,169 @@ app.get("/NewChanges", async (req, res) => {
   }
 });
 
+// TASKS/ISSUES PAGE
+app.post("/addProject", async (req, res) => {
+  const { newName, newClient, newDate, newDesc } = req.query;
+  try {
+    await tasksModule.addProject(newName, newClient, newDate, newDesc);
+    console.log("FROM route.js, NEW Project ADDED.");
+  } catch (error) {
+    console.error("FROM route.js, ERROR CREATING NEW Project: ", error);
+  }
+});
+app.post("/editProject", async (req, res) => {
+  const { editedName, editedClient, editedDate, editedDesc, project_id } =
+    req.query;
+  try {
+    await tasksModule.editProject(
+      editedName,
+      editedClient,
+      editedDate,
+      editedDesc,
+      project_id
+    );
+    console.log("FROM route.js, Project EDITED.");
+  } catch (error) {
+    console.error("FROM route.js, ERROR EDITING Project: ", error);
+  }
+});
+app.get("/getProjects", async (req, res) => {
+  try {
+    const projects = await tasksModule.getProjects();
+    const formattedProjects = projects.map((project) => {
+      return {
+        projectName: project.projectName,
+        projectClient: project.projectClient,
+        projectDate: project.projectDate,
+        projectDesc: project.projectDesc || "",
+        // eventsDA gives 'event_id' which is processed here and given to axios call
+        project_id: project.project_id,
+      };
+    });
+
+    res.json(formattedProjects);
+  } catch (error) {
+    console.error("Error occurred while getting projects:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+app.delete("/deleteProject", async (req, res) => {
+  const { project_id } = req.query;
+  try {
+    await tasksModule.deleteProject(project_id);
+    console.log(`Project: ${project_id} DELETED.`);
+  } catch (error) {
+    console.error("FROM route.js, Project COULD NOT BE DELETED: ", error);
+  }
+});
+
+app.post("/addTI", async (req, res) => {
+  const {
+    project_id,
+    newTIType,
+    newTIName,
+    newTIDate,
+    newTIStatus,
+    newTIDesc,
+  } = req.query;
+  try {
+    await tasksModule.addTI(
+      project_id,
+      newTIType,
+      newTIName,
+      newTIDate,
+      newTIStatus,
+      newTIDesc
+    );
+    console.log("FROM route.js, NEW Task/Issue ADDED.");
+  } catch (error) {
+    console.error("FROM route.js, ERROR CREATING NEW Task/Issue: ", error);
+  }
+});
+app.post("/editTI", async (req, res) => {
+  const {
+    ti_id,
+    project_id,
+    tableName,
+    editedName,
+    editedDate,
+    editedStatus,
+    editedDesc,
+  } = req.query;
+  try {
+    await tasksModule.editTI(
+      ti_id,
+      project_id,
+      tableName,
+      editedName,
+      editedDate,
+      editedStatus,
+      editedDesc
+    );
+    console.log("FROM route.js, Task/Issue EDITED.");
+  } catch (error) {
+    console.error("FROM route.js, ERROR EDITING Task/Issue: ", error);
+  }
+});
+app.get("/getTIByID", async (req, res) => {
+  const { tableName, project_id } = req.query;
+  try {
+    if (tableName === "Tasks") {
+      const tasks = await tasksModule.getTIByID(
+        "Tasks",
+        "project_id",
+        project_id
+      );
+      const formattedTasks = tasks.map((task) => {
+        return {
+          taskName: task.taskName,
+          taskDate: task.taskDate,
+          taskDesc: task.taskDesc,
+          taskStatus: task.taskStatus,
+          task_id: task.task_id,
+          project_id: task.project_id,
+        };
+      });
+
+      res.json(formattedTasks);
+    } else if (tableName === "Issues") {
+      const issues = await tasksModule.getTIByID(
+        "Issues",
+        "project_id",
+        project_id
+      );
+      const formattedIssues = issues.map((issue) => {
+        return {
+          issueName: issue.issueName,
+          issueDate: issue.issueDate,
+          issueDesc: issue.issueDesc,
+          issueStatus: issue.issueStatus,
+          issue_id: issue.issue_id,
+          project_id: issue.project_id,
+        };
+      });
+
+      res.json(formattedIssues);
+    } else {
+      console.error(
+        "FROM route.js/getTIByID(), ERROR IN IF ELSE BLOCK: ",
+        error
+      );
+    }
+  } catch (error) {
+    console.error("FROM route.js, ERROR WITH getTasksByID: ", error);
+  }
+});
+app.delete("/deleteTI", async (req, res) => {
+  const { tableName, ti_id } = req.query;
+  try {
+    tasksModule.deleteTI(tableName, ti_id);
+    console.log("FROM route.js, Task/Issue DELETED.");
+  } catch (error) {
+    console.error("FROM route.js, ERROR DELETING Task/Issue: ", error);
+  }
+});
+
 // EVENTS PAGE
 app.post("/addEvent", async (req, res) => {
   const { newName, newDate, newType, newDesc } = req.query;
@@ -93,7 +257,7 @@ app.delete("/Events", async (req, res) => {
   const { eventID } = req.query;
   try {
     await eventsModule.deleteEvent(eventID);
-    console.log(`Event: ${eventID} Deleted`);
+    console.log(`Event: ${eventID} DELETED.`);
   } catch (error) {
     console.error(`FROM route.js, Event COULD NOT BE DELETED. `, error);
   }
@@ -250,6 +414,7 @@ app.get("/Messages", async (req, res) => {
   }
 });
 
+// HREF BETWEEN PAGES
 app.get("/:page", (req, res) => {
   const page = req.params.page;
   const filePath = path.join(directory, `${page}.html`);
