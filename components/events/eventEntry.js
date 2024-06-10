@@ -29,7 +29,7 @@ eventsApp.component("component-event", {
                 <select class="input-text" v-model="editEventType" style="top: 45vh; height: 6.25vh; width: 28.75vw"> <option>Meeting</option> <option>Deadline</option> </select>
 
                 <span class="text-input-label" style="top: 55vh">Event Desc:</span>
-                <textarea class="input-text" v-model="editEventDesc" style=" top: 55vh; height: 12.5vh; width: 26.25vw; text-indent: 0; padding: 1vw; "></textarea>
+                <textarea class="input-text" v-model="editEventDesc" style=" top: 55vh; height: 12.5vh; width: 26.25vw; text-indent: 0; padding: 1vw; font-size: 0.8vw;"></textarea>
             
                 <button @click="componentSaveChanges" class="button-filter text-button-filter button-wrapper" style="right: 33.3vw;bottom:17vh;margin-top:2vh">Save Changes</button>
             </div>
@@ -37,7 +37,7 @@ eventsApp.component("component-event", {
                 <p id="text1" class="text-event-title" style="max-width: 88.5%;max-height: 15%; margin-top: 1vh">{{ event.eventName }}</p>
                 <div id="text2" class="text-event-date" style="display: block; text-align:left; left: 25vw; margin-left: 1.5vh; margin-top: 5vh; max-width:45vw">{{ event.eventType }} Date: {{ event.eventDate }}</div>
                 <p id="text3" class="text-event-desc" style="margin-top:15vh; margin-left:1.5vh; max-width:50vw; max-height: 39vh">Description:</p>
-                <p id="text3" class="text-event-desc" style="margin-top:1vh; margin-left:1.5vh; max-width:50vw; max-height: 39vh; font-size: 2vh">{{ event.eventDesc }}</p>
+                <p id="text3" class="text-event-desc" style="margin-top:1vh; margin-left:1.5vh; max-width:50vw; max-height: 39vh; font-size: 2vh; font-size: 0.9vw;">{{ event.eventDesc }}</p>
             
                 <button @click="componentDeleteEvent" class="button-filter text-button-filter button-wrapper" style="right: 33.3vw;bottom:17vh;margin-top:2vh">Delete Event</button>
             </div>
