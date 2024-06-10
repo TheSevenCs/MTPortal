@@ -231,8 +231,8 @@ module.exports.deleteTI = async function (tableName, ti_id, sortKey) {
       console.log("FROM tasks-issuesDA.js, Task DELETED.");
     } else if (tableName === "Issues") {
       const key = {
-        issue_id: { S: ti_id },
-        project_id: { S: sortKey },
+        issue_id: ti_id,
+        project_id: sortKey,
       };
       await generalModule.deleteFromDatabase(tableName, key);
       console.log("FROM tasks-issuesDA.js, Issue DELETED.");
