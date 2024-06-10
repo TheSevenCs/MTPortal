@@ -32,15 +32,33 @@ module.exports.editProject = async function (
     projectClient: editedClient,
     projectDate: editedDate,
     projectDesc: editedDesc,
-    project_id: project_id,
+  };
+  const updateExpression =
+    "SET " +
+    Object.keys(editedProject)
+      .map((key) => `${key} = :${key}`)
+      .join(", ");
+
+  // Constructing the expression attribute values object
+  const expressionAttributeValues = {};
+  Object.entries(editedProject).forEach(([key, value]) => {
+    expressionAttributeValues[`:${key}`] = { S: value };
+  });
+
+  const primaryKey = {
+    project_id: { S: project_id },
   };
 
-  await generalModule.addToDatabase("Projects", editedProject); // Need to await since it's an async function
+  await generalModule.updateItemInDatabase(
+    "Projects",
+    primaryKey,
+    updateExpression,
+    expressionAttributeValues
+  );
   console.log("FROM tasks-issuesDA.js, Project EDITED.");
 };
 module.exports.getProjects = async function () {
   const dbResults = await generalModule.getFromDatabase("Projects"); // Need to await since it's an async function
-  console.log("Results from DB: ", dbResults);
   return dbResults.Items;
 };
 module.exports.deleteProject = async function (eID) {
@@ -107,26 +125,71 @@ module.exports.editTI = async function (
 ) {
   try {
     if (tableName === "Tasks") {
-      const editedTI = {
-        task_id: ti_id,
-        project_id: proj_id,
+      const taskDetails = {
         taskName: editedName,
         taskDate: editedDate,
         taskStatus: editedStatus,
         taskDesc: editedDesc,
       };
-      await generalModule.addToDatabase(tableName, editedTI);
+
+      // Constructing the update expression dynamically
+      const updateExpression =
+        "SET " +
+        Object.keys(taskDetails)
+          .map((key) => `${key} = :${key}`)
+          .join(", ");
+
+      // Constructing the expression attribute values object
+      const expressionAttributeValues = {};
+      Object.entries(taskDetails).forEach(([key, value]) => {
+        expressionAttributeValues[`:${key}`] = { S: value };
+      });
+
+      const primaryKey = {
+        task_id: { S: ti_id },
+        project_id: { S: proj_id },
+      };
+
+      await generalModule.updateItemInDatabase(
+        tableName,
+        primaryKey,
+        updateExpression,
+        expressionAttributeValues
+      );
       console.log("FROM tasks-issuesDA.js, Task EDITED.");
     } else if (tableName === "Issues") {
-      const editedTI = {
-        issue_id: ti_id,
-        project_id: proj_id,
+      const primaryKey = {
+        task_id: { S: ti_id },
+        project_id: { S: proj_id },
+      };
+
+      const taskDetails = {
         issueName: editedName,
         issueDate: editedDate,
         issueStatus: editedStatus,
         issueDesc: editedDesc,
       };
-      await generalModule.addToDatabase(tableName, editedTI);
+
+      // Constructing the update expression dynamically
+      const updateExpression =
+        "SET " +
+        Object.keys(taskDetails)
+          .map((key) => `${key} = :${key}`)
+          .join(", ");
+
+      // Constructing the expression attribute values object
+      const expressionAttributeValues = {};
+      Object.entries(taskDetails).forEach(([key, value]) => {
+        expressionAttributeValues[`:${key}`] = { S: value };
+      });
+
+      await generalModule.updateItemInDatabase(
+        tableName,
+        primaryKeyName,
+        primaryKey,
+        updateExpression,
+        expressionAttributeValues
+      );
       console.log("FROM tasks-issuesDA.js, Issue EDITED.");
     } else {
       console.error("FROM tasks-issuesDA.js, ERROR IN IF ELSE BLOCK: ", error);
@@ -135,6 +198,7 @@ module.exports.editTI = async function (
     console.log("FROM tasks-issuesDA.js, ERROR EDITING Task/Issue: ", error);
   }
 };
+
 module.exports.getTIByID = async function (tableName, attribute, project_id) {
   if (tableName === "Tasks") {
     const dbResults = await generalModule.getFromDatabase(
@@ -142,7 +206,6 @@ module.exports.getTIByID = async function (tableName, attribute, project_id) {
       attribute,
       project_id
     );
-    console.log("Results from DB: ", dbResults);
     return dbResults.Items;
   } else if (tableName === "Issues") {
     const dbResults = await generalModule.getFromDatabase(
@@ -150,7 +213,6 @@ module.exports.getTIByID = async function (tableName, attribute, project_id) {
       attribute,
       project_id
     );
-    console.log("Results from DB: ", dbResults);
     return dbResults.Items;
   } else {
     console.error(

@@ -40,7 +40,7 @@ module.exports.editClient = async function (
   editedStatus,
   editedID
 ) {
-  const editedEvent = {
+  const clientDetails = {
     clientName: editedName,
     clientDate: editedDate,
     clientEmail: editedEmail,
@@ -49,13 +49,38 @@ module.exports.editClient = async function (
     clientAddress: editedAddress,
     clientType: editedType,
     clientStatus: editedStatus,
-    client_id: editedID,
   };
-  await clientsModule.addToDatabase("Clients", editedEvent); // Need to await since it's an async function
 
-  console.log("FROM clientsDA.js, Client EDITED.");
+  // Constructing the update expression dynamically
+  const updateExpression =
+    "SET " +
+    Object.keys(clientDetails)
+      .map((key) => `${key} = :${key}`)
+      .join(", ");
+
+  // Constructing the expression attribute values object
+  const expressionAttributeValues = {};
+  Object.entries(clientDetails).forEach(([key, value]) => {
+    expressionAttributeValues[`:${key}`] = { S: value };
+  });
+
+  const primaryKey = {
+    client_id: { S: editedID },
+  };
+
+  try {
+    await clientsModule.updateItemInDatabase(
+      "Clients",
+      primaryKey,
+      updateExpression,
+      expressionAttributeValues
+    );
+
+    console.log("FROM clientsDA.js, Client EDITED.");
+  } catch (error) {
+    console.error("FROM clientsDA.js, ERROR EDITING Client: ", error);
+  }
 };
-
 module.exports.getClients = async function () {
   const dbResults = await clientsModule.getFromDatabase("Clients"); // Need to await since it's an async function
   console.log("Results from DB: ", dbResults);

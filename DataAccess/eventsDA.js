@@ -28,9 +28,29 @@ module.exports.editEvent = async function (
     eventDate: editedDate,
     eventType: editedType,
     eventDesc: editedDesc,
-    event_id: editedID,
   };
-  await eventModule.addToDatabase("Events", editedEvent); // Need to await since it's an async function
+  const updateExpression =
+    "SET " +
+    Object.keys(editedEvent)
+      .map((key) => `${key} = :${key}`)
+      .join(", ");
+
+  // Constructing the expression attribute values object
+  const expressionAttributeValues = {};
+  Object.entries(editedEvent).forEach(([key, value]) => {
+    expressionAttributeValues[`:${key}`] = { S: value };
+  });
+
+  const primaryKey = {
+    event_id: { S: editedID },
+  };
+
+  await eventModule.updateItemInDatabase(
+    "Events",
+    primaryKey,
+    updateExpression,
+    expressionAttributeValues
+  );
 
   console.log("FROM eventsDA.js, Event EDITED.");
 };

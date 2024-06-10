@@ -18,7 +18,33 @@ module.exports.addMessage = async function (
 
   console.log("FROM chatDA.js, NEW Message ADDED.");
 };
+module.exports.editMessage = async function (
+  editedMessageContent,
+  editedmessageid
+) {
+  const editedMessage = {
+    editedMessageContent,
+  };
+  const updateExpression =
+    "SET " +
+    Object.keys(editedMessage)
+      .map((key) => `${key} = :${key}`)
+      .join(", ");
+  Object.entries(editedMessage).forEach(([key, value]) => {
+    expressionAttributeValues[`:${key}`] = { S: value };
+  });
 
+  const primaryKey = {
+    message_id: { S: editedmessageid },
+  };
+
+  await chatModule.updateItemInDatabase(
+    "Messages",
+    primaryKey,
+    updateExpression,
+    expressionAttributeValues
+  );
+};
 module.exports.getMessages = async function () {
   const dbResults = await chatModule.getFromDatabase("Messages"); // Need to await since it's an async function
   console.log("Results from DB: ", dbResults);

@@ -1,48 +1,41 @@
-const AWS = require("aws-sdk");
+const {
+  DynamoDBClient,
+  UpdateItemCommand,
+} = require("@aws-sdk/client-dynamodb");
+const {
+  UpdateCommand,
+  PutCommand,
+  ScanCommand,
+  DeleteCommand,
+  DynamoDBDocumentClient,
+} = require("@aws-sdk/lib-dynamodb");
 require("dotenv").config();
-// Configure AWS
-AWS.config.update({
-  region: process.env.AWS_DEFAULT_REGION,
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-});
 
-const dynamoClient = new AWS.DynamoDB.DocumentClient();
+// Create a new DynamoDB client
+const dynamoClient = new DynamoDBClient({
+  region: process.env.AWS_DEFAULT_REGION,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  },
+});
+const client = DynamoDBDocumentClient.from(dynamoClient);
 
 const addToDatabase = async (table, data) => {
   try {
     const params = {
       TableName: table,
-      Item: data, // The data you want to add
+      Item: data,
     };
 
     // Perform the put operation to add data to the table
-    const result = await dynamoClient.put(params).promise();
-
-    console.log("Data added successfully:", result);
-    // return result; // Optionally, return the result of the operation
+    const result = await dynamoClient.send(new PutCommand(params));
+    return result;
   } catch (error) {
     console.error("Error adding data:", error);
-    throw error; // Optionally, rethrow the error for handling elsewhere
+    throw error;
   }
 };
-
-// const getFromDatabase = async (table, filter = {}) => {
-//   try {
-//     const params = {
-//       TableName: table,
-//       FilterExpression: filter.Expression, // Accessing the expression from the filter object
-//       ExpressionAttributeValues: filter.ExpressionAttributeValues, // Optional: Provide ExpressionAttributeValues if necessary
-//     };
-
-//     const data = await dynamoClient.scan(params).promise();
-//     console.log(data);
-//     return data;
-//   } catch (error) {
-//     console.error("Error getting data:", error);
-//     throw error;
-//   }
-// };
 
 const getFromDatabase = async (table, attribute = null, value = null) => {
   try {
@@ -50,7 +43,6 @@ const getFromDatabase = async (table, attribute = null, value = null) => {
       TableName: table,
     };
 
-    // Add filter parameters if attribute and value are provided
     if (attribute && value) {
       params.FilterExpression = `${attribute} = :value`;
       params.ExpressionAttributeValues = {
@@ -58,9 +50,8 @@ const getFromDatabase = async (table, attribute = null, value = null) => {
       };
     }
 
-    const data = await dynamoClient.scan(params).promise();
-    console.log(data);
-    return data;
+    const result = await dynamoClient.send(new ScanCommand(params));
+    return result;
   } catch (error) {
     console.error("Error getting data:", error);
     throw error;
@@ -71,20 +62,39 @@ const deleteFromDatabase = async (table, key) => {
   try {
     const params = {
       TableName: table,
-      Key: key, // Identifier for data to delete
+      Key: key,
     };
 
-    // DELETE ENTRY HERE
-    const data = await dynamoClient.delete(params).promise();
-
-    console.log("FROM DatabaseDA.js, ITEM DELETED: ", data);
-    // return data; // Optional ??
+    const result = await dynamoClient.send(new DeleteCommand(params));
+    console.log("FROM DatabaseDA.js, ITEM DELETED: ", result);
+    return result;
   } catch (error) {
     console.error("FROM DatabaseDA.js, ERROR DELETING ITEM: ", error);
     throw error;
   }
 };
 
+const updateItemInDatabase = async (
+  tableName,
+  key,
+  updateExpression,
+  expressionAttributeValues
+) => {
+  try {
+    const params = {
+      TableName: tableName,
+      Key: key,
+      UpdateExpression: updateExpression,
+      ExpressionAttributeValues: expressionAttributeValues,
+    };
+    console.log(params);
+    const result = await client.send(new UpdateItemCommand(params));
+    console.log("Success", result);
+  } catch (error) {
+    console.error("Error updating item:", error);
+    throw error;
+  }
+};
 const generateID = async (minID, maxID) => {
   min = Math.ceil(minID); // Round up to the nearest integer
   max = Math.floor(maxID); // Round down to the nearest integer
@@ -96,4 +106,5 @@ module.exports = {
   generateID: generateID,
   deleteFromDatabase: deleteFromDatabase,
   addToDatabase: addToDatabase,
+  updateItemInDatabase: updateItemInDatabase,
 };
