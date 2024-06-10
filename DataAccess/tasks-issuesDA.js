@@ -185,7 +185,6 @@ module.exports.editTI = async function (
 
       await generalModule.updateItemInDatabase(
         tableName,
-        primaryKeyName,
         primaryKey,
         updateExpression,
         expressionAttributeValues
@@ -221,15 +220,20 @@ module.exports.getTIByID = async function (tableName, attribute, project_id) {
     );
   }
 };
-module.exports.deleteTI = async function (tableName, eID) {
+module.exports.deleteTI = async function (tableName, ti_id, sortKey) {
   try {
     if (tableName === "Tasks") {
-      const key = { task_id: eID };
-      console.log("KEY: ", key);
+      const key = {
+        task_id: ti_id,
+        project_id: sortKey,
+      };
       await generalModule.deleteFromDatabase(tableName, key);
       console.log("FROM tasks-issuesDA.js, Task DELETED.");
     } else if (tableName === "Issues") {
-      const key = { issue_id: eID };
+      const key = {
+        issue_id: { S: ti_id },
+        project_id: { S: sortKey },
+      };
       await generalModule.deleteFromDatabase(tableName, key);
       console.log("FROM tasks-issuesDA.js, Issue DELETED.");
     } else {

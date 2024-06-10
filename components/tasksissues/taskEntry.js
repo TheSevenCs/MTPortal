@@ -128,7 +128,12 @@ tasksissuesApp.component("component-task", {
   },
   computed: {
     deleteString() {
-      return "/deleteTI?tableName=Tasks&ti_id=" + this.task.task_id;
+      return (
+        "/deleteTI?tableName=Tasks&ti_id=" +
+        this.task.task_id +
+        "&project_id=" +
+        this.task.project_id
+      );
     },
     editedString() {
       return (

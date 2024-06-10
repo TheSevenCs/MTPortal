@@ -218,9 +218,9 @@ app.get("/getTIByID", async (req, res) => {
   }
 });
 app.delete("/deleteTI", async (req, res) => {
-  const { tableName, ti_id } = req.query;
+  const { tableName, ti_id, project_id } = req.query;
   try {
-    tasksModule.deleteTI(tableName, ti_id);
+    tasksModule.deleteTI(tableName, ti_id, project_id);
     console.log("FROM route.js, Task/Issue DELETED.");
   } catch (error) {
     console.error("FROM route.js, ERROR DELETING Task/Issue: ", error);

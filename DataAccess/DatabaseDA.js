@@ -66,7 +66,7 @@ const deleteFromDatabase = async (table, key) => {
     };
 
     const result = await dynamoClient.send(new DeleteCommand(params));
-    console.log("FROM DatabaseDA.js, ITEM DELETED: ", result);
+    console.log("FROM DatabaseDA.js, ITEM DELETED.");
     return result;
   } catch (error) {
     console.error("FROM DatabaseDA.js, ERROR DELETING ITEM: ", error);
