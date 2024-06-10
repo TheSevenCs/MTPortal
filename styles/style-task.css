@@ -55,6 +55,8 @@
   color: white;
   font-family: "Osiris";
   position: absolute;
+  cursor: default;
+  user-select: none;
 }
 
 .project-element {

@@ -5,8 +5,8 @@ tasksissuesApp.component("component-project", {
     /*html*/
     `
     <!-- PROJECT SIDEBAR ELEMENT -->
-    <div class="project" @click="selectProject">
-      <div>{{ project.projectName }}</div>
+    <div class="project button-wrapper" @click="selectProject">
+      <div style="cursor: pointer;">{{ project.projectName }}</div>
       <button class="button-icon text-button-filter button-wrapper" style="bottom: 5%; right: 0%; position:relative" @click="toggleAddModal">+</button>
       <button class="button-icon text-button-filter button-wrapper" style="bottom: 5%; right: 0%; margin-left:1vh; position:relative" @click="toggleInfoModal">...</button>
     </div>
