@@ -29,7 +29,7 @@
           style="top: 60vh"
           v-model="usernameInput"
           type="text"
-          placeholder="Email / Username"
+          placeholder="Username"
         />
         <input
           class="login-box"
@@ -38,6 +38,14 @@
           type="password"
           placeholder="Password"
         />
+        <!-- SUBMIT BUTTON -->
+        <button class="login-submit-btn" @click="Login">Log in</button>
+        <div
+          class="login-header"
+          style="font-size: 1vw; margin-top: 1vh; margin-bottom: 1vh"
+        >
+          Dont have an account yet?
+        </div>
       </div>
       <div v-if="creatingAccount">
         <!-- INPUT FIELDS -->
@@ -46,41 +54,32 @@
           style="top: 60vh"
           v-model="usernameInput"
           type="text"
-          placeholder="Email"
+          placeholder="Username"
         />
-        <div
-          style="display: flex; justify-content: center; align-items: center"
+        <input
+          class="login-box"
+          style="top: 70vh"
+          v-model="passwordInput"
+          type="password"
+          placeholder="Password"
+        />
+        <!-- Create Account Button -->
+        <button
+          class="login-submit-btn"
+          @click="Login
+        "
         >
-          <div>
-            <input
-              class="login-box"
-              style="margin-bottom: 10px; width: 20vw"
-              v-model="usernameInput"
-              type="text"
-              placeholder="Username"
-            />
-          </div>
-          <div>
-            <input
-              class="login-box"
-              style="margin-bottom: 10px; width: 20vw"
-              v-model="passwordInput"
-              type="password"
-              placeholder="Password"
-            />
-          </div>
-        </div>
+          Create Account
+        </button>
       </div>
-
-      <!-- SUBMIT BUTTON -->
-      <button class="login-submit-btn" @click="Login">Submit</button>
 
       <button
         class="login-create-btn"
+        style="margin-top: 0"
         v-if="!creatingAccount"
         @click="createAccount()"
       >
-        Create Account
+        Create an Account
       </button>
       <button class="login-create-btn" v-if="creatingAccount" @click="cancel()">
         Cancel

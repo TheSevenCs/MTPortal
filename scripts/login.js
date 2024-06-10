@@ -12,6 +12,24 @@ async function checkLogin(username, password) {
   }
 }
 
+async function createAccount(username, password) {
+  try {
+    const response = await axios.post(
+      "/CreateAccount",
+      {},
+      {
+        params: {
+          username: username,
+          password: password,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 const loginProcess = Vue.createApp({
   data() {
     return {
@@ -23,6 +41,12 @@ const loginProcess = Vue.createApp({
   methods: {
     async Login() {
       try {
+        if (this.creatingAccount) {
+          const success = await createAccount(
+            this.usernameInput,
+            this.passwordInput
+          );
+        }
         const data = await checkLogin(this.usernameInput, this.passwordInput);
         console.log("Login successful:", data);
         // Handle response data as needed

@@ -217,6 +217,7 @@ app.get("/getTIByID", async (req, res) => {
     console.error("FROM route.js, ERROR WITH getTasksByID: ", error);
   }
 });
+
 app.delete("/deleteTI", async (req, res) => {
   const { tableName, ti_id, project_id } = req.query;
   try {
@@ -395,6 +396,7 @@ app.post("/Messages", async (req, res) => {
     console.error("FROM route.js, ERROR ADDING Message: ", error);
   }
 });
+
 app.get("/Messages", async (req, res) => {
   try {
     const messages = await chatModule.getMessages();

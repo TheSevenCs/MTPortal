@@ -12,7 +12,7 @@
   font-family: "Segoe UI";
   text-align: center;
   cursor: default;
-  margin-top: 10vh;
+  margin-top: 6vh;
   margin-bottom: 5vh;
   margin-left: 50%;
   transform: translateX(-50%);
@@ -69,7 +69,7 @@
   border-radius: 2vh;
   border: 1px solid #707070;
   text-wrap: nowrap;
-  margin-top: 1vh;
+  margin-top: 3vh;
   margin-left: 50%;
   transform: translateX(-50%);
 }
