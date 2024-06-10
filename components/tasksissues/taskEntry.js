@@ -107,7 +107,7 @@ tasksissuesApp.component("component-task", {
     },
     componentSaveChanges() {
       axios
-        .post(this.editedString)
+        .patch(this.editedString)
         .then((response) => {
           console.log("Task EDITED SUCCESSFULLY: ", response.data);
         })

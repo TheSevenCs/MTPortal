@@ -159,11 +159,11 @@ module.exports.editTI = async function (
       console.log("FROM tasks-issuesDA.js, Task EDITED.");
     } else if (tableName === "Issues") {
       const primaryKey = {
-        task_id: { S: ti_id },
+        issue_id: { S: ti_id },
         project_id: { S: proj_id },
       };
 
-      const taskDetails = {
+      const issueDetails = {
         issueName: editedName,
         issueDate: editedDate,
         issueStatus: editedStatus,
@@ -173,13 +173,13 @@ module.exports.editTI = async function (
       // Constructing the update expression dynamically
       const updateExpression =
         "SET " +
-        Object.keys(taskDetails)
+        Object.keys(issueDetails)
           .map((key) => `${key} = :${key}`)
           .join(", ");
 
       // Constructing the expression attribute values object
       const expressionAttributeValues = {};
-      Object.entries(taskDetails).forEach(([key, value]) => {
+      Object.entries(issueDetails).forEach(([key, value]) => {
         expressionAttributeValues[`:${key}`] = { S: value };
       });
 

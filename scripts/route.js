@@ -143,7 +143,7 @@ app.post("/addTI", async (req, res) => {
     console.error("FROM route.js, ERROR CREATING NEW Task/Issue: ", error);
   }
 });
-app.post("/editTI", async (req, res) => {
+app.patch("/editTI", async (req, res) => {
   const {
     ti_id,
     project_id,

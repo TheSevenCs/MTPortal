@@ -180,12 +180,14 @@
           v-if="selectedTab === 'Tasks'"
           v-for="task in tasks"
           :task="task"
+          @select-project="getProjectID"
         ></component-task>
 
         <component-issue
           v-if="selectedTab === 'Issues'"
           v-for="issue in issues"
           :issue="issue"
+          @select-project="getProjectID"
         ></component-issue>
 
         <!-- <component-task>TESTER SHOULD NOT DISPLAY THAT</component-task> -->

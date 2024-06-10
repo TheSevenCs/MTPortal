@@ -107,7 +107,7 @@ tasksissuesApp.component("component-issue", {
     },
     componentSaveChanges() {
       axios
-        .post(this.editedString)
+        .patch(this.editedString)
         .then((response) => {
           console.log("issue EDITED SUCCESSFULLY: ", response.data);
         })
@@ -141,7 +141,7 @@ tasksissuesApp.component("component-issue", {
         this.issue.issue_id +
         "&project_id=" +
         this.issue.project_id +
-        "&tableName=issues&editedName=" +
+        "&tableName=Issues&editedName=" +
         this.editIssueName +
         "&editedDate=" +
         this.editIssueDate +
