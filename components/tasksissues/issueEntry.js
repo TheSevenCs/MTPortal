@@ -87,7 +87,14 @@ tasksissuesApp.component("component-issue", {
     // DATABASE FUNCTIONS
     componentDeleteComponent() {
       axios
-        .delete(this.deleteString)
+        .delete("/deleteTI", {
+          params: {
+            tableName: "Issues",
+            ti_id: this.issue.issue_id,
+            project_id: this.issue.project_id,
+          },
+        })
+
         .then((response) => {
           console.log("issue DELETED SUCCESSFULLY: ", response.data);
         })
@@ -107,7 +114,21 @@ tasksissuesApp.component("component-issue", {
     },
     componentSaveChanges() {
       axios
-        .patch(this.editedString)
+        .patch(
+          "/editTI",
+          {},
+          {
+            params: {
+              ti_id: this.issue.issue_id,
+              project_id: this.issue.project_id,
+              tableName: "Issues",
+              editedName: this.editIssueName,
+              editedDate: this.editIssueDate,
+              editedStatus: this.editIssueStatus,
+              editedDesc: this.editIssueDesc,
+            },
+          }
+        )
         .then((response) => {
           console.log("issue EDITED SUCCESSFULLY: ", response.data);
         })
@@ -124,32 +145,6 @@ tasksissuesApp.component("component-issue", {
           this.selectProject();
         }, delayInMilliseconds);
       }, delayInMilliseconds);
-    },
-  },
-  computed: {
-    deleteString() {
-      return (
-        "/deleteTI?tableName=Issues&ti_id=" +
-        this.issue.issue_id +
-        "&project_id=" +
-        this.issue.project_id
-      );
-    },
-    editedString() {
-      return (
-        "/editTI?ti_id=" +
-        this.issue.issue_id +
-        "&project_id=" +
-        this.issue.project_id +
-        "&tableName=Issues&editedName=" +
-        this.editIssueName +
-        "&editedDate=" +
-        this.editIssueDate +
-        "&editedStatus=" +
-        this.editIssueStatus +
-        "&editedDesc=" +
-        this.editIssueDesc
-      );
     },
   },
 });

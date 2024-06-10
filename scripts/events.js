@@ -18,7 +18,18 @@ const eventsApp = Vue.createApp({
 
     addNewEvent() {
       axios
-        .post(this.addString)
+        .post(
+          "/addEvent",
+          {},
+          {
+            params: {
+              newName: this.newEventName,
+              newDate: this.newEventDate,
+              newType: this.newEventType,
+              newDesc: this.newEventDesc,
+            },
+          }
+        )
         .then((response) => {
           console.log("Event added successfully:", response.data);
           // Additional handling if needed
@@ -71,20 +82,6 @@ const eventsApp = Vue.createApp({
         (event) => event.eventType === "Deadline"
       );
       console.log("FILTER DEADLINES FROM events TO displayEvents");
-    },
-  },
-  computed: {
-    addString() {
-      return (
-        "/addEvent?newName=" +
-        this.newEventName +
-        "&newDate=" +
-        this.newEventDate +
-        "&newType=" +
-        this.newEventType +
-        "&newDesc=" +
-        this.newEventDesc
-      );
     },
   },
   mounted() {

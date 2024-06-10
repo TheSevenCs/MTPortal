@@ -127,7 +127,9 @@ tasksissuesApp.component("component-project", {
     // DATABASE FUNCTIONS
     componentDeleteComponent() {
       axios
-        .delete(this.deleteString)
+        .delete("/deleteProject", {
+          params: { project_id: this.project.project_id },
+        })
         .then((response) => {
           console.log("Project DELETED SUCCESSFULLY: ", response.data);
         })
@@ -147,7 +149,19 @@ tasksissuesApp.component("component-project", {
     },
     componentSaveChanges() {
       axios
-        .post(this.editedString)
+        .post(
+          "/editProject",
+          {},
+          {
+            params: {
+              editedName: this.editProjectName,
+              editedClient: this.editProjectClient,
+              editedDate: this.editProjectDate,
+              editedDesc: this.editProjectDesc,
+              project_id: this.project.project_id,
+            },
+          }
+        )
         .then((response) => {
           console.log("Project EDITED SUCCESSFULLY: ", response.data);
         })
@@ -168,7 +182,20 @@ tasksissuesApp.component("component-project", {
 
     addNewTI() {
       axios
-        .post(this.addString)
+        .post(
+          "/addTI",
+          {},
+          {
+            params: {
+              project_id: this.project.project_id,
+              newTIType: this.newTIType,
+              newTIName: this.newTIName,
+              newTIDate: this.newTIDate,
+              newTIStatus: this.newTIStatus,
+              newTIDesc: this.newTIDesc,
+            },
+          }
+        )
         .then((response) => {
           console.log("Task/Issue ADDED SUCCESSFULY: ", response.data);
         })
@@ -194,41 +221,6 @@ tasksissuesApp.component("component-project", {
           this.selectProject();
         }, delayInMilliseconds);
       }, delayInMilliseconds);
-    },
-  },
-  computed: {
-    deleteString() {
-      return "/deleteProject?project_id=" + this.project.project_id;
-    },
-    editedString() {
-      return (
-        "/editProject?editedName=" +
-        this.editProjectName +
-        "&editedClient=" +
-        this.editProjectClient +
-        "&editedDate=" +
-        this.editProjectDate +
-        "&editedDesc=" +
-        this.editProjectDesc +
-        "&project_id=" +
-        this.project.project_id
-      );
-    },
-    addString() {
-      return (
-        "/addTI?project_id=" +
-        this.project.project_id +
-        "&newTIType=" +
-        this.newTIType +
-        "s&newTIName=" +
-        this.newTIName +
-        "&newTIDate=" +
-        this.newTIDate +
-        "&newTIStatus=" +
-        this.newTIStatus +
-        "&newTIDesc=" +
-        this.newTIDesc
-      );
     },
   },
 });

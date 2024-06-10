@@ -26,7 +26,22 @@ const clientsApp = Vue.createApp({
     // DATABASE FUNCTIONS
     addNewClient() {
       axios
-        .post(this.addString)
+        .post(
+          "/addClient",
+          {},
+          {
+            params: {
+              newName: this.newClientName,
+              newDate: this.newClientDate,
+              newEmail: this.newClientEmail,
+              newPhoneNumber: this.newClientPhoneNumber,
+              newWebsite: this.newClientWebsite,
+              newAddress: this.newClientAddress,
+              newType: this.newClientType,
+              newStatus: this.newClientStatus,
+            },
+          }
+        )
         .then((response) => {
           console.log("Client added successfully:", response.data);
           // Additional handling if needed
@@ -90,28 +105,6 @@ const clientsApp = Vue.createApp({
     showPastClients() {
       this.currentFilter = "Past";
       this.showByFilter();
-    },
-  },
-  computed: {
-    addString() {
-      return (
-        "/addClient?newName=" +
-        this.newClientName +
-        "&newDate=" +
-        this.newClientDate +
-        "&newEmail=" +
-        this.newClientEmail +
-        "&newPhoneNumber=" +
-        this.newClientPhoneNumber +
-        "&newWebsite=" +
-        this.newClientWebsite +
-        "&newAddress=" +
-        this.newClientAddress +
-        "&newType=" +
-        this.newClientType +
-        "&newStatus=" +
-        this.newClientStatus
-      );
     },
   },
   mounted() {

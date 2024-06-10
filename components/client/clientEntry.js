@@ -148,7 +148,11 @@ clientsApp.component("component-client", {
     componentDeleteComponent() {
       console.log("deleteString: ", this.deleteString);
       axios
-        .delete(this.deleteString)
+        .delete("/deleteClient", {
+          params: {
+            clientID: this.client.clientID,
+          },
+        })
         .then((response) => {
           console.log("Client deleted successfully:", response.data);
         })
@@ -168,7 +172,23 @@ clientsApp.component("component-client", {
     },
     componentSaveChanges() {
       axios
-        .post(this.editedString)
+        .post(
+          "/editClient",
+          {},
+          {
+            params: {
+              editedName: this.editClientName,
+              editedDate: this.editClientDate,
+              editedEmail: this.editClientEmail,
+              editedPhoneNumber: this.editClientPhoneNumber,
+              editedWebsite: this.editClientWebsite,
+              editedAddress: this.editClientAddress,
+              editedType: this.editClientType,
+              editedStatus: this.editClientStatus,
+              editedID: this.client.clientID,
+            },
+          }
+        )
         .then((response) => {
           console.log("Client EDITED SUCCESSFULLY: ", response.data);
           // Additional handling if needed
@@ -186,33 +206,6 @@ clientsApp.component("component-client", {
           this.$parent.showByFilter();
         }, delayInMilliseconds);
       }, delayInMilliseconds);
-    },
-  },
-  computed: {
-    deleteString() {
-      return "/deleteClient?clientID=" + this.client.clientID;
-    },
-    editedString() {
-      return (
-        "/editClient?editedName=" +
-        this.editClientName +
-        "&editedDate=" +
-        this.editClientDate +
-        "&editedEmail=" +
-        this.editClientEmail +
-        "&editedPhoneNumber=" +
-        this.editClientPhoneNumber +
-        "&editedWebsite=" +
-        this.editClientWebsite +
-        "&editedAddress=" +
-        this.editClientAddress +
-        "&editedType=" +
-        this.editClientType +
-        "&editedStatus=" +
-        this.editClientStatus +
-        "&editedID=" +
-        this.client.clientID
-      );
     },
   },
 });

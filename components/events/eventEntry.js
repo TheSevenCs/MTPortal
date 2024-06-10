@@ -81,7 +81,11 @@ eventsApp.component("component-event", {
 
     componentDeleteEvent() {
       axios
-        .delete(this.deleteString)
+        .delete("/Events", {
+          params: {
+            eventID: this.event.eventID,
+          },
+        })
         .then((response) => {
           console.log("Event deleted successfully:", response.data);
         })
@@ -101,7 +105,19 @@ eventsApp.component("component-event", {
     },
     componentSaveChanges() {
       axios
-        .post(this.editedString)
+        .patch(
+          "/editEvent",
+          {},
+          {
+            params: {
+              editedName: this.editEventName,
+              editedDate: this.editEventDate,
+              editedType: this.editEventType,
+              editedDesc: this.editEventDesc,
+              editedID: this.event.eventID,
+            },
+          }
+        )
         .then((response) => {
           console.log("Event EDITED SUCCESSFULLY: ", response.data);
           // Additional handling if needed
@@ -119,29 +135,6 @@ eventsApp.component("component-event", {
           this.$parent.showAllEvents();
         }, delayInMilliseconds);
       }, delayInMilliseconds);
-    },
-  },
-  computed: {
-    deleteString() {
-      // console.log(
-      //   "FROM eventEntry.js, deleteString() CALLED, this.event.eventID: ",
-      //   this.event.eventID
-      // );
-      return "/Events?eventID=" + this.event.eventID;
-    },
-    editedString() {
-      return (
-        "/editEvent?editedName=" +
-        this.editEventName +
-        "&editedDate=" +
-        this.editEventDate +
-        "&editedType=" +
-        this.editEventType +
-        "&editedDesc=" +
-        this.editEventDesc +
-        "&editedID=" +
-        this.event.eventID
-      );
     },
   },
 });

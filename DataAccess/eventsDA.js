@@ -57,7 +57,6 @@ module.exports.editEvent = async function (
 
 module.exports.getEvents = async function () {
   const dbResults = await eventModule.getFromDatabase("Events"); // Need to await since it's an async function
-  console.log("Results from DB: ", dbResults);
   return dbResults.Items;
 };
 
