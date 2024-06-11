@@ -80,6 +80,61 @@ app.post("/NewChanges", async (req, res) => {
   }
 });
 
+// MESSAGES PAGE
+app.post("/Messages", async (req, res) => {
+  const { messageAvatar, messageUsername, messageDate, messageContent } =
+    req.query;
+  try {
+    await chatModule.addMessage(
+      messageAvatar,
+      messageUsername,
+      messageDate,
+      messageContent
+    );
+    console.log("FROM route.js, NEW Message ADDED.");
+  } catch (error) {
+    console.error("FROM route.js, ERROR ADDING Message: ", error);
+  }
+});
+app.patch("/Messages", async (req, res) => {
+  const { message_id, editedMessage } = req.query;
+  try {
+    await chatModule.editMessage(message_id, editedMessage);
+    console.error("FROM route.js, Message EDITED.");
+  } catch (error) {
+    console.error("FROM route.js, ERROR EDITING Message: ", error);
+  }
+});
+app.get("/Messages", async (req, res) => {
+  try {
+    const messages = await chatModule.getMessages();
+    const formattedMessages = messages.map((message) => {
+      return {
+        messageAvatar: message.messageAvatar,
+        messageUsername: message.messageUsername,
+        messageDate: message.messageUsername,
+        messageContent: message.messageContent,
+        messageEdited: message.messageEdited,
+        message_id: message.message_id,
+      };
+    });
+
+    res.json(formattedMessages);
+  } catch (error) {
+    console.error("Error occurred while getting messages:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+app.delete("/Messages", async (req, res) => {
+  const { message_id } = rqe.query;
+  try {
+    await chatModule.deleteMessage(message_id);
+    console.log("FROM route.js, Message DELETED.");
+  } catch (error) {
+    console.error("FROM route.js, Message COULD NOT BE DELETED: ", error);
+  }
+});
+
 // TASKS/ISSUES PAGE
 app.post("/addProject", async (req, res) => {
   const { newName, newClient, newDate, newDesc } = req.query;
@@ -233,7 +288,6 @@ app.get("/getTIByID", async (req, res) => {
     console.error("FROM route.js, ERROR WITH getTasksByID: ", error);
   }
 });
-
 app.delete("/deleteTI", async (req, res) => {
   const { tableName, ti_id, project_id } = req.query;
   try {
@@ -254,7 +308,7 @@ app.post("/addEvent", async (req, res) => {
     console.error("FROM route.js, ERROR CREATING NEW Event: ", error);
   }
 });
-app.post("/editEvent", async (req, res) => {
+app.patch("/editEvent", async (req, res) => {
   const { editedName, editedDate, editedType, editedDesc, editedID } =
     req.query;
   try {
@@ -390,45 +444,6 @@ app.delete("/deleteClient", async (req, res) => {
     console.log(`Client: ${clientID} Deleted`);
   } catch (error) {
     console.error(`FROM route.js, Client COULD NOT BE DELETED. `, error);
-  }
-});
-
-app.post("/Message", async (req, res) => {
-  const { author, date, content } = req.params.page;
-  try {
-    await messageModule.addMessage(author, date, content);
-    console.log("FROM route.js, NEW Event ADDED.");
-  } catch (error) {
-    console.error("FROM route.js, ERROR CREATING NEW Event: ", error);
-  }
-});
-// MESSAGES PAGE
-app.post("/Messages", async (req, res) => {
-  const { newAvatarPath, newMessageContent, newUsername } = req.query;
-  try {
-    await chatModule.addMessage(newAvatarPath, newMessageContent, newUsername);
-    console.log("FROM route.js, NEW Message ADDED.");
-  } catch (error) {
-    console.error("FROM route.js, ERROR ADDING Message: ", error);
-  }
-});
-
-app.get("/Messages", async (req, res) => {
-  try {
-    const messages = await chatModule.getMessages();
-    const formattedMessages = messages.map((message) => {
-      return {
-        avatarPath: message.avatarPath,
-        messageContent: message.messageContent,
-        username: message.username,
-        // eventDesc: event.eventDesc || "",
-      };
-    });
-
-    res.json(formattedMessages);
-  } catch (error) {
-    console.error("Error occurred while getting messages:", error);
-    res.status(500).json({ error: "Internal server error" });
   }
 });
 

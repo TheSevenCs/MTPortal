@@ -1,11 +1,13 @@
-const app = Vue.createApp({
+const chatApp = Vue.createApp({
   data() {
     return {
-      currentText: "",
       messages: [],
-      newAvatarPath: "",
+
+      currentAvatar: "",
+      currentUsername: "",
+      newMessageDate: "",
       newMessageContent: "",
-      newUsername: "",
+
       changeCounter: 0,
 
       // Need a way to set an avatar path and username when logging in?
@@ -13,6 +15,42 @@ const app = Vue.createApp({
     };
   },
   methods: {
+    setUserAndre() {
+      this.currentUsername = "Andre";
+      this.currentAvatar = "./images/pfp.png";
+      console.log("CURRENT USER: Andre.");
+    },
+
+    addMessage() {
+      this.newMessageDate = this.calculateDate;
+      axios
+        .post(this.addString)
+        .then((response) => {
+          console.log("Event added successfully:", response.data);
+          // Additional handling if needed
+        })
+        .catch((error) => {
+          console.error("Error adding event:", error);
+        });
+
+      // RESET VARIABLES
+      {
+        this.newMessageAvatar = "";
+        this.newMessageUsername = "";
+        this.newMessageDate = "";
+        this.newMessageContent = "";
+      }
+
+      // DELAY THEN DOUBLE LOAD
+      const delayInMilliseconds = 300;
+      setTimeout(() => {
+        this.loadMessagesToHTML();
+        setTimeout(() => {
+          this.loadMessagesToHTML();
+        }, delayInMilliseconds);
+      }, delayInMilliseconds);
+    },
+
     submitMessage() {
       this.messageContent = this.currentText;
       console.log(this.calculateDate);
@@ -20,7 +58,7 @@ const app = Vue.createApp({
     async postMessage() {
       const response = await axios.get("/CheckLogin", {
         params: {
-          avatar: this.avatarPath,
+          // avatar: this.avatarPath,
           author: this.username,
           date: this.calculateDate,
         },
@@ -29,14 +67,19 @@ const app = Vue.createApp({
     async loadMessagesToHTML() {
       try {
         const response = await axios.get("/NewChanges", {
-          table: "Messages",
+          params: {
+            table: "Messages",
+          },
         });
-        if (response.data != changeCounter) {
+
+        if (response.data != this.changeCounter) {
+          console.log("RESPONSE DATA != CHANGE COUNTER");
           const newMessages = await axios.get("/Messages");
-          changeCounter = response.data;
+          this.changeCounter = response.data;
+          this.messages = newMessages.data;
         }
-        this.messages = newMessages.data;
-        // Handle response data as needed
+
+        console.log("FROM chat.js, RESPONSE DATA: ", response.data);
 
         // 0.5 SEC DELAY INTO RELOAD
         const delayInMilliseconds = 500;
@@ -45,7 +88,6 @@ const app = Vue.createApp({
         }, delayInMilliseconds);
       } catch (error) {
         console.error("Error during retrieval:", error);
-        // Handle errors if needed
       }
     },
   },
@@ -67,14 +109,16 @@ const app = Vue.createApp({
       // Return the formatted date
       return formattedDate;
     },
-    addMessage() {
+    addString() {
       return (
-        "/Messages?newAvatarPath=" +
-        this.newAvatarPath +
-        "&newMessageContent=" +
-        this.newMessageContent +
-        "&newUsername=" +
-        this.newUsername
+        "/Messages?messageAvatar=" +
+        this.currentAvatar +
+        "&messageUsername" +
+        this.currentUsername +
+        "&messageDate=" +
+        this.newMessageDate +
+        "&messageContent=" +
+        this.newMessageContent
       );
     },
   },

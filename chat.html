@@ -9,7 +9,6 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
-
   <body>
     <div id="chatpage">
       <!-- LEFT SIDE BACK BUTTON -->
@@ -25,6 +24,15 @@
         </a>
       </div>
 
+      <!-- TESTING ACCOUNT -->
+      <button
+        class="button-filter text-button-filter button-wrapper"
+        style="left: 25%; bottom: 2.5%"
+        @click="setUserAndre"
+      >
+        User: andre
+      </button>
+
       <!-- PAGE TITLE -->
       <div class="chat-title">MarmotChat</div>
 
@@ -32,31 +40,38 @@
       <div class="chat-box">
         <!-- DISPLAY MESSAGES HERE -->
         <div class="chat-list">
-          <message
+          <component-message
             v-for="message in messages"
             :key="message.username"
             :message="message"
-          ></message>
+          ></component-message>
         </div>
 
-        <!-- ENTER TEXT -->
+        <!-- ENTER TEXT  -->
         <div class="msg-box-container">
           <input
             class="chat-msg-box"
             type="text"
-            v-model="currentText"
+            v-model="newMessageContent"
             placeholder="Enter Message"
-            @keyup.enter="submitMessage"
+            @keydown.enter="addMessage"
           />
         </div>
 
         <!-- TESTING INPUT FIELDS -->
-        <input v-model="newAvatarPath" placeholder="./images/IMAGE.FILE" />
-        <input v-model="newUsername" placeholder="v-model to username" />
+        <input v-model="currentAvatar" placeholder="./images/IMAGE.FILE" />
+        <input v-model="currentUsername" placeholder="v-model to username" />
         <button @click="loadMessagesToHTML">LOAD</button>
       </div>
     </div>
+
+    <!-- IMPORTS AND MOUNTS -->
     <script src="./scripts/chat.js"></script>
     <script src="./components/chat/message.js"></script>
+    <script>
+      // x.mount("#y")
+      // Mounts the Vue application X onto the div with id "y"
+      const mountedChatApp = chatApp.mount("#chatpage");
+    </script>
   </body>
 </html>
