@@ -2,3 +2,4 @@
 scripts/mtportalkeyvalue.ppk
 .env
 /node_modules
+cache/cache.json
