@@ -57,7 +57,7 @@ app.get("/NewChanges", async (req, res) => {
   const { table } = req.query;
   try {
     const currentCounter = await changeModule.CheckCounter(table);
-    res.status(200).json({ currentCounter });
+    res.status(200).send(String(currentCounter)); // Send the value as a string
   } catch (error) {
     console.error("Error checking counter:", error);
     res.status(500).send("Internal Server Error");

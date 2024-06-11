@@ -3,7 +3,6 @@ const {
   UpdateItemCommand,
 } = require("@aws-sdk/client-dynamodb");
 const {
-  UpdateCommand,
   PutCommand,
   ScanCommand,
   DeleteCommand,
