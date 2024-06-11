@@ -19,3 +19,16 @@ module.exports.CheckCounter = async function (table) {
     }
   });
 };
+
+module.exports.IncreaseCounter = async function (table, currentCounter) {
+  const updateExpression = "SET ChangeCounter = :ChangeCounter";
+  const newCounter = currentCounter++;
+  const expressionAttributeValues = { ":ChangeCounter": { N: newCounter } };
+  const primaryKey = { Table: { S: table } };
+  db.updateItemInDatabase(
+    "Counter",
+    primaryKey,
+    updateExpression,
+    expressionAttributeValues
+  );
+};
