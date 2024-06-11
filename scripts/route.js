@@ -69,7 +69,8 @@ app.post("/NewChanges", async (req, res) => {
   const { table } = req.query;
   try {
     const currentCounter = await changeModule.CheckCounter(table);
-    if (currentCounter >= 255) {
+    const byteSize = 255;
+    if (currentCounter >= byteSize) {
       currentCounter = -1;
     }
     await changeModule.IncreaseCounter(table, currentCounter);

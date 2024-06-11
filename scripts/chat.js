@@ -24,7 +24,18 @@ const chatApp = Vue.createApp({
     addMessage() {
       this.newMessageDate = this.calculateDate;
       axios
-        .post(this.addString)
+        .post(
+          "/Messages",
+          {},
+          {
+            params: {
+              messageAvatar: this.currentAvatar,
+              messageUsername: this.currentUsername,
+              messageDate: this.newMessageDate,
+              messageContent: this.newMessageContent,
+            },
+          }
+        )
         .then((response) => {
           console.log("Event added successfully:", response.data);
           // Additional handling if needed
@@ -108,18 +119,6 @@ const chatApp = Vue.createApp({
 
       // Return the formatted date
       return formattedDate;
-    },
-    addString() {
-      return (
-        "/Messages?messageAvatar=" +
-        this.currentAvatar +
-        "&messageUsername" +
-        this.currentUsername +
-        "&messageDate=" +
-        this.newMessageDate +
-        "&messageContent=" +
-        this.newMessageContent
-      );
     },
   },
   mounted() {
