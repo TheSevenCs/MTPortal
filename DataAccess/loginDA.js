@@ -1,7 +1,5 @@
-const {
-  addToDatabase,
-  getFromDatabase,
-} = require("../DataAccess/DatabaseDA.js");
+const { addToDatabase, getFromDatabase } = require("./DatabaseDA.js");
+const localDA = require("./localDA.js");
 
 module.exports.login = function (username, password) {
   const filter = { username: { $gte: username }, password: { $gte: password } };
@@ -13,6 +11,26 @@ module.exports.login = function (username, password) {
       const matchingAccount = accounts.find(
         (account) =>
           account.username === username && account.password === password
+      );
+      if (matchingAccount) {
+        console.log("Login successful");
+        return true; // Return true if login is successful
+      } else {
+        console.log("Login failed");
+        return false; // Return false if login fails
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      throw error; // Rethrow the error to propagate it
+    });
+};
+module.exports.checkAccountKey = function () {
+  const filter = { AccountKey: { $gte: localDA.getAccountKey() } };
+  return getFromDatabase("accounts", filter)
+    .then((accounts) => {
+      const matchingAccount = accounts.find(
+        (account) => account.AccountKey === localDA.getAccountKey()
       );
       if (matchingAccount) {
         console.log("Login successful");

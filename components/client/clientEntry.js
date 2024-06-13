@@ -146,9 +146,8 @@ clientsApp.component("component-client", {
     },
 
     componentDeleteComponent() {
-      console.log("deleteString: ", this.deleteString);
       axios
-        .delete("/deleteClient", {
+        .delete("/client", {
           params: {
             clientID: this.client.clientID,
           },
@@ -172,8 +171,8 @@ clientsApp.component("component-client", {
     },
     componentSaveChanges() {
       axios
-        .post(
-          "/editClient",
+        .patch(
+          "/client",
           {},
           {
             params: {

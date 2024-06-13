@@ -27,7 +27,7 @@ const clientsApp = Vue.createApp({
     addNewClient() {
       axios
         .post(
-          "/addClient",
+          "/client",
           {},
           {
             params: {
@@ -75,7 +75,7 @@ const clientsApp = Vue.createApp({
     async loadClientsToHTML() {
       // Make axios call, store response to clients[],
       try {
-        const response = await axios.get("/getClients");
+        const response = await axios.get("/client");
         this.clients = response.data;
         console.log("FROM loadClientsToHTML: ", response.data);
         // Handle response data as needed

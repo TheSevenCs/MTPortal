@@ -49,9 +49,19 @@ const tasksissuesApp = Vue.createApp({
 
     // DATABASE FUNCTIONS
     addNewProject() {
-      console.log(this.addString);
       axios
-        .post(this.addString)
+        .post(
+          "/project",
+          {},
+          {
+            params: {
+              newName: this.newProjectName,
+              newClient: this.newProjectClient,
+              newDate: this.newProjectDate,
+              newDesc: this.newProjectDesc,
+            },
+          }
+        )
         .then((response) => {
           console.log("Project ADDED SUCCESSFULLY: ", response.data);
         })
@@ -79,7 +89,7 @@ const tasksissuesApp = Vue.createApp({
     },
     async loadProjectsToHTML() {
       try {
-        const response = await axios.get("/getProjects");
+        const response = await axios.get("/project");
         this.projects = response.data;
         console.log("FROM loadProjectsToHTML: ", response.data);
       } catch (error) {
@@ -88,41 +98,20 @@ const tasksissuesApp = Vue.createApp({
     },
     async getTIByID(tableName, proj_id) {
       try {
-        if (tableName === "Tasks") {
-          const response = await axios.get(
-            "/getTIByID?tableName=Tasks&project_id=" + proj_id
-          );
-          this.tasks = response.data;
-          console.log("TASKS FROM getTI: ", response.data);
-        } else if (tableName === "Issues") {
-          const response = await axios.get(
-            "getTIByID?tableName=Issues&project_id=" + proj_id
-          );
-          this.issues = response.data;
-          console.log("ISSUES FROM getTI: ", response.data);
-        } else {
-          console.error(
-            "FROM tasks-issues.js/getTIByID(), ERROR IN IF ELSE BLOCK: ",
-            error
-          );
-        }
+        const response = await axios.get("/task-issue", {
+          params: {
+            tableName: tableName,
+            project_id: proj_id,
+          },
+        });
+        tableName == "Tasks"
+          ? (this.tasks = response.data)
+          : (this.issues = response.data);
+
+        console.log("TASKS FROM getTI: ", response.data);
       } catch (error) {
         console.error("ERROR DURING RETREIVAL: ", error);
       }
-    },
-  },
-  computed: {
-    addString() {
-      return (
-        "/addProject?newName=" +
-        this.newProjectName +
-        "&newClient=" +
-        this.newProjectClient +
-        "&newDate=" +
-        this.newProjectDate +
-        "&newDesc=" +
-        this.newProjectDesc
-      );
     },
   },
   mounted() {

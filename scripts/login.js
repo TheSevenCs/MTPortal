@@ -1,6 +1,6 @@
 async function checkLogin(username, password) {
   try {
-    const response = await axios.get("/CheckLogin", {
+    const response = await axios.get("/account/check", {
       params: {
         username: username,
         password: password,
@@ -15,7 +15,7 @@ async function checkLogin(username, password) {
 async function createAccount(username, password) {
   try {
     const response = await axios.post(
-      "/CreateAccount",
+      "/account/create",
       {},
       {
         params: {

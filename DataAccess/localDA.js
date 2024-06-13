@@ -62,7 +62,12 @@ function getAccountKey() {
     return null;
   }
 }
+
+function prematureExpiration() {
+  fs.unlinkSync(accountCachePath);
+}
 module.exports = {
   saveAccountKey: saveAccountKey,
   getAccountKey: getAccountKey,
+  prematureExpiration: prematureExpiration,
 };

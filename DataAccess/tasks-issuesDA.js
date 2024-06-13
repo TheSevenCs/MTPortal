@@ -108,7 +108,9 @@ module.exports.addTI = async function (
       await generalModule.addToDatabase(tableName, newTI);
       console.log("FROM tasks-issuesDA.js, NEW Issue ADDED.");
     } else {
-      console.error("FROM tasks-issuesDA.js, ERROR IN IF ELSE BLOCK: ", error);
+      console.error(
+        "FROM tasks-issuesDA.js, ERROR IN IF ELSE BLOCK: Invalid tableName"
+      );
     }
   } catch (error) {
     console.error("FROM tasks-issuesDA.js, ERROR ADDING Task/Issue: ", error);

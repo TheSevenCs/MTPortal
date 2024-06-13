@@ -27,7 +27,7 @@ const chatApp = Vue.createApp({
       this.newMessageDate = this.calculateDate;
       axios
         .post(
-          "/Messages",
+          "/messages",
           {},
           {
             params: {
@@ -69,7 +69,7 @@ const chatApp = Vue.createApp({
       console.log(this.calculateDate);
     },
     async postMessage() {
-      const response = await axios.get("/CheckLogin", {
+      const response = await axios.get("/account/check", {
         params: {
           // avatar: this.avatarPath,
           author: this.username,
@@ -80,7 +80,7 @@ const chatApp = Vue.createApp({
 
     async loadMessagesToHTML() {
       try {
-        const response = await axios.get("/NewChanges", {
+        const response = await axios.get("/change", {
           params: {
             table: "Messages",
           },
@@ -88,7 +88,7 @@ const chatApp = Vue.createApp({
 
         if (response.data != this.changeCounter) {
           console.log("RESPONSE DATA != CHANGE COUNTER");
-          const newMessages = await axios.get("/Messages");
+          const newMessages = await axios.get("/message");
           this.changeCounter = response.data;
           this.messages = newMessages.data;
 

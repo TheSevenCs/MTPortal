@@ -81,7 +81,7 @@ eventsApp.component("component-event", {
 
     componentDeleteEvent() {
       axios
-        .delete("/Events", {
+        .delete("/event", {
           params: {
             eventID: this.event.eventID,
           },
@@ -106,7 +106,7 @@ eventsApp.component("component-event", {
     componentSaveChanges() {
       axios
         .patch(
-          "/editEvent",
+          "/event",
           {},
           {
             params: {

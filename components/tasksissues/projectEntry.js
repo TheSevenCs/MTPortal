@@ -127,7 +127,7 @@ tasksissuesApp.component("component-project", {
     // DATABASE FUNCTIONS
     componentDeleteComponent() {
       axios
-        .delete("/deleteProject", {
+        .delete("/project", {
           params: { project_id: this.project.project_id },
         })
         .then((response) => {
@@ -149,8 +149,8 @@ tasksissuesApp.component("component-project", {
     },
     componentSaveChanges() {
       axios
-        .post(
-          "/editProject",
+        .patch(
+          "/project",
           {},
           {
             params: {
@@ -183,12 +183,12 @@ tasksissuesApp.component("component-project", {
     addNewTI() {
       axios
         .post(
-          "/addTI",
+          "/task-issue",
           {},
           {
             params: {
               project_id: this.project.project_id,
-              newTIType: this.newTIType,
+              newTIType: this.newTIType + "s",
               newTIName: this.newTIName,
               newTIDate: this.newTIDate,
               newTIStatus: this.newTIStatus,

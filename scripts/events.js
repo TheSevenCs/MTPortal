@@ -19,7 +19,7 @@ const eventsApp = Vue.createApp({
     addNewEvent() {
       axios
         .post(
-          "/addEvent",
+          "/event",
           {},
           {
             params: {
@@ -57,7 +57,7 @@ const eventsApp = Vue.createApp({
     async loadEventsToHTML() {
       // Make axios call, store response to events[],
       try {
-        const response = await axios.get("/getEvents");
+        const response = await axios.get("/event");
         this.events = response.data;
         console.log("FROM loadEventsToHTML: ", response.data);
         // Handle response data as needed

@@ -87,7 +87,7 @@ tasksissuesApp.component("component-issue", {
     // DATABASE FUNCTIONS
     componentDeleteComponent() {
       axios
-        .delete("/deleteTI", {
+        .delete("/task-issue", {
           params: {
             tableName: "Issues",
             ti_id: this.issue.issue_id,
@@ -115,7 +115,7 @@ tasksissuesApp.component("component-issue", {
     componentSaveChanges() {
       axios
         .patch(
-          "/editTI",
+          "/task-issue",
           {},
           {
             params: {
