@@ -15,12 +15,14 @@ const chatApp = Vue.createApp({
     };
   },
   methods: {
+    // TESTER FUNCTIONS
     setUserAndre() {
       this.currentUsername = "Andre";
       this.currentAvatar = "./images/pfp.png";
       console.log("CURRENT USER: Andre.");
     },
 
+    // DATABASE FUNCTIONS
     addMessage() {
       this.newMessageDate = this.calculateDate;
       axios
@@ -75,6 +77,7 @@ const chatApp = Vue.createApp({
         },
       });
     },
+
     async loadMessagesToHTML() {
       try {
         const response = await axios.get("/NewChanges", {
@@ -88,15 +91,17 @@ const chatApp = Vue.createApp({
           const newMessages = await axios.get("/Messages");
           this.changeCounter = response.data;
           this.messages = newMessages.data;
+
+          console.log("FROM chat.js, NEW MESSAGES: ", newMessages.data);
         }
 
-        console.log("FROM chat.js, RESPONSE DATA: ", response.data);
+        // REPLACE THE FOLLOWING WITH SET INTERVAL FUNCTION THAT CALLS THIS FUNCTION
 
         // 0.5 SEC DELAY INTO RELOAD
-        const delayInMilliseconds = 500;
-        setTimeout(() => {
-          this.loadMessagesToHTML();
-        }, delayInMilliseconds);
+        // const delayInMilliseconds = 500;
+        // setTimeout(() => {
+        //   this.loadMessagesToHTML();
+        // }, delayInMilliseconds);
       } catch (error) {
         console.error("Error during retrieval:", error);
       }
@@ -120,9 +125,26 @@ const chatApp = Vue.createApp({
       // Return the formatted date
       return formattedDate;
     },
+    addString() {
+      return (
+        "/Messages?messageAvatar=" +
+        this.currentAvatar +
+        "&messageUsername=" +
+        this.currentUsername +
+        "&messageDate=" +
+        this.newMessageDate +
+        "&messageContent=" +
+        this.newMessageContent
+      );
+    },
   },
   mounted() {
-    this.loadMessagesToHTML();
-    console.log("FROM events.js mounted(), loadMessagesToHTML() CALLED.");
+    setInterval(() => {
+      this.loadMessagesToHTML();
+    }, 500);
+
+    console.log(
+      "FROM events.js mounted(), loadMessagesToHTML() INTERVAL CALLED."
+    );
   },
 });
