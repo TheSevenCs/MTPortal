@@ -34,7 +34,7 @@ router.get("/", async (req, res) => {
       return {
         messageAvatar: message.messageAvatar,
         messageUsername: message.messageUsername,
-        messageDate: message.messageUsername,
+        messageDate: message.messageDate,
         messageContent: message.messageContent,
         messageEdited: message.messageEdited,
         message_id: message.message_id,

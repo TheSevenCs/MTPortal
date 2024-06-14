@@ -41,7 +41,7 @@ app.use("/project", projectRouter);
 
 // Messages router
 const messageRouter = require("../routes/messages.js");
-app.use("/message", messageRouter);
+app.use("/messages", messageRouter);
 
 // HREF BETWEEN PAGES
 app.get("/:page", (req, res) => {

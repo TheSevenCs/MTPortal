@@ -39,45 +39,58 @@ const chatApp = Vue.createApp({
           }
         )
         .then((response) => {
-          console.log("Event added successfully:", response.data);
-          // Additional handling if needed
+          console.log("Message ADDED SUCCESSFULLY: ", response.data);
         })
         .catch((error) => {
-          console.error("Error adding event:", error);
+          console.error("ERROR ADDING Message:", error);
         });
 
       // RESET VARIABLES
       {
-        this.newMessageAvatar = "";
-        this.newMessageUsername = "";
+        this.currentAvatar = "";
+        this.currentUsername = "";
         this.newMessageDate = "";
         this.newMessageContent = "";
       }
 
-      // DELAY THEN DOUBLE LOAD
+      // DELAY THEN UPDATE COUNTER
       const delayInMilliseconds = 300;
       setTimeout(() => {
-        this.loadMessagesToHTML();
-        setTimeout(() => {
-          this.loadMessagesToHTML();
-        }, delayInMilliseconds);
+        // post op to /change to increment counter in table
+        // NOTE: the params are different from a get req when specifying params
+        console.log("NOW UPDATING FROM chat.js.");
+        axios
+          .post(
+            "/change",
+            {},
+            {
+              params: {
+                table: "Messages",
+              },
+            }
+          )
+          .then((response) => {
+            console.log("Message ADDED SUCCESSFULLY: ", response.data);
+          })
+          .catch((error) => {
+            console.error("FROM chat.js, ERROR ADDING Message: ", error);
+          });
       }, delayInMilliseconds);
-    },
 
-    submitMessage() {
-      this.messageContent = this.currentText;
-      console.log(this.calculateDate);
-    },
-    async postMessage() {
-      const response = await axios.get("/account/check", {
-        params: {
-          // avatar: this.avatarPath,
-          author: this.username,
-          date: this.calculateDate,
-        },
-      });
-    },
+      console.log("EXITED DELAY AFTER UPDATE????");
 
+      // The following code is not needed because the interval calls will handle the update within 0.5 seconds.
+      // Likewise, the auto-update is handled by the set increment calling loadMessagesToHTML().
+
+      // DELAY THEN DOUBLE LOAD
+      // const delayInMilliseconds = 300;
+      // setTimeout(() => {
+      //   this.loadMessagesToHTML();
+      //   setTimeout(() => {
+      //     this.loadMessagesToHTML();
+      //   }, delayInMilliseconds);
+      // }, delayInMilliseconds);
+    },
     async loadMessagesToHTML() {
       try {
         const response = await axios.get("/change", {
@@ -88,24 +101,32 @@ const chatApp = Vue.createApp({
 
         if (response.data != this.changeCounter) {
           console.log("RESPONSE DATA != CHANGE COUNTER");
-          const newMessages = await axios.get("/message");
+          const newMessages = await axios.get("/messages");
           this.changeCounter = response.data;
           this.messages = newMessages.data;
 
           console.log("FROM chat.js, NEW MESSAGES: ", newMessages.data);
         }
 
-        // REPLACE THE FOLLOWING WITH SET INTERVAL FUNCTION THAT CALLS THIS FUNCTION
-
-        // 0.5 SEC DELAY INTO RELOAD
-        // const delayInMilliseconds = 500;
-        // setTimeout(() => {
-        //   this.loadMessagesToHTML();
-        // }, delayInMilliseconds);
+        console.log("FROM chat.js, RESPONSE DATA: ", response.data);
       } catch (error) {
         console.error("Error during retrieval:", error);
       }
     },
+
+    // submitMessage() {
+    //   this.messageContent = this.currentText;
+    //   console.log(this.calculateDate);
+    // },
+    // async postMessage() {
+    //   const response = await axios.get("/account/check", {
+    //     params: {
+    //       // avatar: this.avatarPath,
+    //       author: this.username,
+    //       date: this.calculateDate,
+    //     },
+    //   });
+    // },
   },
   computed: {
     calculateDate() {

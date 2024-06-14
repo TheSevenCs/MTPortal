@@ -17,7 +17,14 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   const { table } = req.query;
   try {
-    const currentCounter = await changeModule.CheckCounter(table);
+    console.log(
+      "ENTERING changeModule.CheckCounter(table), param table: ",
+      table
+    );
+    // Change from const to let to change later
+    // Next line gets from database
+    let currentCounter = await changeModule.CheckCounter(table);
+    console.log("FROM changes.js, currentCounter: ", currentCounter);
     const byteSize = 255;
     if (currentCounter >= byteSize) {
       currentCounter = -1;
