@@ -48,7 +48,7 @@ router.get("/", async (req, res) => {
   }
 });
 router.delete("/", async (req, res) => {
-  const { message_id } = rqe.query;
+  const { message_id } = req.query;
   try {
     await chatModule.deleteMessage(message_id);
     console.log("FROM route.js, Message DELETED.");

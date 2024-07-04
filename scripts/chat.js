@@ -8,7 +8,7 @@ const chatApp = Vue.createApp({
       newMessageDate: "",
       newMessageContent: "",
 
-      changeCounter: 0,
+      changeCounter: -1,
 
       // Need a way to set an avatar path and username when logging in?
       // could consider some kind of global return value/variable on login
@@ -24,7 +24,7 @@ const chatApp = Vue.createApp({
 
     // DATABASE FUNCTIONS
     addMessage() {
-      this.newMessageDate = this.calculateDate;
+      this.newMessageDate = this.calculateDate();
       axios
         .post(
           "/messages",
@@ -46,12 +46,12 @@ const chatApp = Vue.createApp({
         });
 
       // RESET VARIABLES
-      {
-        this.currentAvatar = "";
-        this.currentUsername = "";
-        this.newMessageDate = "";
-        this.newMessageContent = "";
-      }
+      // {
+      //   this.currentAvatar = "";
+      //   this.currentUsername = "";
+      //   this.newMessageDate = "";
+      this.newMessageContent = "";
+      // }
 
       // DELAY THEN UPDATE COUNTER
       const delayInMilliseconds = 300;
@@ -105,6 +105,15 @@ const chatApp = Vue.createApp({
           this.changeCounter = response.data;
           this.messages = newMessages.data;
 
+          // Sort messages by date in ascending order (oldest messages first)
+          const sortedMessages = newMessages.data.sort((a, b) => {
+            const dateA = new Date(a.messageDate);
+            const dateB = new Date(b.messageDate);
+            return dateA - dateB; // ascending order
+          });
+
+          this.messages = sortedMessages;
+
           console.log("FROM chat.js, NEW MESSAGES: ", newMessages.data);
         }
 
@@ -114,38 +123,48 @@ const chatApp = Vue.createApp({
       }
     },
 
-    // submitMessage() {
-    //   this.messageContent = this.currentText;
-    //   console.log(this.calculateDate);
-    // },
-    // async postMessage() {
-    //   const response = await axios.get("/account/check", {
-    //     params: {
-    //       // avatar: this.avatarPath,
-    //       author: this.username,
-    //       date: this.calculateDate,
-    //     },
-    //   });
-    // },
-  },
-  computed: {
     calculateDate() {
       // Create a new Date object
       const currentDate = new Date();
+      console.log("NEW DATE: ", currentDate);
 
-      // Get the current year, month, and day
+      // Get the current year, month, day, hour, minute, and second
       const year = currentDate.getFullYear();
       const month = currentDate.getMonth() + 1; // Note: January is 0, so we add 1
       const day = currentDate.getDate();
+      const hour = currentDate.getHours();
+      const minute = currentDate.getMinutes();
+      const second = currentDate.getSeconds();
 
-      // Format the date as a string
+      // Format the date and time as a string
       const formattedDate = `${year}-${month < 10 ? "0" + month : month}-${
         day < 10 ? "0" + day : day
-      }`;
+      } ${hour < 10 ? "0" + hour : hour}:${
+        minute < 10 ? "0" + minute : minute
+      }:${second < 10 ? "0" + second : second}`;
 
-      // Return the formatted date
+      // Return the formatted date and time
       return formattedDate;
     },
+  },
+  computed: {
+    // calculateDate() {
+    //   // Create a new Date object
+    //   const currentDate = new Date();
+
+    //   // Get the current year, month, and day
+    //   const year = currentDate.getFullYear();
+    //   const month = currentDate.getMonth() + 1; // Note: January is 0, so we add 1
+    //   const day = currentDate.getDate();
+
+    //   // Format the date as a string
+    //   const formattedDate = `${year}-${month < 10 ? "0" + month : month}-${
+    //     day < 10 ? "0" + day : day
+    //   }`;
+
+    //   // Return the formatted date
+    //   return formattedDate;
+    // },
     addString() {
       return (
         "/Messages?messageAvatar=" +

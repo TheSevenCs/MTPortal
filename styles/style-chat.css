@@ -1,10 +1,10 @@
+/* PAGE STYLES */
 .chat-title {
   color: white;
   font-family: "Osiris";
   font-size: 60px;
   text-align: center;
 }
-
 .chat-box {
   width: 1082px;
   height: 700px;
@@ -18,11 +18,83 @@
   display: flex;
   flex-direction: column; /* Arrange children in a column */
 }
-
 .chat-list {
   flex: 1; /* Take up available space */
   overflow-y: auto; /* Enable vertical scrolling for the chat list */
   padding-bottom: 10px; /* Add padding to ensure space for input box */
+}
+
+/* MESSAGE INSTANCE STYLES */
+.container-message {
+  display: flex;
+  /* align-items: flex-start; */
+  align-items: center;
+
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  padding-left: 2%;
+  padding-right: 2%;
+  width: 96%;
+  position: relative;
+}
+.avatar img {
+  padding-top: 15%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.message-content {
+  padding: 10px;
+  border-radius: 10px;
+  font-family: "discord";
+  color: white;
+  flex: 8;
+}
+.container-message:hover {
+  background-color: #2e3035;
+}
+.container-message:hover .button-message {
+  opacity: 1;
+}
+.button-message {
+  width: 5vh;
+  height: 5vh;
+  background-color: #313338;
+  border: 0.5vh solid white;
+  border-radius: 1.5vh;
+
+  /* position: absolute; */
+  /* right: 2.5%; */
+  /* bottom: 20%; */
+  padding-bottom: 1vh;
+
+  transition: opacity 0.25s ease;
+  /* visibility: hidden; */
+  opacity: 0;
+}
+
+.messageEditor {
+  width: 400px;
+  height: 150px;
+  color: white;
+  background-color: #313338;
+  border: 5px solid white;
+
+  margin-top: 100px;
+  margin-left: 100px;
+}
+
+.modal-chat {
+  height: 75%;
+  width: 85%;
+  top: 6.25%;
+  right: 7.5%;
+  position: absolute;
+
+  background: #313338;
+  z-index: 11;
+  border: 5px solid white;
 }
 
 .msg-box-container {
@@ -62,35 +134,14 @@
   outline: 0;
 }
 
-.message {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 10px;
-  padding-left: 2%;
-}
-
-.avatar img {
-  padding-top: 15%;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-}
-
-.message-content {
-  padding: 10px;
-  border-radius: 10px;
-  font-family: "discord";
-  color: white;
-}
-
-.message:hover {
-  background-color: #2e3035;
-}
-
 .username {
   font-weight: bold;
   font-size: 20px;
   margin-right: 10px;
   font-family: "discord";
   color: white;
+}
+.date {
+  font-size: 15px;
+  margin-left: 40px;
 }

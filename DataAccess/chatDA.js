@@ -12,7 +12,7 @@ module.exports.addMessage = async function (
     messageUsername: messageUsername,
     messageDate: messageDate,
     messageContent: messageContent,
-    messageEdited: false,
+    messageEdited: "false",
     message_id: (
       await generalModule.generateID(9000000000000, 9999999999999)
     ).toString(),
@@ -22,17 +22,21 @@ module.exports.addMessage = async function (
   console.log("FROM chatDA.js, NEW Message ADDED.");
 };
 module.exports.editMessage = async function (
-  editedMessageContent,
-  editedmessageid
+  editedmessageid,
+  editedMessageContent
 ) {
   const editedMessage = {
-    editedMessageContent,
+    messageContent: editedMessageContent,
+    messageEdited: "true",
   };
   const updateExpression =
     "SET " +
     Object.keys(editedMessage)
       .map((key) => `${key} = :${key}`)
       .join(", ");
+
+  const expressionAttributeValues = {};
+
   Object.entries(editedMessage).forEach(([key, value]) => {
     expressionAttributeValues[`:${key}`] = { S: value };
   });
@@ -54,7 +58,7 @@ module.exports.getMessages = async function () {
   return dbResults.Items;
 };
 
-module.exports.deleteEvent = async function (eID) {
-  const filter = { eventID: eID };
-  await eventModule.deleteFromDatabase("Events", filter); // Need to await since it's an async function
+module.exports.deleteMessage = async function (eID) {
+  const filter = { message_id: eID };
+  await generalModule.deleteFromDatabase("Messages", filter); // Need to await since it's an async function
 };
