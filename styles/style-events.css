@@ -32,12 +32,12 @@
   width: 95%;
   height: 15vh;
   background-color: #313338;
-
+  cursor: pointer;
   margin-left: 2%;
   margin-top: 2%;
   margin-right: 2%;
   display: block;
-
+  user-select: none;
   border: 0.5vh solid white;
   border-radius: 3vh;
   position: relative;
@@ -48,13 +48,13 @@
   color: white;
   font-family: "Osiris";
   font-size: 5vh;
-
   display: inline-block;
-  max-width: 60%;
+  max-width: 56%;
   max-height: 45%;
-  overflow-y: auto;
   line-height: 5vh;
-
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin-top: 0.3vh;
   margin-left: 1.5vh;
   margin-bottom: 0;
@@ -81,13 +81,13 @@
   font-family: "Osiris";
   font-size: 2vh;
   max-width: 85%;
-  max-height: 50%;
+  max-height: 25%;
   /* max height was 52% */
-
+  text-overflow: ellipsis;
   margin-top: 0;
   margin-left: 1vw;
   margin-right: 1vw;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 /* INPUT FIELDS */

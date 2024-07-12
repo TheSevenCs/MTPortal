@@ -85,6 +85,12 @@ body {
   font-size: 2vh;
   text-align: center;
 }
+
+.button-filter.active {
+  background-color: #007bff; /* Example active background color */
+  color: white; /* Example active text color */
+}
+
 .text-input-label {
   color: white;
   font-family: "Osiris";
@@ -186,4 +192,7 @@ body {
   right: 2.5%;
   bottom: 20%;
   padding-bottom: 1vh;
+}
+input {
+  color-scheme: dark;
 }

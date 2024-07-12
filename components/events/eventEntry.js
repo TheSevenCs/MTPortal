@@ -3,13 +3,12 @@ eventsApp.component("component-event", {
   template:
     /*html*/
     `
-    <div class="event" style="visibility: {{ displayStatus }}">
+    <div class="event button-wrapper" style="visibility: {{ displayStatus }}" @click="toggleModal">
         <p class="text-event-title">{{ event.eventName }}</p>
         <div class="text-event-date">{{ event.eventType }} Date: {{ event.eventDate }}</div>
         <p class="text-event-desc">Description:</p> 
         <p class="text-event-desc" style="font-size: 1.5vh">{{ event.eventDesc }}</p> 
     
-        <button class="button-expand text-button-filter button-wrapper" @click="toggleModal">...</button>
     </div>
     <!-- MODAL ON CLICK -->
     <div class="modal" v-if="displayModal" @click.self="toggleModal" style="overflow-y: hidden"> <!-- @click.self for binding function only to this element, and not the children elements -->
