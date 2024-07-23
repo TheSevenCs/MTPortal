@@ -26,100 +26,15 @@
           </button>
         </a>
       </div>
-
-      <!-- MAIN FLEX CONTAINER -->
-      <div class="container-flex">
-        <!-- PROJECTS SIDEBAR -->
-        <div
-          id="projectSidebar"
-          class="container-flex-project"
-          :style="{ flex: showSidebarElements ? 1 : 0.5}"
-        >
-          <!-- SIDEBAR TITLE -->
-          <div
-            id="sidebar-title"
-            style="font-size: 5.5vh; margin-top: 1%"
-            :style="{ opacity: showSidebarElements ? 1 : 0 }"
-          >
-            PROJECTS
-          </div>
-
-          <!-- TRIANGLE COLLAPSE BUTTON -->
-          <div class="button-resize-wrapper">
-            <button
-              id="button-resize"
-              class="button-wrapper button-resize"
-              @click="toggleSidebarElements"
-            >
-              <img src="images/arrow-btn.png" alt="resize button" />
-            </button>
-          </div>
-
-          <!-- DISPLAY PROJECT COMPONENTS HERE -->
-          <div
-            id="sidebar-list"
-            class="container-project"
-            :style="{ opacity: showSidebarElements ? 1 : 0 }"
-          >
-            <component-project
-              v-for="project in projects"
-              :project="project"
-              :key="project.project_id"
-              @select-project="getProjectID"
-            ></component-project>
-          </div>
-
-          <!-- ADD BUTTON -->
-          <div
-            id="sidebar-button"
-            class="project-add"
-            :style="{ opacity: showSidebarElements ? 1 : 0 }"
-          >
-            <button
-              class="button-filter text-button-filter button-wrapper"
-              style="position: relative; right: auto"
-              @click="toggleAddModal"
-            >
-              ADD PROJECT
-            </button>
-          </div>
-        </div>
-
-        <!-- LIST TASKS AND ISSUES -->
-        <div class="container-flex-ti">
-          <div class="container-ti-header">
-            <div
-              class="ti-header button-wrapper"
-              @click="selectTasks"
-              :class="{ 'ti-header-active': tasksSelected}"
-            >
-              Tasks
-            </div>
-            <div
-              class="ti-header button-wrapper"
-              @click="selectIssues"
-              :class="{'ti-header-active':issuesSelected}"
-            >
-              Issues
-            </div>
-          </div>
-          <div class="ti-list">
-            <component-task
-              v-if="tasksSelected"
-              v-for="task in tasks"
-              :task="task"
-              @select-project="getProjectID"
-            ></component-task>
-
-            <component-issue
-              v-if="issuesSelected"
-              v-for="issue in issues"
-              :issue="issue"
-              @select-project="getProjectID"
-            ></component-issue>
-          </div>
-        </div>
-      </div>
+      <hr
+        style="
+          position: absolute;
+          width: 1304.5px;
+          margin-top: 90px;
+          margin-left: 20%;
+          z-index: 1;
+        "
+      />
 
       <!-- ADD MODAL -->
       <div
@@ -197,6 +112,85 @@
             "
           ></textarea>
         </div>
+      </div>
+
+      <!-- ???? -->
+      <div class="sidebar-cover"></div>
+
+      <!-- PROJECT COMPONENTS HERE -->
+      <div class="project-sidebar">
+        Projects
+        <br />
+
+        <!-- TRIANGLE COLLAPSE BUTTON -->
+        <!-- <button class="btn-wrapper" style="margin-left: 85%">
+          <img
+            class="button-wrapper"
+            src="images/arrow-btn.png"
+            alt="expand/shrink button"
+          />
+        </button> -->
+
+        <!-- DISPLAY PROJECT COMPONENTS HERE -->
+        <div class="container-project">
+          <component-project
+            v-for="project in projects"
+            :project="project"
+            :key="project.project_id"
+            @select-project="getProjectID"
+          ></component-project>
+        </div>
+
+        <!-- ADD BUTTON -->
+        <button
+          class="button-filter text-button-filter button-wrapper"
+          style="left: 25%; bottom: 2.5%"
+          @click="toggleAddModal"
+        >
+          ADD PROJECT
+        </button>
+      </div>
+
+      <!-- HOLDS TASKS AND ISSUES NAV BUTTONS -->
+      <div
+        style="
+          margin-left: 900px;
+          margin-top: 1.5%;
+          position: absolute;
+          white-space: nowrap;
+        "
+      >
+        <!-- TASKS BUTTON -->
+        <button class="btn-wrapper" @click="selectTasks">
+          <span class="title-btns button-wrapper">Tasks</span>
+        </button>
+        <!-- ISSUES BUTTON -->
+        <button
+          class="btn-wrapper"
+          @click="selectIssues"
+          style="margin-left: 235px"
+        >
+          <span class="title-btns button-wrapper">Issues</span>
+        </button>
+      </div>
+
+      <!-- DISPLAY TASKS AND ISSUES -->
+      <div class="container-ti">
+        <component-task
+          v-if="selectedTab === 'Tasks'"
+          v-for="task in tasks"
+          :task="task"
+          @select-project="getProjectID"
+        ></component-task>
+
+        <component-issue
+          v-if="selectedTab === 'Issues'"
+          v-for="issue in issues"
+          :issue="issue"
+          @select-project="getProjectID"
+        ></component-issue>
+
+        <!-- <component-task>TESTER SHOULD NOT DISPLAY THAT</component-task> -->
       </div>
     </div>
 

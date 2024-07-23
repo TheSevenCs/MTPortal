@@ -2,12 +2,13 @@
 .chat-title {
   color: white;
   font-family: "Osiris";
-  font-size: 60px;
+  font-size: 8vh;
   text-align: center;
 }
 .chat-box {
   width: 1082px;
-  height: 700px;
+  /* height: 700px; */
+  height: 85vh;
   margin-left: 50%;
   margin-top: 19px;
   transform: translateX(-50%);

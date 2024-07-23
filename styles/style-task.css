@@ -1,35 +1,130 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* MAIN DIV */
+#tasks-issues {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+}
+
+/* SIDEBAR ELEMS */
+#sidebar-title,
+#sidebar-list,
+#sidebar-button {
+  transition: opacity 0.25s ease;
+}
+
+.sidebar-fade {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sidebar-hide {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease 0.5s; /* Add a delay to visibility transition */
+}
+
 /* CONTAINERS */
+.container-flex {
+  width: 75%;
+  height: 90%;
+  position: absolute;
+  top: 5%;
+  left: 12.5%;
+
+  display: flex;
+  gap: 1vw;
+}
+
+/* UPDATED PROJECTS SIDEBAR */
+.container-flex-project {
+  flex: 1;
+
+  background-color: #313338;
+  color: white;
+  font-family: "Osiris";
+  font-size: 52px;
+  text-align: center;
+  border-radius: 5.5vh;
+
+  display: flex;
+  flex-direction: column;
+  transition: flex 0.5s ease;
+}
+.button-resize-wrapper {
+  display: flex;
+  justify-content: right;
+  width: 100%;
+}
+.button-resize {
+  background-color: transparent;
+  border: none;
+  margin-right: 2.5%;
+
+  width: 10%;
+  height: auto;
+}
+.button-resize img {
+  width: 100%;
+  height: auto;
+}
+.project-add {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5%;
+  margin-top: 7.5%;
+}
+
+/* TASKS AND ISSUES */
+.container-flex-ti {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+}
+.container-ti-header {
+  flex: 1;
+  display: flex;
+  height: auto;
+  gap: 1vh;
+}
+.ti-header {
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 5.5vh;
+  color: white;
+  font-family: "Osiris";
+
+  border: 0.5vh solid transparent;
+  border-radius: 2vh;
+
+  transition: border 0.25s ease-out;
+}
+.ti-header-active {
+  border: 0.5vh solid white;
+}
+.ti-list {
+  flex: 7;
+  background-color: transparent;
+  border: 0.5vh solid white;
+  border-radius: 2vh;
+}
+
 .container-project {
   width: 90%;
   height: 77.5%;
 
   margin-top: 2.75%;
   margin-left: 4%;
-}
-.container-ti {
-  width: 900px;
-  height: 775px;
-  border: 0.5vh solid white;
-  border-radius: 2vh;
-
-  position: absolute;
-  top: 10vh;
-  left: 40vw;
-  margin-top: 2vh;
-}
-.project-sidebar {
-  margin-top: 30px;
-  background-color: #313338;
-  color: white;
-  font-family: "Osiris";
-  font-size: 52px;
-  text-align: center;
-  width: 488px;
-  height: 875px;
-  margin-left: 290px;
-  border-radius: 41px;
-  position: absolute;
-  z-index: 1;
 }
 
 /* OBJECTS */
@@ -59,22 +154,4 @@
   position: absolute;
   cursor: default;
   user-select: none;
-}
-
-.project-element {
-  width: 100%;
-  height: 20%;
-
-  border: 0.5vh solid white;
-  border-radius: 1vh;
-  margin-top: 0.5vh;
-}
-
-.title-btns {
-  color: white;
-  font-family: "Osiris";
-  font-size: 52px;
-}
-.sidebar-cover {
-  width: 446px;
 }

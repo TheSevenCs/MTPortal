@@ -12,6 +12,12 @@ const tasksissuesApp = Vue.createApp({
 
       displayAddModal: false,
       selectedTab: "Tasks",
+      tasksSelected: true,
+      issuesSelected: false,
+
+      sidebarVisible: true,
+      showSidebarElements: true,
+
       selectedProjectID: "",
     };
   },
@@ -23,10 +29,42 @@ const tasksissuesApp = Vue.createApp({
 
     // NAV BAR FUNCTIONS
     selectTasks() {
-      this.selectedTab = "Tasks";
+      this.tasksSelected = true;
+      this.issuesSelected = false;
     },
     selectIssues() {
-      this.selectedTab = "Issues";
+      this.tasksSelected = false;
+      this.issuesSelected = true;
+    },
+
+    // SIDEBAR FUNCTIONS
+    toggleSidebar() {
+      if (this.sidebarVisible === true) {
+        this.sidebarVisible = !this.sidebarVisible;
+        this.toggleSidebarElements();
+        this.resizeProjects();
+      } else {
+        this.sidebarVisible = !this.sidebarVisible;
+        this.resizeProjects();
+        this.toggleSidebarElements();
+      }
+    },
+    resizeProjects() {
+      const sidebar = document.getElementById("projectSidebar");
+
+      // EXPANDING THE SIDEBAR
+      if (this.sidebarCollapsed === true) {
+        this.sidebarCollapsed = !this.sidebarCollapsed;
+        sidebar.style.flex = 0.5;
+      }
+      // COLLAPSING THE SIDEBAR
+      else {
+        this.sidebarCollapsed = !this.sidebarCollapsed;
+        sidebar.style.flex = 1;
+      }
+    },
+    toggleSidebarElements() {
+      this.showSidebarElements = !this.showSidebarElements;
     },
 
     // CALLED BY COMPONENT CLICK $emit
